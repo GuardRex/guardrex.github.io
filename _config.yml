@@ -7,20 +7,20 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "Site Title"
+title                    : "The GuardRex Chew"
 title_separator          : "-"
-name                     : "Your Name"
-description              : "An amazing website."
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+name                     : "Luke Latham"
+description              : "GuardRex articles on I.T."
+url                      : "https://guardrex.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+repository               : "guardrex/guardrex.github.io"
+teaser                   : "/assets/images/st.jpg"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
-  provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  provider               : "disqus"
   disqus:
-    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+    shortname            : "guardrex"
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
@@ -55,7 +55,7 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:
-  username               :
+  username               : "guardrex"
 facebook:
   username               :
   app_id                 :
@@ -70,27 +70,27 @@ social:
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "custom"
+  provider               : "google"
   google:
-    tracking_id          :
+    tracking_id          : "UA-48425827-1"
 
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  name             : "Luke Latham"
+  avatar           : "/assets/images/logo96x96.jpg"
   bio              : "I am an amazing person."
-  location         : "Somewhere"
+  location         : "Cheyenne, Wyoming"
   email            :
   uri              :
   bitbucket        :
   codepen          :
   dribbble         :
   flickr           :
-  facebook         :
+  facebook         : "guardrex"
   foursquare       :
-  github           :
-  google_plus      :
+  github           : "GuardRex"
+  google_plus      : "GuardRex"
   keybase          :
   instagram        :
   lastfm           :
@@ -100,7 +100,7 @@ author:
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
   steam            :
   tumblr           :
-  twitter          :
+  twitter          : "guardrex"
   vine             :
   weibo            :
   xing             :
