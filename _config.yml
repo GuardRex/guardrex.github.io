@@ -78,7 +78,7 @@ analytics:
 # Site Author
 author:
   name             : "Luke Latham"
-  avatar           : "/assets/images/logo96x96.jpg"
+  avatar           : "/assets/images/logo.gif"
   bio              : "GuardRex articles on I.T."
   location         : "Cheyenne, Wyoming"
   email            :
