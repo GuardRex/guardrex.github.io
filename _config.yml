@@ -68,9 +68,7 @@ social:
   name                   : "Luke Latham"
   links: 
     - "https://twitter.com/guardrex"
-    - "https://facebook.com/guardrex"
     - "https://www.linkedin.com/in/lukeglatham"
-    - "https://plus.google.com/GuardRex"
 
 # Analytics
 analytics:
@@ -86,7 +84,7 @@ author:
   bio              : "GuardRex articles on I.T."
   location         : "Cheyenne, Wyoming"
   email            :
-  uri              : https://www.guardrex.com
+  uri              : http://www.guardrex.com
   bitbucket        :
   codepen          :
   dribbble         :
