@@ -39,13 +39,13 @@
 	<meta name="msapplication-square310x310logo" content="http://www.guardrex.com/image/mstile-310x310.png" />
 	<meta name="msapplication-notification" content="polling-uri=http://www.guardrex.com/rss.xml" />
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<style>#title{line-height:57px}#author{margin-top:10px}@media(max-width:600px){#title,h2{font-size:26px}}@media(max-width:470px){#title,h2{font-size:20px;}}@media(max-width:400px){#logo{width:40px;height:40px}#title{font-size:16px;line-height:40px}#author{font-size:12px;margin-top:2px}}</style>
+	<style>#title{line-height:57px;font-size:36px}#author{margin-top:10px}@media(max-width:600px){#title,h2{font-size:26px}}@media(max-width:470px){#title,h2{font-size:20px;}}@media(max-width:400px){#logo{width:40px;height:40px}#title{font-size:16px;line-height:40px}#author{font-size:12px;margin-top:2px}}</style>
 	<script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-48425827-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
 </head>
 <body>
 	<header>
 		<div class="container" style="max-width:800px;border-bottom:1px solid lightgray" onclick="location.href='/'">
-			<div id="author" style="float:right;font-style:italic">Luke Latham<br>@guardrex</div>
+			<div id="author" style="float:right;font-style:italic;text-align:right">Luke Latham<br>@guardrex</div>
 			<img id="logo" src="../image/apple-touch-icon-57x57.png" style="float:left" />
 			<span id="title" style="color:green;font-family:courier;margin:0">the guardrex chew</span>
 		</div>
@@ -54,9 +54,9 @@
 		<article>
 			<h1>ASP.NET Core on Nano Server Preview</h1>
 			<p>4/11/2016 By: Luke Latham</p>			
-			In this tutorial, you'll deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a Microsoft Azure Windows Server 2012 R2 virtual machine.<br />
-			<div id="user-content-in-this-article">
-			In this article:<br />
+			<p>In this tutorial, you'll deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a Microsoft Azure Windows Server 2012 R2 virtual machine.</p>
+			<p>In this article:</p>
+
 			<ul>
 			<li><a href="#introduction">Introduction</a></li>
 			<li><a href="#azure-services-configuration">Azure Services Configuration</a></li>
@@ -73,50 +73,42 @@
 			<li><a href="#additional-resources">Additional Resources</a></li>
 			<li><a href="#acknowledgements">Acknowledgements</a></li>
 			</ul>
-			</div>
+
 			<a id="introduction"></a>
-			<h2>
-			<a aria-hidden="true" href="#introduction"><svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Introduction</h2>
+			<h2><a aria-hidden="true" href="#introduction"><svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Introduction</h2>
+
 			<a id="prerequisites"></a>
-			<h3>
-			<a aria-hidden="true" href="#prerequisites"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Prerequisites</h3>
-			Before you start, make sure that you have setup your development environment and created (or obtained) a working ASP.NET Core 64-bit Core CLR app.<br />
-			You will need a Microsoft Azure account to create the Azure Virtual Machines (servers) in this tutorial. If you don't have an Azure account, you can sign up at the <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Microsoft Azure website</a>. If you would like information on signing up for an Azure account as an organization, see <a href="https://azure.microsoft.com/en-us/documentation/articles/sign-up-organization/">Sign up for Azure as an organization</a>.<br />
+			<h3><a aria-hidden="true" href="#prerequisites"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Prerequisites</h3>
+			<p>Before you start, make sure that you have setup your development environment and created (or obtained) a working ASP.NET Core 64-bit Core CLR app.</p>
+			<p>You will need a Microsoft Azure account to create the Azure Virtual Machines (servers) in this tutorial. If you don't have an Azure account, you can sign up at the <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Microsoft Azure website</a>. If you would like information on signing up for an Azure account as an organization, see <a href="https://azure.microsoft.com/en-us/documentation/articles/sign-up-organization/">Sign up for Azure as an organization</a>.</p>
+
 			<a id="nano-server"></a>
-			
-			<h3>
-			<a aria-hidden="true" href="#nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Nano Server</h3>
-			Windows Server is an all-purpose industry standard operating system for production IT workloads and a feat of engineering. As Windows Server has grown to encompass a vast array of solutions to meet IT demands, it has also grown in size and complexity. A craving exists now for a significantly smaller and faster version of Windows Server for cloud-based workloads. Nano Server was born for this purpose.<br />
-			Nano Server is an optimized version of Windows Server for private clouds and datacenters. Nano Server features vastly reduced disk space requirements, fewer update requirements, added uptime due to reduced server restarts, and faster performance owing to fewer running processes. Nano Server is ideal as a compute host Hyper-V Virtual Machine, storage host, DNS server, or host for applications running behind IIS (or outside of IIS) inside or outside of a container.<br />
-			This tutorial will walk you through setting up a Microsoft Azure Nano Server Virtual Machine and deploying an ASP.NET Core application to your Nano Server. Because Nano Server is a "headless server," which means that no graphical user interface is available, we'll also spin up a Microsoft Azure Windows Server 2012 R2 Virtual Machine to safely manage our Nano Server. This tutorial cross-demonstrates important security concepts for reducing the attack surface of your Nano Server.<br />
-			Follow this tutorial to get started quickly with ASP.NET Core on Nano Server. Visit the linked content in the Additional Resources section at the end of the tutorial to learn more about Nano Server.<br />
+			<h3><a aria-hidden="true" href="#nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Nano Server</h3>
+			<p>Windows Server is an all-purpose industry standard operating system for production IT workloads and a feat of engineering. As Windows Server has grown to encompass a vast array of solutions to meet IT demands, it has also grown in size and complexity. A craving exists now for a significantly smaller and faster version of Windows Server for cloud-based workloads. Nano Server was born for this purpose.</p>
+			<p>Nano Server is an optimized version of Windows Server for private clouds and datacenters. Nano Server features vastly reduced disk space requirements, fewer update requirements, added uptime due to reduced server restarts, and faster performance owing to fewer running processes. Nano Server is ideal as a compute host Hyper-V Virtual Machine, storage host, DNS server, or host for applications running behind IIS (or outside of IIS) inside or outside of a container.</p>
+			<p>This tutorial will walk you through setting up a Microsoft Azure Nano Server Virtual Machine and deploying an ASP.NET Core application to your Nano Server. Because Nano Server is a "headless server," which means that no graphical user interface is available, we'll also spin up a Microsoft Azure Windows Server 2012 R2 Virtual Machine to safely manage our Nano Server. This tutorial cross-demonstrates important security concepts for reducing the attack surface of your Nano Server.</p>
+			<p>Follow this tutorial to get started quickly with ASP.NET Core on Nano Server. Visit the linked content in the Additional Resources section at the end of the tutorial to learn more about Nano Server.</p>
+
 			<a id="windows-server-2016-nano-server-technical-preview"></a>
-			
-			<h3>
-			<a aria-hidden="true" href="#windows-server-2016-nano-server-technical-preview"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows Server 2016 (Nano Server) Technical Preview</h3>
-			Nano Server is distributed with the <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-technical-preview">Windows Server 2016 Technical Preview (TP4)</a>. The preview will expire on October 15, 2016. The preview is not eligible for use in production environments, and preview upgrades are not supported (i.e., upgrading from or to a Windows Server 2016 preview will not preserve custom configurations). Read the <a href="https://technet.microsoft.com/library/dn765470.aspx">release notes</a> and <a href="https://technet.microsoft.com/library/mt126134(WS.11).aspx">system requirements</a> before proceeding with this tutorial.<br />
+			<h3><a aria-hidden="true" href="#windows-server-2016-nano-server-technical-preview"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows Server 2016 (Nano Server) Technical Preview</h3>
+			<p>Nano Server is distributed with the <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-technical-preview">Windows Server 2016 Technical Preview (TP4)</a>. The preview will expire on October 15, 2016. The preview is not eligible for use in production environments, and preview upgrades are not supported (i.e., upgrading from or to a Windows Server 2016 preview will not preserve custom configurations). Read the <a href="https://technet.microsoft.com/library/dn765470.aspx">release notes</a> and <a href="https://technet.microsoft.com/library/mt126134(WS.11).aspx">system requirements</a> before proceeding with this tutorial.</p>
+
 			<a id="deployment-options-for-nano-server"></a>
-			
-			<h3>
-			<a aria-hidden="true" href="#deployment-options-for-nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Deployment options for Nano Server</h3>
-			This tutorial demonstrates deploying an ASP.NET Core application to Nano Server running on a Microsoft Azure Resource Manager (ARM) Virtual Machine (VM). Other options include deployment to an on-premises Hyper-V virtual machine or Server Core on a physical computer. For more information on these alternative deployment options, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.<br />
+			<h3><a aria-hidden="true" href="#deployment-options-for-nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Deployment options for Nano Server</h3>
+			<p>This tutorial demonstrates deploying an ASP.NET Core application to Nano Server running on a Microsoft Azure Resource Manager (ARM) Virtual Machine (VM). Other options include deployment to an on-premises Hyper-V virtual machine or Server Core on a physical computer. For more information on these alternative deployment options, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.</p>
+
 			<a id="windows-powershell-remoting"></a>
-			
-			<h3>
-			<a aria-hidden="true" href="#windows-powershell-remoting"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows PowerShell Remoting</h3>
-			This tutorial demonstrates interacting with Nano Server via Windows PowerShell remoting using the Remote PowerShell Tab feature of the <a href="https://technet.microsoft.com/en-us/library/dd315244.aspx">PowerShell Integrated Scripting Environment (ISE)</a> application.<br />
-			If you prefer not to work with the PowerShell ISE Remote PowerShell Tab feature or if you are using Windows PowerShell, you can manually create a session with your Nano Server by using the following commands (but this approach is not used in this tutorial).<br />
-			<div class="highlight highlight-source-powershell">
+			<h3><a aria-hidden="true" href="#windows-powershell-remoting"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows PowerShell Remoting</h3>
+			<p>This tutorial demonstrates interacting with Nano Server via Windows PowerShell remoting using the Remote PowerShell Tab feature of the <a href="https://technet.microsoft.com/en-us/library/dd315244.aspx">PowerShell Integrated Scripting Environment (ISE)</a> application.</p>
+			<p>If you prefer not to work with the PowerShell ISE Remote PowerShell Tab feature or if you are using Windows PowerShell, you can manually create a session with your Nano Server by using the following commands (but this approach is not used in this tutorial).</p>
 			<pre><span class="pl-k">$</span><span class="pl-smi">a</span> <span class="pl-k">=</span> <span class="pl-s">"&lt;NANO_SERVER_DNS_ADDRESS&gt;"</span>
 			<span class="pl-c1">Set-Item</span> WSMan:\localhost\Client\TrustedHosts <span class="pl-k">$</span><span class="pl-smi">a</span>
 			<span class="pl-k">$</span><span class="pl-smi">s</span> <span class="pl-k">=</span> <span class="pl-c1">New-PSSession</span> <span class="pl-k">-</span>ComputerName <span class="pl-k">$</span><span class="pl-smi">a</span> <span class="pl-k">-</span>Credential <span class="pl-k">&lt;</span>username<span class="pl-k">&gt;</span>
 			<span class="pl-c1">Enter-PSSession</span> <span class="pl-k">-</span>Session <span class="pl-k">$</span><span class="pl-smi">s</span></pre>
-			</div>
 			For information on additional ways to interact with Nano Server, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.<br />
-			<a id="working-with-files-and-folders"></a>
 			
-			<h3>
-			<a aria-hidden="true" href="#working-with-files-and-folders"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Working with files and folders</h3>
+			<a id="working-with-files-and-folders"></a>
+			<h3><a aria-hidden="true" href="#working-with-files-and-folders"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Working with files and folders</h3>
 			This tutorial utilizes a Server Message Block (SMB) file share using Microsoft Azure Files. An SMB file share is a convenient way to share files across computers on a network, including the Internet.<br />
 			<div>
 			<h3>
