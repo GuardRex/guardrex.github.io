@@ -30,7 +30,7 @@
 	<link rel="icon" type="image/png" href="http://www.guardrex.com/image/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="http://www.guardrex.com/image/favicon-16x16.png" sizes="16x16" />
 	<link rel="icon" type="image/png" href="http://www.guardrex.com/image/favicon-128.png" sizes="128x128" />
-	<meta name="application-name" content="the guardrex chew"/>
+	<meta name="application-name" content="the guardrex chew" />
 	<meta name="msapplication-TileColor" content="#FFFFFF" />
 	<meta name="msapplication-TileImage" content="http://www.guardrex.com/image/mstile-144x144.png" />
 	<meta name="msapplication-square70x70logo" content="http://www.guardrex.com/image/mstile-70x70.png" />
@@ -39,13 +39,13 @@
 	<meta name="msapplication-square310x310logo" content="http://www.guardrex.com/image/mstile-310x310.png" />
 	<meta name="msapplication-notification" content="polling-uri=http://www.guardrex.com/rss.xml" />
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<style>.note,.tip{border:1px solid gray;padding:10px;margin:10px 0}#title{line-height:57px;font-size:36px}#author{margin-top:10px}@media(max-width:600px){#title,h2{font-size:26px}}@media(max-width:470px){#title,h2{font-size:20px;}}@media(max-width:400px){#logo{width:40px;height:40px}#title{font-size:16px;line-height:40px}#author{font-size:12px;margin-top:2px}}</style>
+	<style>ol li{margin:20px 0 20px -25px}table th{text-align:center;border-bottom:1px solid gray}table td:not(:first-child){padding-left:10px}.note,.tip,.warning{border:1px solid gray;padding:10px;margin:10px 0}.note em,.tip em,.warning em{font-size:1.4em}.warning em{color:red}#title{line-height:57px;font-size:36px}#author{margin-top:10px}@media(max-width:600px){#title,h2{font-size:26px}}@media(max-width:470px){#title,h2{font-size:20px;}}@media(max-width:400px){#logo{width:40px;height:40px}#title{font-size:16px;line-height:40px}#author{font-size:12px;margin-top:2px}}.nostyle,.nostyle:hover {color:black}</style>
 	<script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-48425827-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
 </head>
 <body>
 	<header>
 		<div class="container" style="max-width:800px;border-bottom:1px solid lightgray" onclick="location.href='/'">
-			<div id="author" style="float:right;font-style:italic;text-align:right">Luke Latham<br>@guardrex</div>
+			<div id="author" style="float:right;font-style:italic;text-align:right">Luke Latham<br><a href="https://twitter.com/guardrex">@guardrex</a></div>
 			<img id="logo" src="../image/apple-touch-icon-57x57.png" style="float:left" />
 			<span id="title" style="color:green;font-family:courier;margin:0">the guardrex chew</span>
 		</div>
@@ -56,7 +56,10 @@
 			<p>4/11/2016 By: Luke Latham</p>			
 			<p>In this tutorial, you'll deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a Microsoft Azure Windows Server 2012 R2 virtual machine.</p>
 			<p>In this article:</p>
-
+			<div class="note">
+				<p><em>Note</em></p>
+				This topic applies to the Preview release of Nano Server. Most of the steps should remain the same. See the <a href="#additional-resources">Additional Resources</a> section for links to the latest guidance.
+			</div>
 			<ul>
 			<li><a href="#introduction">Introduction</a></li>
 			<li><a href="#azure-services-configuration">Azure Services Configuration</a></li>
@@ -188,7 +191,7 @@ Enter-PSSession -Session $s</pre>
 			<p>Before we get started creating our VM's, let's create an Azure Resource Group, an Azure Storage Account (and an Azure Files network file share to go along with it), an Azure Virtual Network, and a pair of Network Security Groups (one for the management VM and one for the Nano Server). By preconfiguring these services, we will save time later when deploying our VM's.</p>
 			<div class="note">
 				<p><em>Note</em></p>
-				Azure service names frequently expose public endpoints or require unique names internally, so the names we give to several Azure services are only available on a first-come, first-served basis. You should choose an alphanumeric postfix to use with your Azure service names as you work through the tutorial. For example, we will use the number "1234" in the tutorial and name our management VM <em>vmm1234</em>, name our virtual network <em>vnet1234</em>, and name our Nano Sever <em>nano1234</em>. You should choose a postfix alphanumeric value to use for your tutorial experience. This will provide a consistent way for you to name your services while working though the tutorial without the likelihood of trying to use a service name in use by someone else's Azure subscription.
+				Azure service names frequently expose public endpoints or require unique names internally, so the names we give to several Azure services are only available on a first-come, first-served basis. You should choose an alphanumeric postfix to use with your Azure service names as you work through the tutorial. For example, we will use the number "1234" in the tutorial and name our management VM <strong>vmm1234</strong>, name our virtual network <strong>vnet1234</strong>, and name our Nano Sever <strong>nano1234</strong>. You should choose a postfix alphanumeric value to use for your tutorial experience. This will provide a consistent way for you to name your services while working though the tutorial without the likelihood of trying to use a service name in use by someone else's Azure subscription.
 			</div>
 
 			<a id="azure-resource-group"></a>
@@ -299,10 +302,10 @@ Enter-PSSession -Session $s</pre>
 			<a href="aspnet-core-on-nano-server/pre-18.png" imageanchor="1"><img border="0" src="aspnet-core-on-nano-server/pre-18.png" style="max-width: 100%;" /></a>
 			<a href="aspnet-core-on-nano-server/pre-19.png" imageanchor="1"><img border="0" src="aspnet-core-on-nano-server/pre-19.png" style="max-width: 100%;" /></a>
 			<br />
-			<div>
-			<h3>
-			Warning</h3>
-			There are additional security considerations for security rules beyond the scope of this tutorial. Good starting points for learning more are <a href="https://azure.microsoft.com/en-us/documentation/articles/best-practices-resource-manager-security/">Security considerations for Azure Resource Manager</a> and <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-nsg/">Azure Network Security Groups</a>.</div>
+			<div class="warning">
+				<p><em>Warning</em></p>
+				There are additional security considerations for security rules beyond the scope of this tutorial. Good starting points for learning more are <a href="https://azure.microsoft.com/en-us/documentation/articles/best-practices-resource-manager-security/">Security considerations for Azure Resource Manager</a> and <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-nsg/">Azure Network Security Groups</a>.
+			</div>
 			<div class="note">
 				<p><em>Note</em></p>
 				As with naming NVets and servers, naming schemes for security rules are also worthy of your further research. In the tutorial, we will prefix names with "default" to denote that they are the default rules to apply in each group, provide the action of the rule ("allow" or "deny"), and specify the protocol/port of the rule.
@@ -329,7 +332,7 @@ Enter-PSSession -Session $s</pre>
 			</ol>
 			<div class="note">
 				<p><em>Note</em></p>
-				We do not need to open ports for management traffic between the management VM and the Nano Server on the VNet. A default rule is applied by Azure that allows inbound and outbound traffic on the VNet. For more information, see the <em>Default Rules</em> section of <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-nsg/">What is a Network Security Group (NSG)?</a>.
+				We do not need to open ports for management traffic between the management VM and the Nano Server on the VNet. A default rule is applied by Azure that allows inbound and outbound traffic on the VNet. For more information, see the <strong>Default Rules</strong> section of <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-nsg/">What is a Network Security Group (NSG)?</a>.
 			</div>
 			<dl>
 			<dt><em>NSG Rule for HTTP (Port 80) access</em></dt>
@@ -412,7 +415,7 @@ Enter-PSSession -Session $s</pre>
 			</ol>
 			<div class="note">
 				<p><em>Note</em></p>
-				Server naming conventions is an important subject but beyond the scope of this tutorial. We will use a simple name, <em>vmm1234</em>, for our management server. The abbreviation "vmm" stands for "virtual machine manager," and is a common abbreviation in server names used for this purpose. Many excellent blog posts, articles, and books address IT asset naming, and you are encouraged to research the subject further if unfamiliar.
+				Server naming conventions is an important subject but beyond the scope of this tutorial. We will use a simple name, <strong>vmm1234</strong>, for our management server. The abbreviation "vmm" stands for "virtual machine manager," and is a common abbreviation in server names used for this purpose. Many excellent blog posts, articles, and books address IT asset naming, and you are encouraged to research the subject further if unfamiliar.
 			</div>
 			<div class="note">
 				<p><em>Note</em></p>
@@ -431,7 +434,7 @@ Enter-PSSession -Session $s</pre>
 			<br />
 			<div class="note">
 				<p><em>Note</em></p>
-				We are setting a static public IP address for the management VM. When an Azure VM is stopped (deallocated), it will lose a dynamic public IP address. Since the tutorial is implying that the management VM can be stopped (deallocated) when it isn't in use and because we wish to use the same Remote Desktop Connection (RDP) settings file across management sessions, it's best to set a static public IP for this VM. If you prefer to leave the management VM with a dynamic public IP, then you will need to get a new Remote Desktop Connection (RDP) settings file from the <strong>Azure Portal</strong> each time you redeploy the VM in the <strong>Azure Portal</strong>. Note that there are pricing implications for assigning static public IP addresses. See the <em>Reserved IP pricing</em> section of <a href="https://azure.microsoft.com/en-us/pricing/details/ip-addresses/">IP Address pricing</a>.
+				We are setting a static public IP address for the management VM. When an Azure VM is stopped (deallocated), it will lose a dynamic public IP address. Since the tutorial is implying that the management VM can be stopped (deallocated) when it isn't in use and because we wish to use the same Remote Desktop Connection (RDP) settings file across management sessions, it's best to set a static public IP for this VM. If you prefer to leave the management VM with a dynamic public IP, then you will need to get a new Remote Desktop Connection (RDP) settings file from the <strong>Azure Portal</strong> each time you redeploy the VM in the <strong>Azure Portal</strong>. Note that there are pricing implications for assigning static public IP addresses. See the <strong>Reserved IP pricing</strong> section of <a href="https://azure.microsoft.com/en-us/pricing/details/ip-addresses/">IP Address pricing</a>.
 			</div>
 			<p><strong>Summary</strong> blade: Click <strong>OK</strong> on the <strong>Summary</strong> blade to provision the VM.</p>
 			<a href="aspnet-core-on-nano-server/vmm-setup-10.png" imageanchor="1"><img border="0" src="aspnet-core-on-nano-server/vmm-setup-10.png" style="max-width: 100%;" /></a>
@@ -536,10 +539,10 @@ Enter-PSSession -Session $s</pre>
 			<ol>
 			<li>Earlier, we downloaded the Remote Desktop Connection (RDP) settings file for the management VM. Open the connection to the server by double-clicking the file. When you open the connection, you will be greeted by the Windows Security window. Click on <strong>Use another account</strong>, and provide the username ("adminuser" for the tutorial) and the password you created for the management VM.</li>
 			</ol>
-			<div>
-			<h3>
-			Warning</h3>
-			Although there is a convenient <strong>Remember my credentials</strong> checkbox available, <strong>never</strong> check this box to store credentials on the client machine, as there is a significant security risk in doing so.</div>
+			<div class="warning">
+				<p><em>Warning</em></p>
+				Although there is a convenient <strong>Remember my credentials</strong> checkbox available, <strong>never</strong> check this box to store credentials on the client machine, as there is a significant security risk in doing so.
+			</div>
 			<a href="aspnet-core-on-nano-server/nano-access-01.png" imageanchor="1"><img border="0" src="aspnet-core-on-nano-server/nano-access-01.png" style="max-width: 100%;" /></a>
 			<br />
 			<ol start="2">
@@ -755,13 +758,14 @@ $sm.CommitChanges()</pre>
 			<p>Close the script tab without saving. We will never want to run this script again on this VM, as the <em>applicationHost.config</em> file only requires these updates once in order to use the AspNetCoreModule module in IIS.</p>
 			<a href="aspnet-core-on-nano-server/nano-install-06.png" imageanchor="1"><img border="0" src="aspnet-core-on-nano-server/nano-install-06.png" style="max-width: 100%;" /></a>
 			<br />
-			<div>
-			<h3>
-			Warning</h3>
-			<strong>Do not</strong> run this script multiple times. If you execute commands in this script multiple times, you will add elements more than once, and the <em>applicationHost.config</em> file will become corrupt and break IIS. If the file is corrupted by accident: (1) Restore the file from the known-good version previously saved to the share, (2) Run this script once on the restored <em>applicationHost.config</em> file, and (3) Close the script tab and do not save the script.</div>
+			<div class="warning">
+					<p><em>Warning</em></p>
+				<strong>Do not</strong> run this script multiple times. If you execute commands in this script multiple times, you will add elements more than once, and the applicationHost.config file will become corrupt and break IIS. If the file is corrupted by accident: (1) Restore the file from the known-good version previously saved to the share, (2) Run this script once on the restored applicationHost.config file, and (3) Close the script tab and do not save the script.
+			</div>
 			<div class="note">
 				<p><em>Note</em></p>
-			When an installer is created for the AspNetCoreModule for Nano Server, the manual modifications we just made to the <em>applicationHost.config</em> file will be executed automatically by the installer.</div>
+				When an installer is created for the AspNetCoreModule for Nano Server, the manual modifications we just made to the <strong>applicationHost.config</strong> file will be executed automatically by the installer.
+			</div>
 
 			<a id="deploy-an-asp-net-core-core-clr-app"></a>
 			<h2><a aria-hidden="true" href="#deploy-an-aspnet-core-core-clr-app"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id22">Deploy an ASP.NET Core Core CLR app</a></h2>
@@ -830,7 +834,7 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 			<p>Congratulations &amp; Enjoy!</p>
 			<div class="note">
 				<p><em>Note</em></p>
-				The public IP address of the Nano Server is dynamically allocated by Azure. It will remain stable as long as the Nano Server isn't stopped (deallocated) and restarted (allocated) in the <strong>Azure Portal</strong>. Since we gave the Nano Server a stable DNS address label, we will always be able to reach it via the FQDN (i.e., the <em>azure.com</em> address) no matter what public IP address Azure allocates to the VM across re-deployments of the VM. If you would prefer a static public IP address for your Nano Server, configure it at any time in the <strong>Azure Portal</strong> the same way we configured the static public IP address for the management VM.
+				The public IP address of the Nano Server is dynamically allocated by Azure. It will remain stable as long as the Nano Server isn't stopped (deallocated) and restarted (allocated) in the <strong>Azure Portal</strong>. Since we gave the Nano Server a stable DNS address label, we will always be able to reach it via the FQDN (i.e., the azure.com address) no matter what public IP address Azure allocates to the VM across re-deployments of the VM. If you would prefer a static public IP address for your Nano Server, configure it at any time in the <strong>Azure Portal</strong> the same way we configured the static public IP address for the management VM.
 			</div>
 
 			<a id="clean-up"></a>
@@ -873,7 +877,7 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 			<br />
 			<div class="note">
 				<p><em>Note</em></p>
-			The subnet address shown, <em>10.5.0.5</em>, is for the tutorial Nano Server. You must obtain the subnet address of your Nano Server in the <strong>Azure Portal</strong>.</div>
+				The subnet address shown, 10.5.0.5, is for the tutorial Nano Server. You must obtain the subnet address of your Nano Server in the <strong>Azure Portal</strong>.</div>
 			<ol start="4">
 			<li>Store the Nano Server's username and password on the management VM. You must run the following command from an elevated Windows command prompt or from an elevated PowerShell command prompt (not PowerShell ISE).</li>
 			</ol>
