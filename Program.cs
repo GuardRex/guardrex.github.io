@@ -39,7 +39,7 @@ namespace guardrex.com
             var layout = File.ReadAllText(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\layout.htm");
 
             // RegEx
-            Regex regExp = new Regex(@"---\r\n(.*?)\r\n---", RegexOptions.Compiled | RegexOptions.Singleline);
+            Regex regExp = new Regex(@"^(.*?)\r\n---", RegexOptions.Compiled | RegexOptions.Singleline);
             
             // Cycle through the pages
             var files = Directory.EnumerateFiles(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug", "*.html", AllDirectories);
