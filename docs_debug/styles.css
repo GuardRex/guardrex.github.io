@@ -1,0 +1,49 @@
+ol li {
+    margin: 20px 0 20px -25px
+}
+
+table th {
+    text-align: center;
+    border-bottom: 1px solid gray
+}
+
+table td:not(:first-child) {
+    padding-left: 10px
+}
+
+.note, .tip, .warning {
+    border: 1px solid gray;
+    padding: 10px;
+    margin: 10px 0
+}
+
+.note em, .tip em, .warning em {
+    font-size: 1.4em
+}
+
+.warning em {
+    color: red
+}
+
+#title {
+    line-height: 57px;
+    font-size: 36px
+}
+
+#author {
+    margin-top: 10px
+}
+
+@media (max-width: 600px) { #title, h2{font-size: 26px } }
+
+@media (max-width: 470px) { #title, h2 { font-size: 20px; } }
+
+@media (max-width: 400px) {
+    #logo { width: 40px; height: 40px }
+    #title { font-size: 16px; line-height: 40px }
+    #author { font-size: 12px; margin-top: 2px }
+}
+    
+.nostyle, .nostyle:hover {
+    color: black
+}
