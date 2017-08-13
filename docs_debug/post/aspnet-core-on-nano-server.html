@@ -5,7 +5,7 @@ last_modification_date: 2016-4-11
 ---
 <article>
 	<h1>ASP.NET Core on Nano Server Preview</h1>
-	<p>4/11/2016 By: Luke Latham</p>			
+	<p>4/11/2016 By: Luke Latham</p>
 	<p>In this tutorial, you'll deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a Microsoft Azure Windows Server 2012 R2 virtual machine.</p>
 	<p>In this article:</p>
 	<div class="note">
@@ -139,7 +139,7 @@ Enter-PSSession -Session $s</pre>
 	<p>The importance of adopting strong security best practices cannot be understated. The number and sophistication of cyberattacks on enterprise IT infrastructure has ballooned in recent years. This tutorial cannot hope to instruct you in all of the best practices for secure server management to keep your organization safe from cyberattacks; however, we will adopt one important approach in this tutorial: limiting management points. This is one of many important practices that should be adopted. For more information and good starting points for further reading, visit <a href="https://technet.microsoft.com/en-us/library/windows-server-security.aspx">Windows Server Security (Microsoft TechNet)</a>, <a href="https://azure.microsoft.com/en-us/documentation/articles/best-practices-network-security/">Microsoft Cloud Services and Network Security</a>, and <a href="https://technet.microsoft.com/en-us/library/dd277328.aspx">Enterprise Security Best Practices</a>.</p>
 
 	<a id="azure-services-configuration"></a>
-	<h2><a aria-hidden="true" href="#azure-services-configuration"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id15">Azure Services Configuration</a></h2>
+	<h2><a aria-hidden="true" href="#azure-services-configuration"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Services Configuration</h2>
 	<p>Before we get started creating our VM's, let's create an Azure Resource Group, an Azure Storage Account (and an Azure Files network file share to go along with it), an Azure Virtual Network, and a pair of Network Security Groups (one for the management VM and one for the Nano Server). By preconfiguring these services, we will save time later when deploying our VM's.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -327,7 +327,7 @@ Enter-PSSession -Session $s</pre>
 	<a href="aspnet-core-on-nano-server/pre-20.png"><img alt="" src="aspnet-core-on-nano-server/pre-20.png" style="max-width: 100%;" /></a>
 
 	<a id="create-a-microsoft-azure-windows-server-2012-r2-vm"></a>
-	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-windows-server-2012-r2-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id16">Create a Microsoft Azure Windows Server 2012 R2 VM</a></h2>
+	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-windows-server-2012-r2-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Windows Server 2012 R2 VM</h2>
 	<p>First, we will create a management Azure VM to interact with our Nano Server, which we will be spinning up in a few minutes. The management VM shouldn't be used for any other purpose than managing other VM's. Because it will likely only be used in times of management, you can stop (deallocate) the VM in the <strong>Azure Portal</strong> when it isn't needed to reduce costs and start (allocate/deploy) the VM whenever you need it.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -395,7 +395,7 @@ Enter-PSSession -Session $s</pre>
 	<a href="aspnet-core-on-nano-server/vmm-setup-11.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-11.png" style="max-width: 100%;" /></a>
 
 	<a id="create-a-microsoft-azure-nano-server-vm"></a>
-	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-nano-server-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id17">Create a Microsoft Azure Nano Server VM</a></h2>
+	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-nano-server-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Nano Server VM</h2>
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the button for <strong>Virtual machines</strong>.</li>
 	</ol>
@@ -458,7 +458,7 @@ Enter-PSSession -Session $s</pre>
 	<a href="aspnet-core-on-nano-server/nano-setup-12.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-12.png" style="max-width: 100%;" /></a>
 
 	<a id="mount-the-azure-files-share-locally"></a>
-	<h2><a aria-hidden="true" href="#mount-the-azure-files-share-locally"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id18">Mount the Azure Files share locally</a></h2>
+	<h2><a aria-hidden="true" href="#mount-the-azure-files-share-locally"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Mount the Azure Files share locally</h2>
 	<p>This tutorial will use a network file share to move files between our Nano Server and our local client computer. We've already created the Azure Files container that we need when we created our Azure Storage account earlier. We need to mount the container locally and on the Nano Server.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -487,7 +487,7 @@ Enter-PSSession -Session $s</pre>
 	<a href="aspnet-core-on-nano-server/share-04.png"><img alt="" src="aspnet-core-on-nano-server/share-04.png" style="max-width: 100%;" /></a>
 
 	<a id="access-the-nano-server-and-mount-the-azure-files-share"></a>
-	<h2><a aria-hidden="true" href="#access-the-nano-server-and-mount-the-azure-files-share"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id19">Access the Nano Server and mount the Azure Files share</a></h2>
+	<h2><a aria-hidden="true" href="#access-the-nano-server-and-mount-the-azure-files-share"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Access the Nano Server and mount the Azure Files share</h2>
 	<ol>
 	<li>Earlier, we downloaded the Remote Desktop Connection (RDP) settings file for the management VM. Open the connection to the server by double-clicking the file. When you open the connection, you will be greeted by the Windows Security window. Click on <strong>Use another account</strong>, and provide the username ("adminuser" for the tutorial) and the password you created for the management VM.</li>
 	</ol>
@@ -534,7 +534,7 @@ Enter-PSSession -Session $s</pre>
 	<p>PowerShell will respond with <strong>The command completed successfully</strong> on success. We now have access to the share on the Nano Server.</p>
 
 	<a id="install-nano-server-packages"></a>
-	<h2><a aria-hidden="true" href="#install-nano-server-packages"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id20">Install Nano Server packages</a></h2>
+	<h2><a aria-hidden="true" href="#install-nano-server-packages"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>>Install Nano Server packages</h2>
 	<ol>
 	<li>The Reverse Forwarders packages is now installed by default on Nano Server Technology Preview 5, so we only need to install the IIS packages. Execute the following commands </li>
 	</ol>
@@ -599,7 +599,7 @@ http://nano1234.westus.cloudapp.azure.com</pre>
 	<a href="aspnet-core-on-nano-server/nano-install-02.png"><img alt="" src="aspnet-core-on-nano-server/nano-install-02.png" style="max-width: 100%;" /></a>
 
 	<a id="install-the-aspnetcoremodule"></a>
-	<h2><a aria-hidden="true" href="#install-the-aspnetcoremodule"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id21">Install the AspNetCoreModule</a></h2>
+	<h2><a aria-hidden="true" href="#install-the-aspnetcoremodule"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Install the AspNetCoreModule</h2>
 	<p>The <em>aspnetcore.dll</em> on Windows normally resides at <em>%windir%\System32\inetsrv\aspnetcore.dll</em>. If you've previously installed the 64-bit version of the AspNetCoreModule locally, you may use this filepath to move the DLL to your Nano Server. If you have not installed the module, you may obtain the 64-bit version at <a href="http://download.microsoft.com/download/7/2/D/72DD68D5-7386-4A41-8B8F-E21779A69E33/aspnetcoremodule_x64_en.msi">x64 Installer</a>.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -720,7 +720,7 @@ $sm.CommitChanges()</pre>
 	</div>
 
 	<a id="deploy-an-asp-net-core-core-clr-app"></a>
-	<h2><a aria-hidden="true" href="#deploy-an-aspnet-core-core-clr-app"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id22">Deploy an ASP.NET Core Core CLR app</a></h2>
+	<h2><a aria-hidden="true" href="#deploy-an-aspnet-core-core-clr-app"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Deploy an ASP.NET Core Core CLR app</h2>
 	<p>Web Deploy will eventually be supported for Nano Server, and XCopy should work now. A custom PowerShell script is also an option for moving projects to your Nano Server. This tutorial will simply rely upon copying the project to the VM using the share we have created.</p>
 	<ol>
 	<li>Create or obtain an ASP.NET Core Core CLR x64 project.</li>
@@ -790,7 +790,7 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	</div>
 
 	<a id="clean-up"></a>
-	<h2><a aria-hidden="true" href="#clean-up"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id23">Clean up</a></h2>
+	<h2><a aria-hidden="true" href="#clean-up"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Clean up</h2>
 	<ol>
 	<li>Exit the PowerShell <strong>remote</strong> session with the following command.</li>
 	</ol>
@@ -802,7 +802,7 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	</ol>
 
 	<a id="nano-server-management"></a>
-	<h2><a aria-hidden="true" href="#nano-server-management"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id24">Nano Server Management</a></h2>
+	<h2><a aria-hidden="true" href="#nano-server-management"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Nano Server Management</h2>
 	<p>We will outline four sources of information that will help you manage your Nano Server deployments and troubleshoot issues with the VM, IIS, and your ASP.NET Core applications. This is not an exhaustive set of management options. We will examine how the VM's events are available through a remote Server Manager, a remote Event Log, the IIS log files, and the AspNetCoreModule log. For other management and troubleshooting options, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.</p>
 	
 	<a id="connecting-to-a-remote-server-manager"></a>
@@ -954,7 +954,7 @@ Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
 	<a href="aspnet-core-on-nano-server/management-4-01.png"><img alt="" src="aspnet-core-on-nano-server/management-4-01.png" style="max-width: 100%;" /></a>
 
 	<a id="useful-iis-powershell-commands"></a>
-	<h2><a aria-hidden="true" href="#useful-iis-powershell-commands"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id25">Useful IIS PowerShell Commands</a></h2>
+	<h2><a aria-hidden="true" href="#useful-iis-powershell-commands"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Useful IIS PowerShell Commands</h2>
 	<a id="general-commands"></a>
 	
 	<h3>
@@ -1003,7 +1003,7 @@ $sm.CommitChanges()</pre>
 	<pre>$sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"].Bindings.Add("*:443:www.mydomain.com", $hash, "My", "Sni")</pre>
 
 	<a id="additional-resources"></a>
-	<h2><a aria-hidden="true" href="#additional-resources"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id26">Additional Resources</a></h2>
+	<h2><a aria-hidden="true" href="#additional-resources"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Additional Resources</h2>
 	<ul>
 	<li><a href="http://docs.asp.net/en/latest/publishing/">ASP.NET Core Publishing and Deployment</a></li>
 	<li><a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a></li>
@@ -1023,7 +1023,7 @@ $sm.CommitChanges()</pre>
 	</ul>
 
 	<a id="acknowledgements"></a>
-	<h2><a aria-hidden="true" href="#acknowledgements"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a><a href="#id27">Acknowledgements</a></h2>
+	<h2><a aria-hidden="true" href="#acknowledgements"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Acknowledgements</h2>
 	<ul>
 	<li>David So, Principal Software Engineer, <a href="http://www.microsoft.com/">Microsoft Corporation</a></li>
 	<li>Pawel Kadluczka, Senior Software Development Engineer, <a href="http://www.microsoft.com/">Microsoft Corporation</a></li>
