@@ -107,29 +107,4 @@
       }
   }
 
-  window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "http://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-  
-    return t;
-  }(document, "script", "twitter-wjs"));
-
-
-    var js, fjs = document.getElementsByTagName('script')[0];
-    if (document.getElementById('facebook-jssdk')) return;
-    js = document.createElement('script'); 
-    js.id = 'facebook-jssdk';
-    js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
-    fjs.parentNode.insertBefore(js, fjs);
-
 })();

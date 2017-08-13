@@ -11,7 +11,7 @@ tweet_text: Check%20out%20%40guardrex%20blog%20post%20Razor%20Compile%2Dtime%20M
 	<p>8/13/2017 By: Luke Latham</p>
 	<p>
 		<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=!tweet_text" data-size="large">Tweet</a>
-		<div class="fb-like" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+		<span class="fb-like" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></span>
 	</p>
 	<p>Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor pages at compile time.</p>
 	<p>In this article:</p>
@@ -62,10 +62,40 @@ tweet_text: Check%20out%20%40guardrex%20blog%20post%20Razor%20Compile%2Dtime%20M
 		<a href="#acknowledgements" class="nostyle">Acknowledgements</a>
 	</h2>
 	<ul>
-		<li>Bart Calixto, @bartmax, <a href="https://github.com/Bartmax">@GitHub</a>, <a href="https://twitter.com/bartmax">@Twitter</a></li>
+		<li>Bart Calixto (@bartmax) <a href="https://github.com/Bartmax">@GitHub</a> <a href="https://twitter.com/bartmax">@Twitter</a></li>
 	</ul>
 </article>
 <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=!tweet_text" data-size="large">Tweet</a>
 <hr>
 <div id="disqus_thread"></div>
-<script>(function() {var d=document,s=d.createElement('script');s.src='https://guardrex.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script>
+<script>
+	(function() {
+		var d=document,s=d.createElement('script');
+		s.src='https://guardrex.disqus.com/embed.js';
+		s.setAttribute('data-timestamp',+new Date());
+		(d.head||d.body).appendChild(s);
+	})();
+
+	window.twttr = (function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+		if (d.getElementById(id)) return t;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "http://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js, fjs);
+		t._e = [];
+		t.ready = function(f) {
+			t._e.push(f);
+		};
+		return t;
+	}(document, "script", "twitter-wjs"));
+
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); 
+		js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
