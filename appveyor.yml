@@ -16,7 +16,8 @@ install:
 build_script:
   # dotnet info
   - ps: dotnet --info
-  - ps: dir c:\projects\guardrex-com
+  #- ps: dir c:\projects\guardrex-com
+  - ps: dir
   # Run dotnet new 
   # - ps: mkdir "test\test-dotnet-new" -Force | Push-Location
   # - ps: dotnet new console
