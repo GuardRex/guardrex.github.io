@@ -6,6 +6,7 @@ using System.IO;
 using static System.IO.SearchOption;
 using System.Text.RegularExpressions;
 using System.Collections.Concurrent;
+using System.Linq;
 
 namespace guardrex.com
 {
@@ -25,13 +26,14 @@ namespace guardrex.com
             var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
 
             // Setup for the index page content
-            StringBuilder indexContent = new StringBuilder();
+            var indexContent = new StringBuilder();
+            var indexContentPosts = new List<KeyValuePair<string, string>>();
 
             // Setup for the RSS file
-            StringBuilder rssContent = new StringBuilder($@"<?xml version=""1.0"" encoding=""utf-8""?><rss version=""2.0""><channel><title>{site_title}</title><link>http://{domain}/</link><description>{site_description}</description>");
+            var rssContent = new StringBuilder($@"<?xml version=""1.0"" encoding=""utf-8""?><rss version=""2.0""><channel><title>{site_title}</title><link>http://{domain}/</link><description>{site_description}</description>");
 
             // Setup for the sitemap file
-            StringBuilder sitemapContent = new StringBuilder($@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:schemaLocation=""http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd""><url><loc>http://{domain}/</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod><priority>1</priority></url><url><loc>http://{domain}/rss.xml</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod></url>");
+            var sitemapContent = new StringBuilder($@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:schemaLocation=""http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd""><url><loc>http://{domain}/</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod><priority>1</priority></url><url><loc>http://{domain}/rss.xml</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod></url>");
 
             // Setup dict to hold page metadata
             var pageMetadataDict = new ConcurrentDictionary<string, string>();
@@ -88,9 +90,9 @@ namespace guardrex.com
                 {
                     var fileName = file.Substring(file.LastIndexOf("\\") + 1);
 
-                    indexContent.Append($@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{fileName}"">Read More</a></p></div>");
+                    indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{fileName}"">Read More</a></p></div>"));
 
-                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{fileName}</link><guid>post/{fileName}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
+                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{fileName}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
 
                     sitemapContent.Append($@"<url><loc>http://{domain}/post/{fileName}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
                 }
@@ -101,6 +103,11 @@ namespace guardrex.com
             }
 
             // Inject the index page content
+            var sortedPosts = indexContentPosts.OrderByDescending(_ => _.Key);
+            foreach (var post in sortedPosts)
+            {
+                indexContent.Append(post.Value);
+            }
             var indexFilePath = $@"{path.Replace("_debug", string.Empty)}\index.html";
             var indexFileText = File.ReadAllText(indexFilePath);
             File.WriteAllText(indexFilePath, indexFileText.Replace("!index_content", indexContent.ToString()));
