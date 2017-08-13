@@ -19,6 +19,7 @@ namespace guardrex.com
             var site_title = "the guardrex chew";
             var site_description = "Read guardrex articles on IT topics.";
             var domain = "www.guardrex.com";
+            var cdn_domain = "rexsite.azureedge.net";
 
             // Set the path to the repo docs_debug folder
             var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
@@ -69,8 +70,9 @@ namespace guardrex.com
                     pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
-                // Merge the content (sans metadata) into the layout
-                var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3));
+                // Merge the content (sans metadata) into the layout and apply the CDN domcain where needed
+                var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3))
+                    .Replace("!cdn_domain", cdn_domain);
 
                 // Replace tokens with page metadata from the dict
                 foreach (var pageMetadataItem in pageMetadataDict)
@@ -86,7 +88,7 @@ namespace guardrex.com
                 {
                     var fileName = file.Substring(file.LastIndexOf("\\") + 1);
 
-                    indexContent.Append($@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn btn-default"" href=""post/{fileName}"">Read More</a></p></div>");
+                    indexContent.Append($@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{fileName}"">Read More</a></p></div>");
 
                     rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{fileName}</link><guid>post/{fileName}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
 

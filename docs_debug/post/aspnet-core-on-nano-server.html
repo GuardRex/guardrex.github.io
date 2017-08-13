@@ -2,6 +2,7 @@ page_title: ASP.NET Core on Nano Server Preview
 page_description: Deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a WS 2012 R2 VM.
 publication_date: Mon, 11 Apr 2016 12:15:12 GMT
 last_modification_date: 2016-4-11
+cdn_folder: aspnet-core-on-nano-server
 ---
 <article>
 	<h1>ASP.NET Core on Nano Server Preview</h1>
@@ -151,71 +152,71 @@ Enter-PSSession -Session $s</pre>
 	<ol>
 	<li>Navigate to the <strong>Azure Portal &lt;<a href="https://portal.azure.com/">https://portal.azure.com/</a>&gt;</strong>. Click the button for <strong>Resource Groups</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-01.png"><img alt="" src="aspnet-core-on-nano-server/pre-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Click the <strong>Add</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-02.png"><img alt="" src="aspnet-core-on-nano-server/pre-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>Supply a <strong>Resource group name</strong>, choose your <strong>Subscription</strong>, and select a <strong>Resource group location</strong> (Azure datacenter). We will use the name <em>group1234</em> for this tutorial and group our Azure services in the <strong>South Central US</strong> datacenter. Click the <strong>Create</strong> button to establish the resource group.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre_03.png"><img alt="" src="aspnet-core-on-nano-server/pre_03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre_03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre_03.png" style="max-width: 100%;" /></a>
 	
 	<a id="azure-storage-account"></a>
 	<h3><a aria-hidden="true" href="#azure-storage-account"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Storage Account</h3>
 	<ol>
 	<li>Click the button for <strong>Storage accounts</strong>. Be careful <strong>not</strong> to accidently click <strong>Storage accounts (classic)</strong> immediately below.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-04.png"><img alt="" src="aspnet-core-on-nano-server/pre-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-04.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Click the <strong>Add</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-05.png"><img alt="" src="aspnet-core-on-nano-server/pre-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>Provide a <strong>Name</strong>. We will use <em>storage1234</em> for this tutorial. Downgrade the storage <strong>Type</strong> to <strong>Standard-LRS</strong> and set <strong>Diagnostics</strong> to <strong>Disabled</strong>, which will be sufficient for demonstration purposes in this tutorial. Select the <strong>Subscription</strong> and choose the <strong>Resource Group</strong> we established earlier. Click the <strong>Create</strong> button to establish the storage account. Wait for the deployment to complete.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-06.png"><img alt="" src="aspnet-core-on-nano-server/pre-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="4">
 	<li>Create an Azure Files network file share container and map it to a local network drive. The storage account properties blade will appear when the storage account deployment is complete. Click the <strong>Files</strong> button in the <strong>Services</strong> area.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-07.png"><img alt="" src="aspnet-core-on-nano-server/pre-07.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-07.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-07.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>In the <strong>File shares</strong> area of the <strong>File service</strong> blade, click the button to create a file share.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-08.png"><img alt="" src="aspnet-core-on-nano-server/pre-08.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-08.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-08.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="6">
 	<li>Create the file share by providing a <strong>Name</strong> (we will use <em>data</em>) and a <strong>Quota</strong> (<em>2</em> GB is plenty of space for our needs). Note that you will be charged for the space that you quote, so do not set aside much more space than you need. Click the <strong>Create</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-09.png"><img alt="" src="aspnet-core-on-nano-server/pre-09.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-09.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-09.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="7">
 	<li>We will need the storage account key in future steps. Go back to the <strong>Storage account</strong> blade and click the <strong>All settings</strong> button, which will spawn the <strong>Settings</strong> blade. Open the <strong>Access keys</strong> blade and note the location of <strong>KEY1</strong>. You will be coming back to this blade later in the tutorial to obtain the storage account key. Of course, only cut-and-paste the key from the <strong>Azure Portal</strong> ... never store it unencrypted on any system.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-10.png"><img alt="" src="aspnet-core-on-nano-server/pre-10.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-10.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-10.png" style="max-width: 100%;" /></a>
 
 	<a id="azure-virtual-network"></a>
 	<h3><a aria-hidden="true" href="#azure-virtual-network"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Virtual Network</h3>
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the <strong>New</strong> button, followed by <strong>Networking</strong>, followed by <strong>Virtual network</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-11.png"><img alt="" src="aspnet-core-on-nano-server/pre-11.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-11.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-11.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Set the <strong>Select a deployment model</strong> drop-down to <strong>Resource Manager</strong> and click the <strong>Create</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-12.png"><img alt="" src="aspnet-core-on-nano-server/pre-12.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-12.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-12.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>The <strong>Create virtual network</strong> (VNet) blade will open. Provide a VNet <strong>Name</strong>. We will use <em>vnet1234</em> in the tutorial. We will use the default values provided by Azure, but you have an opportunity to set the <strong>Address space</strong>, <strong>Subnet name</strong>, and <strong>Subnet address range</strong> if you wish. Set the <strong>Resource group</strong> to the group you are using. In the tutorial, we established the resource group as <em>group1234</em>. You should select the resource group you created earlier. Click the <strong>Create</strong> button and wait for the deployment to complete.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-13.png"><img alt="" src="aspnet-core-on-nano-server/pre-13.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-13.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-13.png" style="max-width: 100%;" /></a>
 
 	<a id="azure-network-security-group-management-vm"></a>
 	<h3><a aria-hidden="true" href="#azure-network-security-group-management-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Network Security Group (management VM)</h3>
@@ -231,28 +232,28 @@ Enter-PSSession -Session $s</pre>
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the <strong>Browse</strong> button and scroll down to click the <strong>Network security groups</strong> button. Be careful <strong>not</strong> to accidently click the <strong>Network security groups (classic)</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-14.png"><img alt="" src="aspnet-core-on-nano-server/pre-14.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-14.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-14.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Click the <strong>Add</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-15.png"><img alt="" src="aspnet-core-on-nano-server/pre-15.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-15.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-15.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>In the <strong>Create network security group</strong> blade, provide a <strong>Name</strong>, <strong>Subscription</strong>, and our <strong>Resource Group</strong>. In the tutorial, we will name the rule <em>vmm1234</em>. The abbreviation "vmm" stands for "virtual machine manager." Click the <strong>Create</strong> button and wait for the deployment to complete.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-16.png"><img alt="" src="aspnet-core-on-nano-server/pre-16.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-16.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-16.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="4">
 	<li>When the deployment completes, the <strong>Azure Portal</strong> will open to the NSG we just created. It's time to add an inbound security rule for RDP (port 3389). In the <strong>Settings</strong>, click the <strong>Inbound security rules</strong> button, followed by the <strong>Add</strong> button in the <strong>Inbound security rules</strong> blade.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-17.png"><img alt="" src="aspnet-core-on-nano-server/pre-17.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-17.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-17.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>We will add one rule for RDP (port 3389). In the <strong>Name</strong> field, provide the name <em>default-allow-rdp</em>. Bump the <strong>Priority</strong> up to 1000. Click the <strong>OK</strong> button to create the rule. After you click the <strong>OK</strong> button, there will be a short delay of a few seconds before the new rule will appear in the Azure Portal UI in the list of <strong>Inbound security rules</strong>. Wait for the rule to appear in the UI before proceeding.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/pre-18.png"><img alt="" src="aspnet-core-on-nano-server/pre-18.png" style="max-width: 100%;" /></a>
-	<a href="aspnet-core-on-nano-server/pre-19.png"><img alt="" src="aspnet-core-on-nano-server/pre-19.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-18.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-18.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-19.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-19.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="warning">
 		<p><em>Warning</em></p>
@@ -324,7 +325,7 @@ Enter-PSSession -Session $s</pre>
 	</ul>
 	</dd>
 	</dl>
-	<a href="aspnet-core-on-nano-server/pre-20.png"><img alt="" src="aspnet-core-on-nano-server/pre-20.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/pre-20.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/pre-20.png" style="max-width: 100%;" /></a>
 
 	<a id="create-a-microsoft-azure-windows-server-2012-r2-vm"></a>
 	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-windows-server-2012-r2-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Windows Server 2012 R2 VM</h2>
@@ -340,27 +341,27 @@ Enter-PSSession -Session $s</pre>
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the button for <strong>Virtual machines</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/vmm-setup-01.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Click the <strong>Add</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/vmm-setup-02.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>In the <strong>Recommended</strong> section, click the <strong>Windows Server</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/vmm-setup-03.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="4">
 	<li>Select <strong>Windows Server 2012 R2 Datacenter</strong> from the list. Be careful <strong>not</strong> to accidently select the <strong>Windows Server 2012 Datacenter</strong> (not R2) button immediately above it.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/vmm-setup-04.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-04.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>Set the <strong>Select a deployment model</strong> drop-down to <strong>Resource Manager</strong> and click the <strong>Create</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/vmm-setup-05.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="6">
 	<li>Next, we will configure our management server.</li>
@@ -374,68 +375,68 @@ Enter-PSSession -Session $s</pre>
 		Every asset that accepts credentials should have a unique username and password. If you aren't familiar with best practices in account usernames and password policies, you are encouraged to research the subject further.
 	</div>
 	<p><strong>Basics</strong> blade: Provide a <strong>Name</strong>, <strong>User name</strong>, <strong>Password</strong>, <strong>Subscription</strong>, and <strong>Resource Group</strong>. Click <strong>OK</strong> to proceed to the <strong>Size</strong> blade.</p>
-	<a href="aspnet-core-on-nano-server/vmm-setup-06.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<p><strong>Size</strong> blade: Select a VM size. Click <strong>View All</strong> to see all of the available VM sizes. For this tutorial, we will use an <strong>A1 Standard</strong> VM size. Select a VM size and click the <strong>Select</strong> button.</p>
-	<a href="aspnet-core-on-nano-server/vmm-setup-07.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-07.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-07.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-07.png" style="max-width: 100%;" /></a>
 	<br />
 	<p><strong>Storage</strong> blade: For the <strong>Disk type</strong>, we will accept the default <strong>Standard</strong>. Use the storage account and VNet we created earlier. Click the <strong>Public IP address</strong> button to open the <strong>Choose public IP address</strong> blade, which will default to <strong>Create new</strong> and further open the <strong>Create public IP address</strong> blade. On the <strong>Create public IP address</strong> blade, accept the default <strong>Name</strong> and set the <strong>Assignment</strong> to <strong>Static</strong>. Click <strong>OK</strong>.</p>
 	<p>The <strong>Azure Portal</strong> will default to a new <strong>Network security group</strong>, but we want to select the one we created earlier for the management VM. For the tutorial, this is the <em>vmm1234</em> NSG. We will set <strong>Diagnostics</strong> to <strong>Disabled</strong> and leave the <strong>Availability set</strong> on the default <strong>None</strong> value. Click the <strong>OK</strong> button to see the <strong>Summary</strong> blade.</p>
-	<a href="aspnet-core-on-nano-server/vmm-setup-08.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-08.png" style="max-width: 100%;" /></a>
-	<a href="aspnet-core-on-nano-server/vmm-setup-09.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-09.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-08.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-08.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-09.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-09.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="note">
 		<p><em>Note</em></p>
 		We are setting a static public IP address for the management VM. When an Azure VM is stopped (deallocated), it will lose a dynamic public IP address. Since the tutorial is implying that the management VM can be stopped (deallocated) when it isn't in use and because we wish to use the same Remote Desktop Connection (RDP) settings file across management sessions, it's best to set a static public IP for this VM. If you prefer to leave the management VM with a dynamic public IP, then you will need to get a new Remote Desktop Connection (RDP) settings file from the <strong>Azure Portal</strong> each time you redeploy the VM in the <strong>Azure Portal</strong>. Note that there are pricing implications for assigning static public IP addresses. See the <strong>Reserved IP pricing</strong> section of <a href="https://azure.microsoft.com/en-us/pricing/details/ip-addresses/">IP Address pricing</a>.
 	</div>
 	<p><strong>Summary</strong> blade: Click <strong>OK</strong> on the <strong>Summary</strong> blade to provision the VM.</p>
-	<a href="aspnet-core-on-nano-server/vmm-setup-10.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-10.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-10.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-10.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Wait for the deployment to complete. The <strong>Azure Portal</strong> will display the <strong>Virtual machine</strong> blade when the deployment is complete. Click the <strong>Connect</strong> button to download the Remote Desktop Connection (RDP) settings file so that you can login to the management VM later.</p>
-	<a href="aspnet-core-on-nano-server/vmm-setup-11.png"><img alt="" src="aspnet-core-on-nano-server/vmm-setup-11.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-11.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-11.png" style="max-width: 100%;" /></a>
 
 	<a id="create-a-microsoft-azure-nano-server-vm"></a>
 	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-nano-server-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Nano Server VM</h2>
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the button for <strong>Virtual machines</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-01.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Click the <strong>Add</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-02.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="3">
 	<li>In the <strong>Recommended</strong> section, click the <strong>Windows Server</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-03.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="4">
 	<li>Select <strong>Windows Server 2016 Nano Technical Preview 4</strong> from the list. Be careful <strong>not</strong> to accidently select the full <strong>Windows Server 2016 Technical Preview 4</strong> image immediately below the Nano Server image.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-04.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-04.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>Set the <strong>Select a deployment model</strong> drop-down to <strong>Resource Manager</strong> and click the <strong>Create</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-05.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="6">
 	<li>Next, we will configure the Nano Server.</li>
 	</ol>
 	<p><strong>Basics</strong> blade: Provide a <strong>Name</strong>, <strong>User name</strong>, <strong>Password</strong>, <strong>Subscription</strong>, and <strong>Resource Group</strong>. Click <strong>OK</strong> to proceed to the <strong>Size</strong> blade.</p>
-	<a href="aspnet-core-on-nano-server/nano-setup-06.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<p><strong>Size</strong> blade: Select a VM size. Click <strong>View All</strong> to see all of the available VM sizes. For this tutorial, we will use an <strong>A1 Standard VM</strong>. Select the VM size and click the <strong>Select</strong> button.</p>
-	<a href="aspnet-core-on-nano-server/nano-setup-07.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-07.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-07.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-07.png" style="max-width: 100%;" /></a>
 	<br />
 	<p><strong>Storage</strong> blade: For the <strong>Disk type</strong>, we will accept the default <strong>Standard</strong>. Use the storage account and VNet we created earlier. We will accept the dynamic public IP address, since we have no intention of ever using Remote Desktop Connection with our Nano Server or have any other need for a static public IP address.</p>
 	<p>The <strong>Azure Portal</strong> will default to a new <strong>Network security group</strong>, but we want to select the one we created earlier for the Nano Server. For the tutorial, this is the <em>nano1234</em> NSG. We will leave the <strong>Availability set</strong> on the default <strong>None</strong> value. Click the <strong>OK</strong> button to see the <strong>Summary</strong> blade.</p>
-	<a href="aspnet-core-on-nano-server/nano-setup-08.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-08.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-08.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-08.png" style="max-width: 100%;" /></a>
 	<br />
 	<p><strong>Summary</strong> blade: Click <strong>OK</strong> on the <strong>Summary</strong> blade to provision the VM.</p>
-	<a href="aspnet-core-on-nano-server/nano-setup-09.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-09.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-09.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-09.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Wait for the deployment to complete. The <strong>Azure Portal</strong> will display the <strong>Virtual machine</strong> properties blade when the deployment is complete.</p>
 	<div class="note">
@@ -445,17 +446,17 @@ Enter-PSSession -Session $s</pre>
 	<ol start="7">
 	<li>Let's give our Nano Server a DNS name label. In the <strong>Virtual machine</strong> blade, click on the Public IP address.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-10.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-10.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-10.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-10.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="8">
 	<li>The <strong>Public IP address</strong> blade and its <strong>Settings</strong> blade will appear. Click on the <strong>Configuration</strong> button in the <strong>Settings</strong> blade.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-11.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-11.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-11.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-11.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="9">
 	<li>Enter a <strong>DNS name label</strong> and click the <strong>Save</strong> button at the top of the blade. For the tutorial VM, we will use the name of the VM itself, <em>nano1234</em>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-setup-12.png"><img alt="" src="aspnet-core-on-nano-server/nano-setup-12.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-setup-12.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-setup-12.png" style="max-width: 100%;" /></a>
 
 	<a id="mount-the-azure-files-share-locally"></a>
 	<h2><a aria-hidden="true" href="#mount-the-azure-files-share-locally"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Mount the Azure Files share locally</h2>
@@ -467,12 +468,12 @@ Enter-PSSession -Session $s</pre>
 	<ol>
 	<li>To mount the file share locally, open a <strong>File Explorer</strong> window and click the <strong>Map network drive</strong> button.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/share-01.png"><img alt="" src="aspnet-core-on-nano-server/share-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/share-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/share-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Select a <strong>Drive</strong> letter and provide the share in UNC format (<em>\\server\container</em>) in the <strong>Folder</strong> field. The tutorial share uses the storage account <em>storage1234</em>, but you should substitute your storage account name for <em>storage1234</em>. Our tutorial share will connect to <em>\\storage1234.file.core.windows.net\data</em>. Check the box for <strong>Connect using different credentials</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/share-02.png"><img alt="" src="aspnet-core-on-nano-server/share-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/share-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/share-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="note">
 		<p><em>Note</em></p>
@@ -481,10 +482,10 @@ Enter-PSSession -Session $s</pre>
 	<ol start="3">
 	<li>Enter network credentials for the share. The <strong>Username</strong> is the name of the storage account, <em>storage1234</em> for the tutorial. Use the name of your storage account in this field. The <strong>Password</strong> is the storage account key. Copy the key from the <strong>Azure Portal</strong> into the <strong>Password</strong> field. Click the <strong>OK</strong> button to connect.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/share-03.png"><img alt="" src="aspnet-core-on-nano-server/share-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/share-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/share-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>When the connection is successful, Windows will immediately open a window to the share, which will be empty. We can now drag-and-drop or copy files via PowerShell into the share locally.</p>
-	<a href="aspnet-core-on-nano-server/share-04.png"><img alt="" src="aspnet-core-on-nano-server/share-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/share-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/share-04.png" style="max-width: 100%;" /></a>
 
 	<a id="access-the-nano-server-and-mount-the-azure-files-share"></a>
 	<h2><a aria-hidden="true" href="#access-the-nano-server-and-mount-the-azure-files-share"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Access the Nano Server and mount the Azure Files share</h2>
@@ -495,7 +496,7 @@ Enter-PSSession -Session $s</pre>
 		<p><em>Warning</em></p>
 		Although there is a convenient <strong>Remember my credentials</strong> checkbox available, <strong>never</strong> check this box to store credentials on the client machine, as there is a significant security risk in doing so.
 	</div>
-	<a href="aspnet-core-on-nano-server/nano-access-01.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="2">
 	<li>Run the PowerShell ISE application on the management VM as an Administrator. Right-click its icon and select <strong>Run as administrator</strong> from the pop-up menu.</li>
@@ -505,7 +506,7 @@ Enter-PSSession -Session $s</pre>
 	<p>For the tutorial naming, we will use the following command.</p>
 	<pre>Set-Item WSMan:\\localhost\\Client\\TrustedHosts "nano1234"</pre>
 	<p>Grant WinRM security configuration by clicking <strong>Yes</strong> in the pop-up window.</p>
-	<a href="aspnet-core-on-nano-server/nano-access-02.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="note">
 		<p><em>Note</em></p>
@@ -514,16 +515,16 @@ Enter-PSSession -Session $s</pre>
 	<ol start="4">
 	<li>Open a remote PowerShell session to your Nano Server using <strong>File &gt; New Remote PowerShell Tab...</strong> command in the <strong>File</strong> menu.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-access-03.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Provide the Nano Server DNS name in the <strong>Computer</strong> field and the VM Administrator account username in the <strong>User name</strong> field. Click the <strong>Connect</strong> button.</p>
-	<a href="aspnet-core-on-nano-server/nano-access-04.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-04.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Provide your Nano Server VM Administrator account password in the <strong>Password</strong> field and click <strong>OK</strong> to connect. It will take several seconds to make the connection.</p>
-	<a href="aspnet-core-on-nano-server/nano-access-05.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>When the remote session opens, you will find yourself in the <em>Documents</em> folder of the Administrator's account on your Nano Server in a new PowerShell tab. We'll refer to henceforth in the tutorial to this PowerShell tab as the "<strong>remote</strong> PowerShell tab."</p>
-	<a href="aspnet-core-on-nano-server/nano-access-06.png"><img alt="" src="aspnet-core-on-nano-server/nano-access-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-access-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-access-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>Execute the share drive mapping command in your <strong>remote</strong> PowerShell tab.</li>
@@ -596,7 +597,7 @@ http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com<
 	<pre>http://138.91.197.182
 
 http://nano1234.westus.cloudapp.azure.com</pre>
-	<a href="aspnet-core-on-nano-server/nano-install-02.png"><img alt="" src="aspnet-core-on-nano-server/nano-install-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-install-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-install-02.png" style="max-width: 100%;" /></a>
 
 	<a id="install-the-aspnetcoremodule"></a>
 	<h2><a aria-hidden="true" href="#install-the-aspnetcoremodule"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Install the AspNetCoreModule</h2>
@@ -684,7 +685,7 @@ cp s:\aspnetcore_schema.xml c:\Windows\System32\inetsrv\config\schema</pre>
 	<ol start="6">
 	<li>Update the <em>applicationHost.config</em> file on the Nano Server VM to provide IIS with access to the module. Paste the following PowerShell script into the script area of the <strong>remote</strong> PowerShell tab:</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/nano-install-03.png"><img alt="" src="aspnet-core-on-nano-server/nano-install-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-install-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-install-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<pre>$sm = Get-IISServerManager
 # Add AppSettings section (for Asp.Net Core)
@@ -705,10 +706,10 @@ New-IISConfigCollectionElement $modules -ConfigAttribute @{"name"="AspNetCoreMod
 # Commit Changes
 $sm.CommitChanges()</pre>			
 	<p>Click the <strong>Run</strong> button to execute the commands.</p>
-	<a href="aspnet-core-on-nano-server/nano-install-05.png"><img alt="" src="aspnet-core-on-nano-server/nano-install-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-install-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-install-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Close the script tab without saving. We will never want to run this script again on this VM, as the <em>applicationHost.config</em> file only requires these updates once in order to use the AspNetCoreModule module in IIS.</p>
-	<a href="aspnet-core-on-nano-server/nano-install-06.png"><img alt="" src="aspnet-core-on-nano-server/nano-install-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/nano-install-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/nano-install-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="warning">
 			<p><em>Warning</em></p>
@@ -781,7 +782,7 @@ http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com:
 	<pre>http://138.91.197.182:8000
 
 http://nano1234.westus.cloudapp.azure.com:8000</pre>
-	<a href="aspnet-core-on-nano-server/deploy-01.png"><img alt="" src="aspnet-core-on-nano-server/deploy-01.png" style="max-width: 100%;" /></a><a href="aspnet-core-on-nano-server/deploy_02.png"><img alt="" src="aspnet-core-on-nano-server/deploy_02.png" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/deploy-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/deploy-01.png" style="max-width: 100%;" /></a><a href="http://!cdn_domain/!cdn_folder/deploy_02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/deploy_02.png" /></a>
 	<br />
 	<p>Congratulations &amp; Enjoy!</p>
 	<div class="note">
@@ -819,13 +820,13 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	<li>Obtain the subnet address of the Nano Server from the <strong>Azure Portal</strong> on the <strong>Virtual network</strong> blade. The <strong>IP ADDRESS</strong> for the Nano Server will appear in the <strong>Connected devices</strong> area next to the <strong>Network interface</strong> connected to the Nano Server. For the tutorial Nano Server, the subnet address is <em>10.5.0.5</em>. Add the subnet address of the Nano Server to our management VM's <em>Hosts</em> file. Open <em>File Explorer</em> and paste the address of the hosts file into the address bar.</li>
 	</ol>
 	<p><em>C:\Windows\system32\drivers\etc\hosts</em></p>
-	<a href="aspnet-core-on-nano-server/management-1-01.png"><img alt="" src="aspnet-core-on-nano-server/management-1-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>The OS will request how you would like to open the file. Select <strong>Notepad</strong> from the list.</p>
-	<a href="aspnet-core-on-nano-server/management-1-02.png"><img alt="" src="aspnet-core-on-nano-server/management-1-02.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-02.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>Enter the Nano Server's subnet address and its DNS address label with at least one space in between. Save the file and close <em>File Explorer</em>. See the example below for the tutorial Nano Server. This addition to the file will take effect immediately, so there is no need to restart the server.</p>
-	<a href="aspnet-core-on-nano-server/management-1-03.png"><img alt="" src="aspnet-core-on-nano-server/management-1-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-03.png" style="max-width: 100%;" /></a>
 	<br />
 	<div class="note">
 		<p><em>Note</em></p>
@@ -837,7 +838,7 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	<p>For our tutorial Nano Server, we will use the following command.</p>
 	<pre>cmdkey /add:nano1234 /user:nano1234\nanouser /pass</pre>
 	<p>Type the password for the Nano Server Administrator account and press <em>Enter</em> on the keyboard. The server will respond <strong>CMDKEY: Credential added successfully.</strong></p>
-	<a href="aspnet-core-on-nano-server/management-1-04.png"><img alt="" src="aspnet-core-on-nano-server/management-1-04.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-04.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>We need to ensure several ports are open on the Nano Server to allow access by the Server Manager. Open a <strong>remote</strong> PowerShell tab to the Nano Server by selecting <strong>File &gt; New Remote PowerShell Tab...</strong> and entering the credentials for the Nano Server's Administrator account.</li>
@@ -867,38 +868,38 @@ Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPM
 	<ol start="6">
 	<li>Click the <strong>Add other servers to manage</strong> button in the Server Manager's <strong>Dashboard</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-05.png"><img alt="" src="aspnet-core-on-nano-server/management-1-05.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-05.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>You can also add the Nano Server by selecting <strong>Add Servers</strong> in the <strong>Manage</strong> drop-down menu.</p>
-	<a href="aspnet-core-on-nano-server/management-1-06.png"><img alt="" src="aspnet-core-on-nano-server/management-1-06.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-06.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-06.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="7">
 	<li>Click the <strong>DNS</strong> tab and provide the DNS name of the Nano Server VM in the <strong>Search</strong> field. Click the magnifying glass (search).</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-07.png"><img alt="" src="aspnet-core-on-nano-server/management-1-07.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-07.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-07.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="8">
 	<li>The Nano Server will appear with its subnet address. Click the button on the right to add the server.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-08.png"><img alt="" src="aspnet-core-on-nano-server/management-1-08.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-08.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-08.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="9">
 	<li>Click the <strong>OK</strong> button to add the server to Server Manager.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-09.png"><img alt="" src="aspnet-core-on-nano-server/management-1-09.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-09.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-09.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="10">
 	<li>This should connect your Nano Server to Server Manager on the management VM. Click <strong>All Servers</strong> and click on the Nano Server to see its <strong>Events</strong>, <strong>Services</strong>, and <strong>Roles and Features</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-10.png"><img alt="" src="aspnet-core-on-nano-server/management-1-10.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-10.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-10.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="11">
 	<li>If you right-click the Nano Server and <strong>Refresh</strong> it in the pop-up menu, a red <strong>Refresh failed</strong> bar will appear. Click <strong>More...</strong> to see the refresh failures.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-1-11.png"><img alt="" src="aspnet-core-on-nano-server/management-1-11.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-11.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-11.png" style="max-width: 100%;" /></a>
 	<br />
 	<p>These exceptions are normal at this time for Nano Server. The first exception refers to the Best Practices Analyzer, which does not run on Nano Server at this time. The second exception refers to performance counter data, which is also not available on Nano Server at this time. It's safe to ignore these notifications.</p>
-	<a href="aspnet-core-on-nano-server/management-1-12.png"><img alt="" src="aspnet-core-on-nano-server/management-1-12.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-1-12.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-1-12.png" style="max-width: 100%;" /></a>
 
 	<a id="connecting-to-a-remote-event-log"></a>
 	<h3><a aria-hidden="true" href="#connecting-to-a-remote-event-log"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Connecting to a remote Event Log</h3>
@@ -927,12 +928,12 @@ Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
 	<ol start="4">
 	<li>Open the Event Viewer on the management server. From the <strong>Action</strong> menu, select <strong>Connect to Another Computer...</strong>.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-2-01.png"><img alt="" src="aspnet-core-on-nano-server/management-2-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-2-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-2-01.png" style="max-width: 100%;" /></a>
 	<br />
 	<ol start="5">
 	<li>In the <strong>Select Computer</strong> pop-up window, enter the Nano Server VM DNS name in the <strong>Another computer</strong> field. Click <strong>OK</strong> and wait for the Event Viewer to connect to the Nano Server and load its events.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-2-02.png"><img alt="" src="aspnet-core-on-nano-server/management-2-02.png" style="max-width: 100%;" /></a><a href="aspnet-core-on-nano-server/management-2-03.png"><img alt="" src="aspnet-core-on-nano-server/management-2-03.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-2-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-2-02.png" style="max-width: 100%;" /></a><a href="http://!cdn_domain/!cdn_folder/management-2-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-2-03.png" style="max-width: 100%;" /></a>
 
 	<a id="examining-iis-log-files"></a>
 	<h3><a aria-hidden="true" href="#examining-iis-log-files"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Examining IIS log files</h3>
@@ -951,7 +952,7 @@ Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
 	<ol start="2">
 	<li>After you've made at least one successful request to the application, log files will be generated in the project's <em>logs</em> folder. Note how the timestamp and extension were added automatically.</li>
 	</ol>
-	<a href="aspnet-core-on-nano-server/management-4-01.png"><img alt="" src="aspnet-core-on-nano-server/management-4-01.png" style="max-width: 100%;" /></a>
+	<a href="http://!cdn_domain/!cdn_folder/management-4-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://!cdn_domain/!cdn_folder/management-4-01.png" style="max-width: 100%;" /></a>
 
 	<a id="useful-iis-powershell-commands"></a>
 	<h2><a aria-hidden="true" href="#useful-iis-powershell-commands"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Useful IIS PowerShell Commands</h2>

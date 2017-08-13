@@ -47,16 +47,22 @@
     step += gradientSpeed;
     
     if ( step >= 1 ) {
-        step %= 1;
-        colorIndices[0] = colorIndices[1];
-        colorIndices[2] = colorIndices[3];
-        colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
-        colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+      step %= 1;
+      colorIndices[0] = colorIndices[1];
+      colorIndices[2] = colorIndices[3];
+      colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+      colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
     }
   }
   
-  if ( location.pathname == "/" || location.pathname == "/index.html" ) {
+  if ( document.getElementById("gradient") != null ) {
+    document.getElementById("header_container").style.borderBottom = "none";
     setInterval(updateGradient,10);
   }
+
+  [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+    img.setAttribute('src', img.getAttribute('data-src'));
+    img.onload = function() { img.removeAttribute('data-src'); };
+  });
 
 })();
