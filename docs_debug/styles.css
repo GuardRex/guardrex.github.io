@@ -151,3 +151,8 @@ table td:not(:first-child) {
 .nostyle, .nostyle:hover {
     color: black
 }
+
+/* Twitter layout fix */
+#twitter-widget-0, #twitter-widget-1 {
+    padding-top: 5px
+}
