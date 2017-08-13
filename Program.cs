@@ -5,6 +5,7 @@ using WebMarkupMin.Core;
 using System.IO;
 using static System.IO.SearchOption;
 using System.Text.RegularExpressions;
+using System.Collections.Concurrent;
 
 namespace guardrex.com
 {
@@ -14,35 +15,46 @@ namespace guardrex.com
 
         static void Main(string[] args)
         {
-            // Default values
-            var pageMetadataDict = new Dictionary<string, string>() 
-            {
-                { "copyright_year", DateTime.Now.Year.ToString() },
-                { "domain", "www.guardrex.com" },
-                { "bootstrap_version", "3.3.7" },
-                { "google_analytics_property", "UA-48425827-1" },
-                { "site_title", "the guardrex chew" },
-                { "page_title", string.Empty },
-                { "page_description", string.Empty },
-                { "blog_owner_name", "Luke Latham" },
-                { "blog_owner_twitter_username", "guardrex" },
-                { "content", string.Empty },
-                { "styles", string.Empty },
-                { "scripts", string.Empty }
-            };
+            // Setup a few general values for use in the layout, RSS, and sitmap
+            var site_title = "the guardrex chew";
+            var site_description = "Read guardrex articles on IT topics.";
+            var domain = "www.guardrex.com";
+
+            // Set the path to the repo docs_debug folder
+            var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
+
+            // Setup for the index page content
+            StringBuilder indexContent = new StringBuilder();
+
+            // Setup for the RSS file
+            StringBuilder rssContent = new StringBuilder($@"<?xml version=""1.0"" encoding=""utf-8""?><rss version=""2.0""><channel><title>{site_title}</title><link>http://{domain}/</link><description>{site_description}</description>");
+
+            // Setup for the sitemap file
+            StringBuilder sitemapContent = new StringBuilder($@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:schemaLocation=""http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd""><url><loc>http://{domain}/</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod><priority>1</priority></url><url><loc>http://{domain}/rss.xml</loc><changefreq>weekly</changefreq><lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod></url>");
+
+            // Setup dict to hold page metadata
+            var pageMetadataDict = new ConcurrentDictionary<string, string>();
             
-            // Load styles and scripts
-            pageMetadataDict["styles"] = File.ReadAllText(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\styles.css");
-            pageMetadataDict["scripts"] = File.ReadAllText(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\scripts.js");
-
             //Load the layout
-            var layout = File.ReadAllText(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\layout.htm");
+            var layout = File.ReadAllText($"{path}layout.htm");
 
-            // RegEx
+            // Replace tokens in the layout
+            layout = layout
+                .Replace("!styles", File.ReadAllText($"{path}styles.css"))
+                .Replace("!scripts", File.ReadAllText($"{path}scripts.js"))
+                .Replace("!copyright_year", DateTime.Now.Year.ToString())
+                .Replace("!domain", domain)
+                .Replace("!bootstrap_version", "3.3.7")
+                .Replace("!google_analytics_property", "UA-48425827-1")
+                .Replace("!site_title", site_title)
+                .Replace("!blog_owner_name", "Luke Latham")
+                .Replace("!blog_owner_twitter_username", "guardrex");
+
+            // RegEx to grab metadata from pages
             Regex regExp = new Regex(@"^(.*?)\r\n---", RegexOptions.Compiled | RegexOptions.Singleline);
             
-            // Cycle through the pages
-            var files = Directory.EnumerateFiles(@"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug", "*.html", AllDirectories);
+            // Work on the pages
+            var files = Directory.EnumerateFiles(path, "*.html", AllDirectories);
             foreach (var file in files)
             {
                 var fileText = File.ReadAllText(file);
@@ -54,30 +66,50 @@ namespace guardrex.com
                 {
                     var key = metadataLine.Substring(0, metadataLine.IndexOf(":"));
                     var value = metadataLine.Substring(metadataLine.IndexOf(":") + 2);
-                    pageMetadataDict[key] = value;
+                    pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
-                // Merge the content (sans metadata) with the layout.html file
+                // Merge the content (sans metadata) into the layout
                 var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3));
 
-                // Replace values
+                // Replace tokens with page metadata from the dict
                 foreach (var pageMetadataItem in pageMetadataDict)
                 {
-                    var replaceKey = $"!{pageMetadataItem.Key}";
-                    var replaceValue = pageMetadataItem.Value;
-                    outputMarkup = outputMarkup.Replace(replaceKey, replaceValue);
+                    outputMarkup = outputMarkup.Replace($"!{pageMetadataItem.Key}", pageMetadataItem.Value);
                 }
 
                 // Minify page
                 outputMarkup = Minify(outputMarkup);
 
-                // Save it to docs
-                var saveFile = file.Replace("docs_debug", "docs");
+                // Generate content for index, RSS, and sitemap files
+                if (!file.EndsWith("index.html"))
+                {
+                    var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                    indexContent.Append($@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn btn-default"" href=""post/{fileName}"">Read More</a></p></div>");
+
+                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{fileName}</link><guid>post/{fileName}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
+
+                    sitemapContent.Append($@"<url><loc>http://{domain}/post/{fileName}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
+                }
+
+                // Save it to the docs folder
+                var saveFile = file.Replace("_debug", string.Empty);
                 File.WriteAllText(saveFile, outputMarkup);
             }
+
+            // Inject the index page content
+            var indexFilePath = $@"{path.Replace("_debug", string.Empty)}\index.html";
+            var indexFileText = File.ReadAllText(indexFilePath);
+            File.WriteAllText(indexFilePath, indexFileText.Replace("!index_content", indexContent.ToString()));
             
-            // Generate RSS and sitemap files
-            
+            // Finish up the RSS file
+            rssContent.Append(@"</channel></rss>");
+            File.WriteAllText($@"{path.Replace("_debug", string.Empty)}rss.xml", rssContent.ToString());
+
+            // Finish up the sitemap file
+            sitemapContent.Append(@"</urlset>");
+            File.WriteAllText($@"{path.Replace("_debug", string.Empty)}sitemap.xml", sitemapContent.ToString());
         }
 
         private static string Minify(string markup)
