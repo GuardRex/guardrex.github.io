@@ -46,7 +46,6 @@ namespace guardrex.com
                 .Replace("!styles", File.ReadAllText($"{path}styles.css"))
                 .Replace("!scripts", File.ReadAllText($"{path}scripts.js"))
                 .Replace("!copyright_year", DateTime.Now.Year.ToString())
-                .Replace("!domain", domain)
                 .Replace("!bootstrap_version", "3.3.7")
                 .Replace("!google_analytics_property", "UA-48425827-1")
                 .Replace("!site_title", site_title)
@@ -61,6 +60,7 @@ namespace guardrex.com
             foreach (var file in files)
             {
                 var fileText = File.ReadAllText(file);
+                var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
                 // Read metadata from page into the dict of replacement values
                 var metadataCapture = regExp.Matches(fileText);
@@ -74,7 +74,9 @@ namespace guardrex.com
 
                 // Merge the content (sans metadata) into the layout and apply the CDN domcain where needed
                 var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3))
-                    .Replace("!cdn_domain", cdn_domain);
+                    .Replace("!cdn_domain", cdn_domain)
+                    .Replace("!domain", domain)
+                    .Replace("!filename", filename);
 
                 // Replace tokens with page metadata from the dict
                 foreach (var pageMetadataItem in pageMetadataDict)
@@ -88,13 +90,13 @@ namespace guardrex.com
                 // Generate content for index, RSS, and sitemap files
                 if (!file.EndsWith("index.html"))
                 {
-                    var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+                    
 
-                    indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{fileName}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{fileName}"">Read More</a></p></div>"));
+                    indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{filename}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{filename}"">Read More</a></p></div>"));
 
-                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{fileName}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
+                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{filename}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
 
-                    sitemapContent.Append($@"<url><loc>http://{domain}/post/{fileName}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
+                    sitemapContent.Append($@"<url><loc>http://{domain}/post/{filename}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
                 }
 
                 // Save it to the docs folder

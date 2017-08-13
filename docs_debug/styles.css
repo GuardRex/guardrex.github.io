@@ -8,7 +8,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 500;
 	line-height: 1.1;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-bottom: 10px
 }
 
@@ -114,6 +114,10 @@ table td:not(:first-child) {
     padding-left: 10px
 }
 
+#social_top, #social_bottom td {
+    padding-top: 10px
+}
+
 .note, .tip, .warning {
     border: 1px solid gray;
     padding: 10px;
@@ -150,9 +154,4 @@ table td:not(:first-child) {
 
 .nostyle, .nostyle:hover {
     color: black
-}
-
-/* Twitter layout fix */
-#twitter-widget-0, #twitter-widget-1 {
-    padding-top: 5px
 }

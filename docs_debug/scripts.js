@@ -57,6 +57,8 @@
   
   if ( document.getElementById("gradient") != null ) {
     document.getElementById("header_container").style.borderBottom = "none";
+    document.getElementById("social_top").style.display = "none";
+    document.getElementById("disqus_thread").style.display = "none";
     setInterval(updateGradient,10);
   }
 
@@ -106,5 +108,10 @@
           window.attachEvent('on' + event, func)
       }
   }
+
+    var d=document,s=d.createElement('script');
+    s.src='https://guardrex.disqus.com/embed.js';
+    s.setAttribute('data-timestamp',+new Date());
+    (d.head||d.body).appendChild(s);
 
 })();
