@@ -10,13 +10,18 @@ cd "$($buildFolder)\..\"
 mkdir gh-deploy
 git clone --quiet --branch=master https://$($username):$($personalAccessToken)@github.com/guardrex/guardrex.com.git .\gh-deploy\
 cd gh-deploy
+
+dir
+
 git status
 
 #Write-Host "- Clean docs folder...."
 #Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force
 
-Write-Host "- Copy contents of docs folder into docs folder...."
-copy-item -path ..\docs\* -Destination $pwd.Path -Recurse
+Write-Host $pwd.Path
+
+Write-Host "- Copy contents of guardrex-com into docs folder...."
+copy-item -path ..\guardrex-com\* -Destination $pwd.Path -Recurse
 
 git status
 $thereAreChanges = git status | select-string -pattern "Changes not staged for commit:","Untracked files:" -simplematch
