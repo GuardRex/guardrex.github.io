@@ -68,8 +68,7 @@ namespace guardrex.com
                 var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
                 Console.WriteLine(filename);
-                Console.WriteLine();
-                Console.WriteLine(fileText);
+
                 Console.WriteLine();
                 
                 var breakPoint = fileText.IndexOf("---");
@@ -77,16 +76,25 @@ namespace guardrex.com
                 Console.WriteLine($"Breakpoint: {breakPoint}");
 
                 var metadataSection = fileText.Substring(0, breakPoint);
+
+                Console.WriteLine();
+                Console.WriteLine("metadataSection:");
+                Console.WriteLine(metadataSection);
+
+                Console.WriteLine();
                 var metadataLines = metadataSection.Split("\r\n");
                 for (var i = 0; i < metadataLines.Count() - 1; i++)
                 {
                     var colonIndex = metadataLines[i].IndexOf(":");
                     var key = metadataLines[i].Substring(0, colonIndex);
                     var value = metadataLines[i].Substring(colonIndex + 2);
+
+                    Console.WriteLine($"Writing key: {key} value: {value}");
+
                     pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
-                // Merge the content (sans metadata) into the layout and apply the CDN domcain where needed
+                // Merge the content (sans metadata) into the layout and apply the CDN domain where needed
                 var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3))
                     .Replace("!cdn_domain", cdn_domain)
                     .Replace("!domain", domain)
@@ -143,11 +151,9 @@ namespace guardrex.com
                 MinificationStatistics statistics = result.Statistics;
                 if (statistics != null)
                 {
-                    Console.WriteLine("Original size: {0:N0} Bytes", statistics.OriginalSize);
-                    Console.WriteLine("Minified size: {0:N0} Bytes", statistics.MinifiedSize);
-                    Console.WriteLine("Saved: {0:N2}%", statistics.SavedInPercent);
+                    Console.WriteLine("Original size: {0:N0} Bytes | Minified size: {0:N0} | Bytes Saved: {0:N2}%", statistics.OriginalSize, statistics.MinifiedSize, statistics.SavedInPercent);
                 }
-                Console.WriteLine("Minified content:{0}{0}{1}", Environment.NewLine, result.MinifiedContent);
+                //Console.WriteLine("Minified content:{0}{0}{1}", Environment.NewLine, result.MinifiedContent);
 
                 return result.MinifiedContent;
             }
