@@ -15,7 +15,7 @@ install:
   - ps: '& "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1" -Version $env:CLI_VERSION -InstallDir $env:DOTNET_INSTALL_DIR'
   - ps: $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
 
-build:
+build_script:
   - ps: dotnet --info
   - ps: dotnet restore
   - ps: dotnet run
