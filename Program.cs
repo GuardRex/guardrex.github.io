@@ -71,24 +71,13 @@ namespace guardrex.com
                 Console.WriteLine(filename);
 
                 var breakPoint = fileText.IndexOf("---");
-
-
                 var metadataSection = fileText.Substring(0, breakPoint);
-
-                Console.WriteLine();
-                Console.WriteLine("metadataSection:");
-                Console.WriteLine(metadataSection);
-
-                Console.WriteLine();
                 var metadataLines = metadataSection.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 for (var i = 0; i < metadataLines.Count() - 1; i++)
                 {
                     var colonIndex = metadataLines[i].IndexOf(":");
                     var key = metadataLines[i].Substring(0, colonIndex);
                     var value = metadataLines[i].Substring(colonIndex + 2);
-
-                    Console.WriteLine($"Writing key: {key} value: {value}");
-
                     pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
@@ -149,7 +138,7 @@ namespace guardrex.com
                 MinificationStatistics statistics = result.Statistics;
                 if (statistics != null)
                 {
-                    Console.WriteLine("Original size: {0:N0} Bytes | Minified size: {0:N0} | Bytes Saved: {0:N2}%", statistics.OriginalSize, statistics.MinifiedSize, statistics.SavedInPercent);
+                    Console.WriteLine("Original size: {0:N0} Bytes | Minified size: {1:N0} | Bytes Saved: {2:N2}%", statistics.OriginalSize, statistics.MinifiedSize, statistics.SavedInPercent);
                 }
                 //Console.WriteLine("Minified content:{0}{0}{1}", Environment.NewLine, result.MinifiedContent);
 
