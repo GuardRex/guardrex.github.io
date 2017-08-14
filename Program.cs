@@ -67,13 +67,11 @@ namespace guardrex.com
                 var fileText = File.ReadAllText(file);
                 var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
+                Console.WriteLine();
                 Console.WriteLine(filename);
 
-                Console.WriteLine();
-                
                 var breakPoint = fileText.IndexOf("---");
 
-                Console.WriteLine($"Breakpoint: {breakPoint}");
 
                 var metadataSection = fileText.Substring(0, breakPoint);
 
@@ -82,7 +80,7 @@ namespace guardrex.com
                 Console.WriteLine(metadataSection);
 
                 Console.WriteLine();
-                var metadataLines = metadataSection.Split("\r\n");
+                var metadataLines = metadataSection.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 for (var i = 0; i < metadataLines.Count() - 1; i++)
                 {
                     var colonIndex = metadataLines[i].IndexOf(":");
