@@ -60,9 +60,6 @@ namespace guardrex.com
                 .Replace("!blog_owner_name", "Luke Latham")
                 .Replace("!blog_owner_twitter_username", "guardrex");
 
-            // RegEx to grab metadata from pages
-            Regex regExp = new Regex(@"^(.*?)\r\n---", RegexOptions.Compiled | RegexOptions.Singleline);
-            
             // Work on the pages
             var files = Directory.EnumerateFiles(path, "*.html", AllDirectories);
             foreach (var file in files)
@@ -70,18 +67,13 @@ namespace guardrex.com
                 var fileText = File.ReadAllText(file);
                 var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
-                Console.WriteLine($"Capturing metadata on: {filename}");
-
-                // Read metadata from page into the dict of replacement values
-                var metadataCapture = regExp.Matches(fileText);
-                var metadataCapture2 = metadataCapture[0];
-                var metadataCapture3 = metadataCapture2.Groups[1];
-                var metadataCapture4 = metadataCapture3.Value;
-                var metadataCaptureLines = metadataCapture4.Split("\r\n");
-                foreach (var metadataLine in metadataCaptureLines)
+                var breakPoint = fileText.IndexOf("\r\n---");
+                var metadataSection = fileText.Substring(0, breakPoint);
+                var metadataLines = metadataSection.Split("\r\n");
+                foreach (var line in metadataLines)
                 {
-                    var key = metadataLine.Substring(0, metadataLine.IndexOf(":"));
-                    var value = metadataLine.Substring(metadataLine.IndexOf(":") + 2);
+                    var key = line.Substring(0, line.IndexOf(":"));
+                    var value = line.Substring(line.IndexOf(":") + 2);
                     pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
@@ -103,8 +95,6 @@ namespace guardrex.com
                 // Generate content for index, RSS, and sitemap files
                 if (!file.EndsWith("index.html"))
                 {
-                    
-
                     indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{filename}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{filename}"">Read More</a></p></div>"));
 
                     rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{filename}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
