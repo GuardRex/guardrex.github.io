@@ -23,8 +23,8 @@ namespace guardrex.com
             var cdn_domain = "rexsite.azureedge.net";
 
             // Set the path to the repo docs_debug folder
-            var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
-
+            //var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
+            var path = @"c:\projects\guardrex-com\docs_debug\";
             // Setup for the index page content
             var indexContent = new StringBuilder();
             var indexContentPosts = new List<KeyValuePair<string, string>>();
