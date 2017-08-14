@@ -74,7 +74,10 @@ namespace guardrex.com
 
                 // Read metadata from page into the dict of replacement values
                 var metadataCapture = regExp.Matches(fileText);
-                var metadataCaptureLines = metadataCapture[0].Groups[1].Value.Split("\r\n");
+                var metadataCapture2 = metadataCapture[0];
+                var metadataCapture3 = metadataCapture2.Groups[1];
+                var metadataCapture4 = metadataCapture3.Value;
+                var metadataCaptureLines = metadataCapture4.Split("\r\n");
                 foreach (var metadataLine in metadataCaptureLines)
                 {
                     var key = metadataLine.Substring(0, metadataLine.IndexOf(":"));
