@@ -72,16 +72,17 @@ namespace guardrex.com
                 Console.WriteLine(fileText);
                 Console.WriteLine();
                 
-                var breakPoint = fileText.IndexOf("\r\n---");
+                var breakPoint = fileText.IndexOf("---");
 
                 Console.WriteLine($"Breakpoint: {breakPoint}");
 
                 var metadataSection = fileText.Substring(0, breakPoint);
                 var metadataLines = metadataSection.Split("\r\n");
-                foreach (var line in metadataLines)
+                for (var i = 0; i < metadataLines.Count() - 1; i++)
                 {
-                    var key = line.Substring(0, line.IndexOf(":"));
-                    var value = line.Substring(line.IndexOf(":") + 2);
+                    var colonIndex = metadataLines[i].IndexOf(":");
+                    var key = metadataLines[i].Substring(0, colonIndex);
+                    var value = metadataLines[i].Substring(colonIndex + 2);
                     pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
                 }
 
