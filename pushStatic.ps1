@@ -26,7 +26,7 @@ if ($thereAreChanges -ne $null) {
     git add --all
     Write-Host "- Status:"
     git status
-    git commit -m "skip ci - static site regeneration"
+    git commit -m "[ci skip] GitHub Pages regeneration"
     Write-Host "- Status:"
     git status
     Write-host "- Pushing commit..."
