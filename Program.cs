@@ -23,8 +23,16 @@ namespace guardrex.com
             var cdn_domain = "rexsite.azureedge.net";
 
             // Set the path to the repo docs_debug folder
-            //var path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
-            var path = @"c:\projects\guardrex-com\docs_debug\";
+            string path;
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPVEYOR")))
+            {
+                path = @"c:\projects\guardrex-com\docs_debug\";
+            }
+            else
+            {
+                path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
+            }
+
             // Setup for the index page content
             var indexContent = new StringBuilder();
             var indexContentPosts = new List<KeyValuePair<string, string>>();
@@ -62,9 +70,11 @@ namespace guardrex.com
                 var fileText = File.ReadAllText(file);
                 var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
+                Console.WriteLine($"Capturing metadata on: {filename}");
+
                 // Read metadata from page into the dict of replacement values
                 var metadataCapture = regExp.Matches(fileText);
-                var metadataCaptureLines = metadataCapture[0].Groups[1].ToString().Split("\r\n");
+                var metadataCaptureLines = metadataCapture[0].Groups[1].Value.Split("\r\n");
                 foreach (var metadataLine in metadataCaptureLines)
                 {
                     var key = metadataLine.Substring(0, metadataLine.IndexOf(":"));
