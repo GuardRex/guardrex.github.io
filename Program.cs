@@ -67,7 +67,15 @@ namespace guardrex.com
                 var fileText = File.ReadAllText(file);
                 var filename = file.Substring(file.LastIndexOf("\\") + 1);
 
+                Console.WriteLine(filename);
+                Console.WriteLine();
+                Console.WriteLine(fileText);
+                Console.WriteLine();
+                
                 var breakPoint = fileText.IndexOf("\r\n---");
+
+                Console.WriteLine($"Breakpoint: {breakPoint}");
+
                 var metadataSection = fileText.Substring(0, breakPoint);
                 var metadataLines = metadataSection.Split("\r\n");
                 foreach (var line in metadataLines)
