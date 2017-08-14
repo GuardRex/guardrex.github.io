@@ -15,12 +15,12 @@ install:
   - ps: '& "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1" -Version $env:CLI_VERSION -InstallDir $env:DOTNET_INSTALL_DIR'
   - ps: $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
 
-build_script:
+build:
   - ps: dotnet --info
   - ps: dotnet restore
   - ps: dotnet run
 
-after_test:
+after_build:
   - ps: ./pushStatic.ps1 $env:APPVEYOR_BUILD_FOLDER $env:GithubEmail $env:GithubUsername $env:GithubPersonalAccessToken
 
 test: off 
