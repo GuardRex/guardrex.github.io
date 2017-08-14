@@ -109,6 +109,10 @@ namespace guardrex.com
                 // Save it to the docs folder
                 var saveFile = file.Replace("_debug", string.Empty);
                 File.WriteAllText(saveFile, outputMarkup);
+
+                Console.WriteLine();
+                Console.WriteLine("Done!");
+                Console.WriteLine();
             }
 
             // Inject the index page content

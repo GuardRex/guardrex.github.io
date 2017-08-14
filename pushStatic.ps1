@@ -12,13 +12,10 @@ git clone --quiet --branch=master https://$($username):$($personalAccessToken)@g
 cd gh-deploy\docs
 
 Write-Host
-Write-Host "Contents of gh-deploy\docs:"
-dir
-
-Write-Host
 Write-Host "Status:"
 git status
 
+Write-Host
 Write-Host "- Clean docs folder...."
 Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force
 
@@ -27,7 +24,7 @@ Write-Host "Contents of gh-deploy\docs after clean:"
 dir
 
 Write-Host "- Copy contents of guardrex-com into docs folder...."
-copy-item -path ..\guardrex-com\docs\* -Destination $pwd.Path\docs -Recurse
+copy-item -path c:\projects\guardrex-com\docs\* -Destination c:\projects\gh-deploy\docs -Recurse
 
 Write-Host
 Write-Host "Contents of gh-deploy\docs after copy:"
