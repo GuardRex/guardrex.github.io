@@ -2,6 +2,11 @@ image: Visual Studio 2017
 
 environment:
   CLI_VERSION: 2.0.1-servicing-006924
+  GithubEmail:
+    secure: o0fq4fcj4kiVf61zNA0nai8AOIDjJwUGRMTtpL9r8ho=
+  GithubUsername: guardrex
+  GithubPersonalAccessToken:
+    secure: G1+VFr+LMhAQ+VtLCC6wn2TKigwn13Vv73F3CgT6BgYbeYxsN/T5Zk/wMKyAiD2X
 
 install:
   - ps: $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
@@ -14,6 +19,9 @@ build_script:
   - ps: dotnet --info
   - ps: dotnet restore
   - ps: dotnet run
+
+after_test:
+  - ps: ./pushStatic.ps1 $env:APPVEYOR_BUILD_FOLDER $env:GithubEmail $env:GithubUsername $env:GithubPersonalAccessToken
 
 test: off 
 version: 0.0.1.{build}
