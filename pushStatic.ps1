@@ -15,8 +15,8 @@ git status
 #Write-Host "- Clean docs folder...."
 #Get-ChildItem -Attributes !r | Remove-Item -Recurse -Force
 
-Write-Host "- Copy contents of docs_built folder into docs folder...."
-copy-item -path ..\docs\* -Destination $pwd.Path\docs -Recurse
+Write-Host "- Copy contents of docs folder into docs folder...."
+copy-item -path ..\docs\* -Destination $pwd.Path -Recurse
 
 git status
 $thereAreChanges = git status | select-string -pattern "Changes not staged for commit:","Untracked files:" -simplematch
