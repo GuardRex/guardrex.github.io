@@ -1,7 +1,7 @@
 page_title: Razor Pages Compile-time Minification with ASP.NET Core 2.0
 page_description: Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor pages at compile time.
 publication_date: Sun, 13 Aug 2017 12:00:00 GMT
-last_modification_date: 2017-08-13
+last_modification_date: 2017-08-15
 cdn_folder: razor-pages-minification
 guid: 617036b2-8730-4255-8f25-0e01577f177a
 social_title: Razor%20Compile%2Dtime%20Minification%20with%20ASP%2ENET%20Core%202%2E0
@@ -16,6 +16,8 @@ social_source: the%20guardrex%20chew
 	<ul>
 	<li><a href="#introduction">Introduction</a></li>
 	<li><a href="#prerequisites">Prerequisites</a></li>
+	<li><a href="#sample-app">Sample App</a></li>
+	<li><a href="#set-up">The Setup</a></li>
 	<li><a href="#additional-resources">Additional Resources</a></li>
 	<li><a href="#acknowledgements">Acknowledgements</a></li>
 	</ul>
@@ -27,7 +29,8 @@ social_source: the%20guardrex%20chew
 		</svg>
 		<a href="#introduction" class="nostyle">Introduction</a>
 	</h2>
-	<p>Introduction</p>
+	<p>Compile-time minification of markup with ASP.NET Core 1.x has been possible but only with difficulty. There's no easy way to plug in a third-party minification library so that markup from a View file can be intercepted prior to the Razor engine processing it. Because there isn't a simple extensibility point to intercept View content, you're left the the challenge of replacing a large amount of the Razor engine and working with the "chunks" of markup and Razor code that the engine , which are convienant for the Razor engine to use but difficult to manage for markup minification.</p>
+	<p>In the ASP.NET Core 2.0 Razor engine, the situation is <em>much</em> improved. An extensibility point is present that permits you to simply intercept View file content, minfify the content, and pass the content on to the Razor engine for processing.</p>
 
 	<a id="prerequisites"></a>
 	<h2>
@@ -36,7 +39,175 @@ social_source: the%20guardrex%20chew
 		</svg>
 		<a href="#prerequisites" class="nostyle">Prerequisites</a>
 	</h2>
-	<p>Prerequisites</p>
+	<ul>
+		<li>.NET Core SDK 2.0 or later</li>
+	</ul>
+
+	<a id="sample-app"></a>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#sample-app" class="nostyle">Sample app</a>
+	</h2>
+	<p>Download a fully working sample to accompany this post from the <a href="https://github.com/guardrex/RazorMinification">guardrex/RazorMinification repo</a> at GitHub.</p>
+
+	<a id="the-setup"></a>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#the-setup" class="nostyle">The Setup</a>
+	</h2>
+	<p>First, choose a 3rd party library that's capable of markup minification. This demo uses <a href="https://www.nuget.org/packages/WebMarkupMin.Core/">WebMarkupMin.Core</a> (<a href="https://github.com/Taritsyn/WebMarkupMin">GitHub</a>) by Andrey Taritsyn (<a href="https://github.com/Taritsyn">GitHub</a>, <a href="https://taritsyn.wordpress.com/">Blog</a>, <a href="https://twitter.com/andrey_taritsyn">Twitter</a>). WebMarkupMin.Core is a good choice because it minifies both the markup and inlined styles and scripts.</p>
+	<p>Replace the <code>RazorTemplateEngine</code> overriding the <code>CreateCodeDocument</code> method with an implementation that performs the following work:</p>
+	<ul>
+		<li>Setup a <code>StreamReader</code> to read the View file contents</li>
+		<li>Split the Razor directives from the content</li>
+		<li>Pass the content to your minfication method</li>
+		<li>Reassemble the Razor directives and minified markup</li>
+		<li>Convert the content back into a byte array and use a <code>MemoryStream</code> to return it to the Razor engine for processing</li>
+	</ul>
+	<p>A complete sample implementation goes like this:</p>
+	<pre><code>public class CustomRazorTemplateEngine : RazorTemplateEngine
+{
+	private HtmlMinifier _htmlMinifier = new HtmlMinifier();
+
+	public CustomRazorTemplateEngine(RazorEngine engine, RazorProject project) : base(engine, project)
+	{
+		Options.ImportsFileName = "_ViewImports.cshtml";
+	}
+
+	public override RazorCodeDocument CreateCodeDocument(RazorProjectItem projectItem)
+	{
+		if (projectItem == null)
+		{
+			throw new ArgumentNullException($"{nameof(projectItem)} is null!");
+		}
+
+		if (!projectItem.Exists)
+		{
+			throw new InvalidOperationException($"{nameof(projectItem)} doesn't exist!");
+		}
+
+		Console.WriteLine();
+		Console.WriteLine($"File: {projectItem.FileName}");
+
+		using (var inputStream = projectItem.Read())
+		{
+			using (var reader = new StreamReader(inputStream))
+			{
+				var text = reader.ReadToEnd();
+
+				var markupStart = text.IndexOf("&lt;!DOCTYPE");
+				var directives = text.Substring(0, markupStart);
+				var markup = text.Substring(markupStart);
+
+				text = directives + Minify(markup);
+
+				var byteArray = Encoding.UTF8.GetBytes(text);
+				var minifiedInputStream = new MemoryStream(byteArray);
+
+				var source = RazorSourceDocument.ReadFrom(minifiedInputStream, projectItem.PhysicalPath);
+				var imports = GetImports(projectItem);
+
+				return RazorCodeDocument.Create(source, imports);
+			}
+		}
+	}
+
+	private string Minify(string markup)
+	{
+		MarkupMinificationResult result = _htmlMinifier.Minify(markup, string.Empty, Encoding.UTF8, true);
+		
+		if (result.Errors.Count == 0)
+		{
+			MinificationStatistics statistics = result.Statistics;
+			if (statistics != null)
+			{
+				Console.WriteLine();
+				Console.WriteLine($"Original size: {statistics.OriginalSize:N0} Bytes | Minified size: {statistics.MinifiedSize:N0} Bytes | Saved: {statistics.SavedInPercent:N2}%");
+			}
+			//Console.WriteLine($"{Environment.NewLine}Minified content:{Environment.NewLine}{Environment.NewLine}{result.MinifiedContent}");
+
+			return result.MinifiedContent;
+		}
+		else
+		{
+			IList&lt;MinificationErrorInfo&gt; errors = result.Errors;
+
+			Console.WriteLine();
+			Console.WriteLine($"Found {errors.Count:N0} error(s):");
+
+			foreach (var error in errors)
+			{
+				Console.WriteLine($" - Line {error.LineNumber}, Column {error.ColumnNumber}: {error.Message}");
+			}
+
+			return markup;
+		}
+	}
+}</code></pre>
+	<p>Finally, wire up the Razor engine replacement when you build the host:</p>
+	<pre><code>public class Program
+{
+	public static void Main(string[] args)
+	{
+		BuildWebHost(args).Run();
+	}
+
+	public static IWebHost BuildWebHost(string[] args) =>
+		WebHost.CreateDefaultBuilder(args)
+			.ConfigureServices(services =>
+			{
+				services.AddMvc();
+				services.AddSingleton&lt;RazorTemplateEngine, CustomRazorTemplateEngine&gt;();
+			})
+			.Configure(app =>
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseMvcWithDefaultRoute();
+				app.UseStaticFiles();
+			})
+			.Build();
+}</code></pre>
+		<p><code>WebMarkupMin.Core</code> isn't so good at parsing Razor in a Razor page, so see the <em>Index.cshtml</em> page below to see how to escape sections of Razor code from the minification engine by placing the code inside of escape tags (<code>&lt;!--wmm:ignore--&gt;...&lt;!--/wmm:ignore--&gt;</code>). Note that the use of <code><text></code> tags prevents extra spaces and CR's from those Razor line transitions from making their way into the rendered markup.</p>
+		<pre><code>@page
+@model IndexModel
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment Host
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+	&lt;title&gt;Razor Pages Minification App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h1&gt;Razor Pages Minification App&lt;/h1&gt;
+	&lt;p&gt;@Host.ApplicationName @Model.DT&lt;/p&gt;
+	&lt;figure style="text-align:center;width:400px"&gt;
+		&lt;img alt="Jack Burton" src="image.png"&gt;
+		&lt;figcaption&gt;Jack Burton (Kurt Russell)&lt;br&gt;&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;&copy;1986 &lt;a href="http://www.foxmovies.com/"&gt;20th Century Fox&lt;/a&gt;&lt;/figcaption&gt;
+	&lt;/figure&gt;
+	&lt;p&gt;
+		People:
+		&lt;ol&gt;
+			&lt;!--wmm:ignore--&gt;@for (var i = 0; i &lt; Model.People.Count; i++)
+			{
+				var person = Model.People[i];
+				&lt;text&gt;&lt;li&gt;@person&lt;/li&gt;&lt;/text&gt;
+			}&lt;!--/wmm:ignore--&gt;
+		&lt;/ol&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		&lt;!--wmm:ignore--&gt;@if (Model.People.Count &lt; 10)
+		{
+			&lt;text&gt;There are less than ten people.&lt;/text&gt;
+		}&lt;!--/wmm:ignore--&gt;
+	&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+	<p>The final rendered output is minified:</p>
+	<blockquote>&lt;!DOCTYPE html&gt;&lt;html lang=en&gt;&lt;head&gt;&lt;title&gt;Razor Pages Minification App&lt;/title&gt;&lt;body&gt;&lt;h1&gt;Razor Pages Minification App&lt;/h1&gt;&lt;p&gt;RazorMinification 8/14/2017 4:24:29 PM&lt;/p&gt;&lt;figure style=text-align:center;width:400px&gt;&lt;img alt="Jack Burton" src=image.png&gt;&lt;figcaption&gt;Jack Burton (Kurt Russell)&lt;br&gt;&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;&copy;1986 &lt;a href="http://www.foxmovies.com/"&gt;20th Century Fox&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;People:&lt;ol&gt;&lt;li&gt;Susan&lt;/li&gt;&lt;li&gt;Catalina&lt;/li&gt;&lt;li&gt;Diego&lt;/li&gt;&lt;li&gt;Bob&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;There are less than ten people.</blockquote>
+	<a href="http://!cdn_domain/!cdn_folder/image.png"><img alt="Rendered Razor page" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/image.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="additional-resources"></a>
 	<h2>

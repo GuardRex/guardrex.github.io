@@ -98,7 +98,8 @@ pre {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    overflow: auto;
+    white-space: pre-wrap;
+    tab-size: 4;
 }
 
 ol li {
