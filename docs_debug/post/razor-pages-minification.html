@@ -60,7 +60,7 @@ social_source: the%20guardrex%20chew
 		<a href="#the-setup" class="nostyle">The Setup</a>
 	</h2>
 	<p>First, choose a 3rd party library that's capable of markup minification. This demo uses <a href="https://www.nuget.org/packages/WebMarkupMin.Core/">WebMarkupMin.Core</a> (<a href="https://github.com/Taritsyn/WebMarkupMin">GitHub</a>) by Andrey Taritsyn (<a href="https://github.com/Taritsyn">GitHub</a>, <a href="https://taritsyn.wordpress.com/">Blog</a>, <a href="https://twitter.com/andrey_taritsyn">Twitter</a>). <code class="language-csharp">WebMarkupMin.Core</code> is a good choice because it minifies both the markup and inlined styles and scripts.</p>
-	<p>Replace the <code class="language-csharp">RazorTemplateEngine</code> overriding the <code class="language-csharp">CreateCodeDocument</code> method with an implementation that performs the following work:</p>
+	<p>Replace the <code class="language-csharp">RazorTemplateEngine</code> overriding the <code class="language-csharp">CreateCodeDocument</code> method (<a href="https://github.com/aspnet/Razor/blob/dev/src/Microsoft.AspNetCore.Razor.Language/RazorTemplateEngine.cs#L140-L156">ref source</a>) with an implementation that performs the following work:</p>
 	<ul>
 		<li>Setup a <code class="language-csharp">StreamReader</code> to read the View file contents.</li>
 		<li>Split the Razor directives from the content.</li>

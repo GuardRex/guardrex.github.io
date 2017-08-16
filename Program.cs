@@ -21,11 +21,13 @@ namespace guardrex.com
             var site_description = "Read guardrex articles on IT topics.";
             var domain = "www.guardrex.com";
             var cdn_domain = "rexsite.azureedge.net";
+            var ciBuild = false;
 
             // Set the path to the repo docs_debug folder
             string path;
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPVEYOR")))
             {
+                ciBuild = true;
                 path = @"c:\projects\guardrex-com\docs_debug\";
             }
             else
@@ -107,7 +109,15 @@ namespace guardrex.com
                 }
 
                 // Save it to the docs folder
-                var saveFile = file.Replace("_debug", string.Empty);
+                string saveFile;
+                if (ciBuild)
+                {
+                    saveFile = file.Replace("_debug", string.Empty);
+                }
+                else
+                {
+                    saveFile = file.Replace("_debug", "_staging");
+                }
                 File.WriteAllText(saveFile, outputMarkup);
 
                 Console.WriteLine();
@@ -121,17 +131,39 @@ namespace guardrex.com
             {
                 indexContent.Append(post.Value);
             }
-            var indexFilePath = $@"{path.Replace("_debug", string.Empty)}\index.html";
-            var indexFileText = File.ReadAllText(indexFilePath);
+            var indexFileText = File.ReadAllText($@"{path}\index.html");
+            string indexFilePath;
+            if (ciBuild)
+            {
+                indexFilePath = $@"{path.Replace("_debug", string.Empty)}\index.html";
+            }
+            else
+            {
+                indexFilePath = $@"{path.Replace("_debug", "_staging")}\index.html";
+            }
             File.WriteAllText(indexFilePath, indexFileText.Replace("!index_content", indexContent.ToString()));
             
             // Finish up the RSS file
             rssContent.Append(@"</channel></rss>");
-            File.WriteAllText($@"{path.Replace("_debug", string.Empty)}rss.xml", rssContent.ToString());
+            if (ciBuild)
+            {
+                File.WriteAllText($@"{path.Replace("_debug", string.Empty)}rss.xml", rssContent.ToString());
+            }
+            else
+            {
+                File.WriteAllText($@"{path.Replace("_debug", "_staging")}rss.xml", rssContent.ToString());
+            }
 
             // Finish up the sitemap file
             sitemapContent.Append(@"</urlset>");
-            File.WriteAllText($@"{path.Replace("_debug", string.Empty)}sitemap.xml", sitemapContent.ToString());
+            if (ciBuild)
+            {
+                File.WriteAllText($@"{path.Replace("_debug", string.Empty)}sitemap.xml", sitemapContent.ToString());
+            }
+            else
+            {
+                File.WriteAllText($@"{path.Replace("_debug", "_staging")}sitemap.xml", sitemapContent.ToString());
+            }
         }
 
         private static string Minify(string markup)
