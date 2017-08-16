@@ -69,9 +69,7 @@ img[data-src] {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    touch-action: manipulation;
     cursor: pointer;
-    user-select: none;
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -184,7 +182,7 @@ table td:not(:first-child) {
      -ms-hyphens: none;
      hyphens: none;
  }
- 
+ /*
  pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
  code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
      text-shadow: none;
@@ -196,7 +194,7 @@ table td:not(:first-child) {
      text-shadow: none;
      background: #b3d4fc;
  }
- 
+ */
  @media print {
      code[class*="language-"],
      pre[class*="language-"] {
