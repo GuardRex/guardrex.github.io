@@ -17,7 +17,7 @@ social_source: the%20guardrex%20chew
 	<li><a href="#introduction">Introduction</a></li>
 	<li><a href="#prerequisites">Prerequisites</a></li>
 	<li><a href="#sample-app">Sample App</a></li>
-	<li><a href="#set-up">The Setup</a></li>
+	<li><a href="#the-setup">The Setup</a></li>
 	<li><a href="#additional-resources">Additional Resources</a></li>
 	<li><a href="#acknowledgements">Acknowledgements</a></li>
 	</ul>
@@ -29,8 +29,8 @@ social_source: the%20guardrex%20chew
 		</svg>
 		<a href="#introduction" class="nostyle">Introduction</a>
 	</h2>
-	<p>Compile-time minification of markup with ASP.NET Core 1.x has been possible but only with difficulty. There's no easy way to plug in a third-party minification library so that markup from a View file can be intercepted prior to the Razor engine processing it. Because there isn't a simple extensibility point to intercept View content, you're left the the challenge of replacing a large amount of the Razor engine and working with the "chunks" of markup and Razor code that the engine , which are convienant for the Razor engine to use but difficult to manage for markup minification.</p>
-	<p>In the ASP.NET Core 2.0 Razor engine, the situation is <em>much</em> improved. An extensibility point is present that permits you to simply intercept View file content, minfify the content, and pass the content on to the Razor engine for processing.</p>
+	<p>Compile-time minification of markup with ASP.NET Core 1.x has been possible but only with difficulty. There's no easy way to plug in a third-party minification library so that markup from a View file can be intercepted prior to the Razor engine processing it. Because there isn't a simple extensibility point to intercept View content, you're left the the challenge of replacing a large amount of the Razor engine. To minify the content, you work with the "chunks" of markup that the engine uses, which are convienant for the Razor engine to process but difficult to manage for markup minification.</p>
+	<p>With the ASP.NET Core 2.0 Razor engine, the situation is <em>much</em> improved. An extensibility point is present that permits you to simply intercept View file content, minfify the content, and pass the content on to the Razor engine for processing.</p>
 
 	<a id="prerequisites"></a>
 	<h2>
@@ -48,7 +48,7 @@ social_source: the%20guardrex%20chew
 		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
 			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
 		</svg>
-		<a href="#sample-app" class="nostyle">Sample app</a>
+		<a href="#sample-app" class="nostyle">Sample App</a>
 	</h2>
 	<p>Download a fully working sample to accompany this post from the <a href="https://github.com/guardrex/RazorMinification">guardrex/RazorMinification repo</a> at GitHub.</p>
 
@@ -59,21 +59,22 @@ social_source: the%20guardrex%20chew
 		</svg>
 		<a href="#the-setup" class="nostyle">The Setup</a>
 	</h2>
-	<p>First, choose a 3rd party library that's capable of markup minification. This demo uses <a href="https://www.nuget.org/packages/WebMarkupMin.Core/">WebMarkupMin.Core</a> (<a href="https://github.com/Taritsyn/WebMarkupMin">GitHub</a>) by Andrey Taritsyn (<a href="https://github.com/Taritsyn">GitHub</a>, <a href="https://taritsyn.wordpress.com/">Blog</a>, <a href="https://twitter.com/andrey_taritsyn">Twitter</a>). WebMarkupMin.Core is a good choice because it minifies both the markup and inlined styles and scripts.</p>
-	<p>Replace the <code>RazorTemplateEngine</code> overriding the <code>CreateCodeDocument</code> method with an implementation that performs the following work:</p>
+	<p>First, choose a 3rd party library that's capable of markup minification. This demo uses <a href="https://www.nuget.org/packages/WebMarkupMin.Core/">WebMarkupMin.Core</a> (<a href="https://github.com/Taritsyn/WebMarkupMin">GitHub</a>) by Andrey Taritsyn (<a href="https://github.com/Taritsyn">GitHub</a>, <a href="https://taritsyn.wordpress.com/">Blog</a>, <a href="https://twitter.com/andrey_taritsyn">Twitter</a>). <code class="language-csharp">WebMarkupMin.Core</code> is a good choice because it minifies both the markup and inlined styles and scripts.</p>
+	<p>Replace the <code class="language-csharp">RazorTemplateEngine</code> overriding the <code class="language-csharp">CreateCodeDocument</code> method with an implementation that performs the following work:</p>
 	<ul>
-		<li>Setup a <code>StreamReader</code> to read the View file contents</li>
-		<li>Split the Razor directives from the content</li>
-		<li>Pass the content to your minfication method</li>
-		<li>Reassemble the Razor directives and minified markup</li>
-		<li>Convert the content back into a byte array and use a <code>MemoryStream</code> to return it to the Razor engine for processing</li>
+		<li>Setup a <code class="language-csharp">StreamReader</code> to read the View file contents.</li>
+		<li>Split the Razor directives from the content.</li>
+		<li>Pass the content to your minfication method.</li>
+		<li>Reassemble the Razor directives and minified markup.</li>
+		<li>Convert the content back into a byte array and use a <code class="language-csharp">MemoryStream</code> to return it to the Razor engine for processing.</li>
 	</ul>
-	<p>A complete sample implementation goes like this:</p>
-	<pre><code>public class CustomRazorTemplateEngine : RazorTemplateEngine
+	<p>Here's a complete sample implementation:</p>
+	<pre class="language-csharp"><code>public class CustomRazorTemplateEngine : RazorTemplateEngine
 {
 	private HtmlMinifier _htmlMinifier = new HtmlMinifier();
 
-	public CustomRazorTemplateEngine(RazorEngine engine, RazorProject project) : base(engine, project)
+	public CustomRazorTemplateEngine(RazorEngine engine, RazorProject project) : 
+		base(engine, project)
 	{
 		Options.ImportsFileName = "_ViewImports.cshtml";
 	}
@@ -118,7 +119,8 @@ social_source: the%20guardrex%20chew
 
 	private string Minify(string markup)
 	{
-		MarkupMinificationResult result = _htmlMinifier.Minify(markup, string.Empty, Encoding.UTF8, true);
+		MarkupMinificationResult result = 
+			_htmlMinifier.Minify(markup, string.Empty, Encoding.UTF8, true);
 		
 		if (result.Errors.Count == 0)
 		{
@@ -149,7 +151,7 @@ social_source: the%20guardrex%20chew
 	}
 }</code></pre>
 	<p>Finally, wire up the Razor engine replacement when you build the host:</p>
-	<pre><code>public class Program
+	<pre class="language-csharp"><code>public class Program
 {
 	public static void Main(string[] args)
 	{
@@ -171,8 +173,9 @@ social_source: the%20guardrex%20chew
 			})
 			.Build();
 }</code></pre>
-		<p><code>WebMarkupMin.Core</code> isn't so good at parsing Razor in a Razor page, so see the <em>Index.cshtml</em> page below to see how to escape sections of Razor code from the minification engine by placing the code inside of escape tags (<code>&lt;!--wmm:ignore--&gt;...&lt;!--/wmm:ignore--&gt;</code>). Note that the use of <code><text></code> tags prevents extra spaces and CR's from those Razor line transitions from making their way into the rendered markup.</p>
-		<pre><code>@page
+	<p><code class="language-csharp">WebMarkupMin.Core</code> isn't so good at parsing Razor in a Razor page, so see the <em>Index.cshtml</em> page below to see how to escape sections of Razor code from <code class="language-csharp">WebMarkupMin.Core</code> by placing the code inside of escape tags (<code class="language-markup">&lt;!--wmm:ignore--&gt;...&lt;!--/wmm:ignore--&gt;</code>).</p>
+	<p>Also note that the use of <code class="language-markup">&lt;text&gt;</code> tags prevents extra spaces and CR's from those Razor line transitions from making their way into the rendered markup.</p>
+	<pre class="language-markup"><code>@page
 @model IndexModel
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment Host
 &lt;!DOCTYPE html&gt;
@@ -185,7 +188,14 @@ social_source: the%20guardrex%20chew
 	&lt;p&gt;@Host.ApplicationName @Model.DT&lt;/p&gt;
 	&lt;figure style="text-align:center;width:400px"&gt;
 		&lt;img alt="Jack Burton" src="image.png"&gt;
-		&lt;figcaption&gt;Jack Burton (Kurt Russell)&lt;br&gt;&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;&copy;1986 &lt;a href="http://www.foxmovies.com/"&gt;20th Century Fox&lt;/a&gt;&lt;/figcaption&gt;
+		&lt;figcaption&gt;
+			Jack Burton (Kurt Russell)&lt;br&gt;
+			&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;
+			&copy;1986 
+			&lt;a href="http://www.foxmovies.com/"&gt;
+				20th Century Fox
+			&lt;/a&gt;
+		&lt;/figcaption&gt;
 	&lt;/figure&gt;
 	&lt;p&gt;
 		People:
@@ -206,7 +216,7 @@ social_source: the%20guardrex%20chew
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 	<p>The final rendered output is minified:</p>
-	<blockquote>&lt;!DOCTYPE html&gt;&lt;html lang=en&gt;&lt;head&gt;&lt;title&gt;Razor Pages Minification App&lt;/title&gt;&lt;body&gt;&lt;h1&gt;Razor Pages Minification App&lt;/h1&gt;&lt;p&gt;RazorMinification 8/14/2017 4:24:29 PM&lt;/p&gt;&lt;figure style=text-align:center;width:400px&gt;&lt;img alt="Jack Burton" src=image.png&gt;&lt;figcaption&gt;Jack Burton (Kurt Russell)&lt;br&gt;&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;&copy;1986 &lt;a href="http://www.foxmovies.com/"&gt;20th Century Fox&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;People:&lt;ol&gt;&lt;li&gt;Susan&lt;/li&gt;&lt;li&gt;Catalina&lt;/li&gt;&lt;li&gt;Diego&lt;/li&gt;&lt;li&gt;Bob&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;There are less than ten people.</blockquote>
+	<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;&lt;html lang=en&gt;&lt;head&gt;&lt;title&gt;Razor Pages Minification App&lt;/title&gt;&lt;body&gt;&lt;h1&gt;Razor Pages Minification App&lt;/h1&gt;&lt;p&gt;RazorMinification 8/14/2017 4:24:29 PM&lt;/p&gt;&lt;figure style=text-align:center;width:400px&gt;&lt;img alt="Jack Burton" src=image.png&gt;&lt;figcaption&gt;Jack Burton (Kurt Russell)&lt;br&gt;&lt;em&gt;Big Trouble in Little China&lt;/em&gt;&lt;br&gt;&copy;1986 &lt;a href="http://www.foxmovies.com/"&gt;20th Century Fox&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;People:&lt;ol&gt;&lt;li&gt;Susan&lt;/li&gt;&lt;li&gt;Catalina&lt;/li&gt;&lt;li&gt;Diego&lt;/li&gt;&lt;li&gt;Bob&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;There are less than ten people.&lt;/p&gt;</code></pre>
 	<a href="http://!cdn_domain/!cdn_folder/image.png"><img alt="Rendered Razor page" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/image.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="additional-resources"></a>
@@ -230,6 +240,7 @@ social_source: the%20guardrex%20chew
 		<a href="#acknowledgements" class="nostyle">Acknowledgements</a>
 	</h2>
 	<ul>
-		<li>Bart Calixto (@bartmax) <a href="https://github.com/Bartmax">@GitHub</a> <a href="https://twitter.com/bartmax">@Twitter</a></li>
+		<li>Ajay Bhargav Baaskaran (@ajaybhargavb), Software Engineer, Microsoft <a href="https://github.com/ajaybhargavb">GitHub</a> <a href="https://www.linkedin.com/in/ajaybhargavb/?ppe=1">Linkedin</li>
+		<li>Bart Calixto (@bartmax) <a href="https://github.com/Bartmax">GitHub</a> <a href="https://twitter.com/bartmax">Twitter</a></li>
 	</ul>
 </article>
