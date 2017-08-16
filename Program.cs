@@ -131,7 +131,7 @@ namespace guardrex.com
             {
                 indexContent.Append(post.Value);
             }
-            var indexFileText = File.ReadAllText($@"{path}\index.html");
+            // The index file is already in output
             string indexFilePath;
             if (ciBuild)
             {
@@ -141,6 +141,7 @@ namespace guardrex.com
             {
                 indexFilePath = $@"{path.Replace("_debug", "_staging")}\index.html";
             }
+            var indexFileText = File.ReadAllText(indexFilePath);
             File.WriteAllText(indexFilePath, indexFileText.Replace("!index_content", indexContent.ToString()));
             
             // Finish up the RSS file

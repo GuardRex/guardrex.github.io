@@ -27,6 +27,7 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 docs/
+docs_staging/
 
 # Cross building rootfs
 cross/rootfs/
