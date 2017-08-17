@@ -21,18 +21,19 @@ namespace guardrex.com
             var site_description = "Read guardrex articles on IT topics.";
             var domain = "www.guardrex.com";
             var cdn_domain = "rexsite.azureedge.net";
-            var ciBuild = false;
 
             // Set the path to the repo docs_debug folder
-            string path;
+            string sourcePath;
+            string destinationPath;
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPVEYOR")))
             {
-                ciBuild = true;
-                path = @"c:\projects\guardrex-com\docs_debug\";
+                sourcePath = @"c:\projects\guardrex-com\docs_debug\";
+                destinationPath = @"c:\projects\guardrex-com\docs\";
             }
             else
             {
-                path = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
+                sourcePath = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_debug\";
+                destinationPath = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_staging\";
             }
 
             // Setup for the index page content
@@ -49,12 +50,12 @@ namespace guardrex.com
             var pageMetadataDict = new ConcurrentDictionary<string, string>();
             
             //Load the layout
-            var layout = File.ReadAllText($"{path}layout.htm");
+            var layout = File.ReadAllText($"{sourcePath}layout.htm");
 
             // Replace tokens in the layout
             layout = layout
-                .Replace("!styles", File.ReadAllText($"{path}styles.css"))
-                .Replace("!scripts", File.ReadAllText($"{path}scripts.js"))
+                .Replace("!styles", File.ReadAllText($"{sourcePath}styles.css"))
+                .Replace("!scripts", File.ReadAllText($"{sourcePath}scripts.js"))
                 .Replace("!copyright_year", DateTime.Now.Year.ToString())
                 .Replace("!bootstrap_version", "3.3.7")
                 .Replace("!google_analytics_property", "UA-48425827-1")
@@ -63,66 +64,72 @@ namespace guardrex.com
                 .Replace("!blog_owner_twitter_username", "guardrex");
 
             // Work on the pages
-            var files = Directory.EnumerateFiles(path, "*.html", AllDirectories);
+            var files = Directory.EnumerateFiles(sourcePath, "*", AllDirectories);
             foreach (var file in files)
             {
-                var fileText = File.ReadAllText(file);
-                var filename = file.Substring(file.LastIndexOf("\\") + 1);
-
-                Console.WriteLine();
-                Console.WriteLine(filename);
-
-                var breakPoint = fileText.IndexOf("---");
-                var metadataSection = fileText.Substring(0, breakPoint);
-                var metadataLines = metadataSection.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                for (var i = 0; i < metadataLines.Count() - 1; i++)
+                if (file.EndsWith(".md") || file.EndsWith(".html"))
                 {
-                    var colonIndex = metadataLines[i].IndexOf(":");
-                    var key = metadataLines[i].Substring(0, colonIndex);
-                    var value = metadataLines[i].Substring(colonIndex + 2);
-                    pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
+                    var fileText = File.ReadAllText(file);
+                    var filename = file.Substring(file.LastIndexOf("\\") + 1);
+
+                    Console.WriteLine();
+                    Console.WriteLine(filename);
+
+                    var breakPoint = fileText.IndexOf("---");
+                    var metadataSection = fileText.Substring(0, breakPoint);
+                    var metadataLines = metadataSection.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    for (var i = 0; i < metadataLines.Count() - 1; i++)
+                    {
+                        var colonIndex = metadataLines[i].IndexOf(":");
+                        var key = metadataLines[i].Substring(0, colonIndex);
+                        var value = metadataLines[i].Substring(colonIndex + 2);
+                        pageMetadataDict.AddOrUpdate(key, value, (k, v) => value);
+                    }
+
+                    string outputMarkup;
+
+                    // Convert markdown into HTML
+                    if (filename.EndsWith(".md"))
+                    {
+                        outputMarkup = CommonMark.CommonMarkConverter.Convert(fileText.Substring(fileText.IndexOf("---") + 3));
+                        filename = $"{filename.Substring(0, filename.IndexOf("."))}.html";
+                    }
+                    else
+                    {
+                        outputMarkup = fileText.Substring(fileText.IndexOf("---") + 3);
+                    }
+
+                    // Merge the content (sans metadata) into the layout and apply the CDN domain where needed
+                    outputMarkup = layout.Replace("!content", outputMarkup)
+                        .Replace("!cdn_domain", cdn_domain)
+                        .Replace("!domain", domain)
+                        .Replace("!filename", filename);
+
+                    // Replace tokens with page metadata from the dict
+                    foreach (var pageMetadataItem in pageMetadataDict)
+                    {
+                        outputMarkup = outputMarkup.Replace($"!{pageMetadataItem.Key}", pageMetadataItem.Value);
+                    }
+
+                    // Minify page
+                    outputMarkup = Minify(outputMarkup);
+
+                    // Generate content for index, RSS, and sitemap files
+                    if (!file.EndsWith("index.html"))
+                    {
+                        indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{filename}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{filename}"">Read More</a></p></div>"));
+
+                        rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{filename}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
+
+                        sitemapContent.Append($@"<url><loc>http://{domain}/post/{filename}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
+
+                        File.WriteAllText($@"{destinationPath}post\{filename}", outputMarkup);
+                    }
+                    else
+                    {
+                        File.WriteAllText($@"{destinationPath}index.html", outputMarkup);
+                    }
                 }
-
-                // Merge the content (sans metadata) into the layout and apply the CDN domain where needed
-                var outputMarkup = layout.Replace("!content", fileText.Substring(fileText.IndexOf("---") + 3))
-                    .Replace("!cdn_domain", cdn_domain)
-                    .Replace("!domain", domain)
-                    .Replace("!filename", filename);
-
-                // Replace tokens with page metadata from the dict
-                foreach (var pageMetadataItem in pageMetadataDict)
-                {
-                    outputMarkup = outputMarkup.Replace($"!{pageMetadataItem.Key}", pageMetadataItem.Value);
-                }
-
-                // Minify page
-                outputMarkup = Minify(outputMarkup);
-
-                // Generate content for index, RSS, and sitemap files
-                if (!file.EndsWith("index.html"))
-                {
-                    indexContentPosts.Add(new KeyValuePair<string, string>(pageMetadataDict["last_modification_date"], $@"<div><a class=""nostyle"" href=""post/{filename}""><h2>{pageMetadataDict["page_title"]}</h2></a><p>{pageMetadataDict["publication_date"]}</p><p>{pageMetadataDict["page_description"]}</p><p><a class=""btn"" href=""post/{filename}"">Read More</a></p></div>"));
-
-                    rssContent.Append($@"<item><title>{pageMetadataDict["page_title"]}</title><link>http://{domain}/post/{filename}</link><guid>{pageMetadataDict["guid"]}</guid><pubDate>{pageMetadataDict["publication_date"]}</pubDate><description>{pageMetadataDict["page_description"]}</description></item>");
-
-                    sitemapContent.Append($@"<url><loc>http://{domain}/post/{filename}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
-                }
-
-                // Save it to the docs folder
-                string saveFile;
-                if (ciBuild)
-                {
-                    saveFile = file.Replace("_debug", string.Empty);
-                }
-                else
-                {
-                    saveFile = file.Replace("_debug", "_staging");
-                }
-                File.WriteAllText(saveFile, outputMarkup);
-
-                Console.WriteLine();
-                Console.WriteLine("Done!");
-                Console.WriteLine();
             }
 
             // Inject the index page content
@@ -132,39 +139,21 @@ namespace guardrex.com
                 indexContent.Append(post.Value);
             }
             // The index file is already in output
-            string indexFilePath;
-            if (ciBuild)
-            {
-                indexFilePath = $@"{path.Replace("_debug", string.Empty)}\index.html";
-            }
-            else
-            {
-                indexFilePath = $@"{path.Replace("_debug", "_staging")}\index.html";
-            }
+            var indexFilePath = $@"{destinationPath}index.html";
             var indexFileText = File.ReadAllText(indexFilePath);
             File.WriteAllText(indexFilePath, indexFileText.Replace("!index_content", indexContent.ToString()));
             
             // Finish up the RSS file
             rssContent.Append(@"</channel></rss>");
-            if (ciBuild)
-            {
-                File.WriteAllText($@"{path.Replace("_debug", string.Empty)}rss.xml", rssContent.ToString());
-            }
-            else
-            {
-                File.WriteAllText($@"{path.Replace("_debug", "_staging")}rss.xml", rssContent.ToString());
-            }
+            File.WriteAllText($@"{destinationPath}rss.xml", rssContent.ToString());
 
             // Finish up the sitemap file
             sitemapContent.Append(@"</urlset>");
-            if (ciBuild)
-            {
-                File.WriteAllText($@"{path.Replace("_debug", string.Empty)}sitemap.xml", sitemapContent.ToString());
-            }
-            else
-            {
-                File.WriteAllText($@"{path.Replace("_debug", "_staging")}sitemap.xml", sitemapContent.ToString());
-            }
+            File.WriteAllText($@"{destinationPath}sitemap.xml", sitemapContent.ToString());
+
+            Console.WriteLine();
+            Console.WriteLine("Done!");
+            Console.WriteLine();
         }
 
         private static string Minify(string markup)
