@@ -162,6 +162,9 @@ namespace guardrex.com
             sitemapContent.Append(@"</urlset>");
             File.WriteAllText($@"{destinationPath}sitemap.xml", sitemapContent.ToString());
 
+            // Handle the CNAME file
+            File.WriteAllText($@"{destinationPath}CNAME", "www.guardrex.com");
+
             Console.WriteLine();
             Console.WriteLine("Done!");
             Console.WriteLine();
