@@ -2,7 +2,9 @@ body {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 17px;
 	line-height: 1.5;
-	color: #445
+    color: #445;
+    margin: 0;
+    background: url(http://!cdn_domain/image/logo-head.png) no-repeat left top fixed
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -28,6 +30,8 @@ h3 {
     padding: 0 15px;
     margin: 0 auto;
     max-width: 800px;
+    background-color: #fff;
+    opacity: 0.95
 }
 
 row {

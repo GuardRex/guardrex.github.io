@@ -10,12 +10,12 @@ social_source: the%20guardrex%20chew
 ---
 <article>
 	<h1>ASP.NET Core on Nano Server Preview</h1>
-	<p>4/11/2016 By: Luke Latham</p>
+	<p>By: Luke Latham (@guardrex)<br><em>Published:</em> 4/11/2016 <em>Last updated:</em> 4/11/2016</p>
 	<p>In this tutorial, you'll deploy an ASP.NET Core web application to a Microsoft Azure Nano Server virtual machine and learn how to safely manage Nano Server using a Microsoft Azure Windows Server 2012 R2 virtual machine.</p>
 	<p>In this article:</p>
 	<div class="note">
 		<p><em>Note</em></p>
-		This topic applies to the Preview release of Nano Server. Most of the steps should remain the same. See the <a href="#additional-resources">Additional Resources</a> section for links to the latest guidance.
+		This topic applies to the Preview release of Nano Server. Most of the steps should remain the same. See the <a href="#additional-resources">Additional Resources</a> section for links to the latest guidance for Nano Server. I hope to find time to update this topic to the release version of Nano Server and ASP.NET Core 2.0 in the coming weeks.
 	</div>
 	<ul>
 	<li><a href="#introduction">Introduction</a></li>
@@ -35,69 +35,116 @@ social_source: the%20guardrex%20chew
 	</ul>
 
 	<a id="introduction"></a>
-	<h2><a aria-hidden="true" href="#introduction"><svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Introduction</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#introduction" class="nostyle">Introduction</a>
+	</h2>
 
 	<a id="prerequisites"></a>
-	<h3><a aria-hidden="true" href="#prerequisites"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Prerequisites</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#prerequisites" class="nostyle">Prerequisites</a>
+	</h3>
+
 	<p>Before you start, make sure that you have setup your development environment and created (or obtained) a working ASP.NET Core 64-bit Core CLR app.</p>
 	<p>You will need a Microsoft Azure account to create the Azure Virtual Machines (servers) in this tutorial. If you don't have an Azure account, you can sign up at the <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Microsoft Azure website</a>. If you would like information on signing up for an Azure account as an organization, see <a href="https://azure.microsoft.com/en-us/documentation/articles/sign-up-organization/">Sign up for Azure as an organization</a>.</p>
 
 	<a id="nano-server"></a>
-	<h3><a aria-hidden="true" href="#nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Nano Server</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#nano-server" class="nostyle">Nano Server</a>
+	</h3>
+
 	<p>Windows Server is an all-purpose industry standard operating system for production IT workloads and a feat of engineering. As Windows Server has grown to encompass a vast array of solutions to meet IT demands, it has also grown in size and complexity. A craving exists now for a significantly smaller and faster version of Windows Server for cloud-based workloads. Nano Server was born for this purpose.</p>
 	<p>Nano Server is an optimized version of Windows Server for private clouds and datacenters. Nano Server features vastly reduced disk space requirements, fewer update requirements, added uptime due to reduced server restarts, and faster performance owing to fewer running processes. Nano Server is ideal as a compute host Hyper-V Virtual Machine, storage host, DNS server, or host for applications running behind IIS (or outside of IIS) inside or outside of a container.</p>
 	<p>This tutorial will walk you through setting up a Microsoft Azure Nano Server Virtual Machine and deploying an ASP.NET Core application to your Nano Server. Because Nano Server is a "headless server," which means that no graphical user interface is available, we'll also spin up a Microsoft Azure Windows Server 2012 R2 Virtual Machine to safely manage our Nano Server. This tutorial cross-demonstrates important security concepts for reducing the attack surface of your Nano Server.</p>
 	<p>Follow this tutorial to get started quickly with ASP.NET Core on Nano Server. Visit the linked content in the Additional Resources section at the end of the tutorial to learn more about Nano Server.</p>
 
 	<a id="windows-server-2016-nano-server-technical-preview"></a>
-	<h3><a aria-hidden="true" href="#windows-server-2016-nano-server-technical-preview"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows Server 2016 (Nano Server) Technical Preview</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#windows-server-2016-nano-server-technical-preview" class="nostyle">Windows Server 2016 (Nano Server) Technical Preview</a>
+	</h3>
+
 	<p>Nano Server is distributed with the <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-technical-preview">Windows Server 2016 Technical Preview (TP4)</a>. The preview will expire on October 15, 2016. The preview is not eligible for use in production environments, and preview upgrades are not supported (i.e., upgrading from or to a Windows Server 2016 preview will not preserve custom configurations). Read the <a href="https://technet.microsoft.com/library/dn765470.aspx">release notes</a> and <a href="https://technet.microsoft.com/library/mt126134(WS.11).aspx">system requirements</a> before proceeding with this tutorial.</p>
 
 	<a id="deployment-options-for-nano-server"></a>
-	<h3><a aria-hidden="true" href="#deployment-options-for-nano-server"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Deployment options for Nano Server</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#deployment-options-for-nano-server" class="nostyle">Deployment options for Nano Server</a>
+	</h3>
+
 	<p>This tutorial demonstrates deploying an ASP.NET Core application to Nano Server running on a Microsoft Azure Resource Manager (ARM) Virtual Machine (VM). Other options include deployment to an on-premises Hyper-V virtual machine or Server Core on a physical computer. For more information on these alternative deployment options, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.</p>
 
 	<a id="windows-powershell-remoting"></a>
-	<h3><a aria-hidden="true" href="#windows-powershell-remoting"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Windows PowerShell Remoting</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#windows-powershell-remoting" class="nostyle">Windows PowerShell Remoting</a>
+	</h3>
+
 	<p>This tutorial demonstrates interacting with Nano Server via Windows PowerShell remoting using the Remote PowerShell Tab feature of the <a href="https://technet.microsoft.com/en-us/library/dd315244.aspx">PowerShell Integrated Scripting Environment (ISE)</a> application.</p>
 	<p>If you prefer not to work with the PowerShell ISE Remote PowerShell Tab feature or if you are using Windows PowerShell, you can manually create a session with your Nano Server by using the following commands (but this approach is not used in this tutorial).</p>
-	<pre>$a = "&lt;NANO_SERVER_DNS_ADDRESS&gt;"
+	<pre class="language-powershell"><code>$a = "&lt;NANO_SERVER_DNS_ADDRESS&gt;"
 Set-Item WSMan:\localhost\Client\TrustedHosts $a
 $s = New-PSSession -ComputerName $a -Credential &lt;username&gt;
-Enter-PSSession -Session $s</pre>
+Enter-PSSession -Session $s</code></pre>
 	<p>For information on additional ways to interact with Nano Server, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.</p>
 	
 	<a id="working-with-files-and-folders"></a>
-	<h3><a aria-hidden="true" href="#working-with-files-and-folders"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Working with files and folders</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#working-with-files-and-folders" class="nostyle">Working with files and folders</a>
+	</h3>
+
 	<p>This tutorial utilizes a Server Message Block (SMB) file share using Microsoft Azure Files. An SMB file share is a convenient way to share files across computers on a network, including the Internet.</p>
 	<div class="note">
 		<p><em>Note</em></p>
-		If you install PowerShell v5.0 on the management VM, be aware that PowerShell v5.0 introduces a new feature in the <code>Copy-Item</code> command that also allows files and folders to be moved in and out of a remote PowerShell session (but this approach is not used in this tutorial). For more information on using <code>Copy-Item</code>'s new <code>-ToSession</code> and <code>-FromSession</code> extensions, see <a href="http://blogs.technet.com/b/poshchap/archive/2015/10/30/copy-from-one-powershell-session-to-another.aspx">Copy To or From a PowerShell Session</a>.
+		If you install PowerShell v5.0 on the management VM, be aware that PowerShell v5.0 introduces a new feature in the <code>Copy-Item</code> command that also allows files and folders to be moved in and out of a remote PowerShell session (but this approach is not used in this tutorial). For more information on using <code class="language-powershell">Copy-Item</code>'s new <code class="language-powershell">-ToSession</code> and <code class="language-powershell">-FromSession</code> extensions, see <a href="http://blogs.technet.com/b/poshchap/archive/2015/10/30/copy-from-one-powershell-session-to-another.aspx">Copy To or From a PowerShell Session</a>.
 	</div>
 	<p>When working with a network share to move files and folders, you can drag-and-drop files and folders to a mapped network drive (locally only, because Nano Server doesn't have a GUI) or use PowerShell (locally or remotely). The commands shown below work equally well in a local or remote PowerShell tab.</p>
-	<p>Use the <code>Copy-Item</code> command to move files and folders to or from the share. In PowerShell, the period (<code>.</code>) refers to the current directory.</p>
+	<p>Use the <code class="language-powershell">Copy-Item</code> command to move files and folders to or from the share. In PowerShell, the period (<code class="language-powershell">.</code>) refers to the current directory.</p>
 	<p>Move a file, named <em>some-file.txt</em>, from the current directory to the share:</p>
-	<pre>Copy-Item -Path .\some-file.txt -Destination &lt;DRIVE_LETTER&gt;:</pre>
+	<pre class="language-powershell"><code>Copy-Item -Path .\some-file.txt -Destination &lt;DRIVE_LETTER&gt;:</code></pre>
 	<p>Move a folder, named <em>some-folder</em>, from the current directory to the share:</p>
-	<pre>Copy-Item -Path .\some-folder -Destination &lt;DRIVE_LETTER&gt;: -Recurse</pre>
-	<p>To move files and folders from the share to the current directory, use the <code>Copy-Item</code> command reversing the <code>-Path</code> and <code>-Destination</code>.</p>
+	<pre class="language-powershell"><code>Copy-Item -Path .\some-folder -Destination &lt;DRIVE_LETTER&gt;: -Recurse</code></pre>
+	<p>To move files and folders from the share to the current directory, use the <code class="language-powershell">Copy-Item</code> command reversing the <code class="language-powershell">-Path</code> and <code class="language-powershell">-Destination</code>.</p>
 	<p>Moving a file from the share to the current directory:</p>
-	<pre>Copy-Item -Path &lt;DRIVE_LETTER&gt;:\some-file.txt -Destination .</pre>
+	<pre class="language-powershell"><code>Copy-Item -Path &lt;DRIVE_LETTER&gt;:\some-file.txt -Destination .</code></pre>
 	<p>Moving a folder from the share to the current directory:</p>
-	<pre>Copy-Item -Path &lt;DRIVE_LETTER&gt;:\some-folder -Destination . -Recurse</pre>
-	<p>The <code>-Path</code> and <code>-Destination</code> parameters are optional. The <code>-Recurse</code> switch can be replaced with <code>-r</code>. The <code>cp</code> command will also invoke the <code>Copy-Item</code> command. The following commands accomplish the same results as the longer commands above.</p>
+	<pre class="language-powershell"><code>Copy-Item -Path &lt;DRIVE_LETTER&gt;:\some-folder -Destination . -Recurse</code></pre>
+	<p>The <code class="language-powershell">-Path</code> and <code class="language-powershell">-Destination</code> parameters are optional. The <code class="language-powershell">-Recurse</code> switch can be replaced with <code class="language-powershell">-r</code>. The <code class="language-powershell">cp</code> command will also invoke the <code class="language-powershell">Copy-Item</code> command. The following commands accomplish the same results as the longer commands above.</p>
 	<p>Move a file to the share:</p>
-	<pre>cp .\some-file.txt &lt;DRIVE_LETTER&gt;:</pre>
+	<pre class="language-powershell"><code>cp .\some-file.txt &lt;DRIVE_LETTER&gt;:</code></pre>
 	<p>Move a folder to the share:</p>
-	<pre>cp .\some-folder &lt;DRIVE_LETTER&gt;: -r</pre>
+	<pre class="language-powershell"><code>cp .\some-folder &lt;DRIVE_LETTER&gt;: -r</code></pre>
 	<p>Move a file from the share:</p>
-	<pre>cp &lt;DRIVE_LETTER&gt;:\some-file.txt .</pre>
+	<pre class="language-powershell"><code>cp &lt;DRIVE_LETTER&gt;:\some-file.txt .</code></pre>
 	<p>Move a folder from the share:</p>
-	<pre>cp &lt;DRIVE_LETTER&gt;:\some-folder . -r</pre>
+	<pre class="language-powershell"><code>cp &lt;DRIVE_LETTER&gt;:\some-folder . -r</code></pre>
 
 	<a id="conventions-used"></a>
-	<h3><a aria-hidden="true" href="#conventions-used"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Conventions used</h3>
-	<p>In this tutorial, commands will be shown with placeholders [in angle brackets (<code>&lt;...&gt;</code>)] for custom values that you must provide. Commands will also be shown with a set of naming conventions that will allow you to simply cut-and-paste the command for direct use, thus enhancing your enjoyment of the tutorial. The naming conventions used in this tutorial are shown in the table below.</p>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#conventions-used" class="nostyle">Conventions Used</a>
+	</h3>
+
+	<p>In this tutorial, commands will be shown with placeholders [in angle brackets (<code class="language-powershell">&lt;...&gt;</code>)] for custom values that you must provide. Commands will also be shown with a set of naming conventions that will allow you to simply cut-and-paste the command for direct use, thus enhancing your enjoyment of the tutorial. The naming conventions used in this tutorial are shown in the table below.</p>
 	<table>
 	<thead>
 	<tr><th>Item</th>
@@ -137,14 +184,26 @@ Enter-PSSession -Session $s</pre>
 	*For simplicity, we will place the published output on the c: drive, but you can modify the path to point to the published output of the projects's bin directory.
 
 	<a id="it-infrastructure-security"></a>
-	<h3><a aria-hidden="true" href="#it-infrastructure-security"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>IT infrastructure security</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#it-infrastructure-security" class="nostyle">IT infrastructure security</a>
+	</h3>
+
 	<p>Cyberattacks are a serious threat to company operations, and we should adopt strong security in our IT infrastructure to reduce the surface area for attacks and mitigate the damage from successful attacks. Before we get started with the tutorial, let's take a few minutes to go over an important security concept that will help us keep our servers safe.</p>
 	<p>A doctrine of infrastructure security is to limit the attack surface of our enterprise IT assets in part by limiting the number of management points to one or a few tightly-controlled management servers. Our goal is to limit our web servers' exposure to attacks from the public Internet by opening access to only those services that we require the web servers to perform for the public.</p>
 	<p>We will be creating a web server in this tutorial, so our goal is to only open ports 80 and 8000 (HTTP) and 443 (HTTPS) to the public Internet while locking-down all other public ports. Management and monitoring ports, such as 5985/5986 (WinRM ports for PowerShell remoting), will be open on a Virtual Network, where only our management server can gain access. As we add additional web servers to such a zone, we tremendously reduce the attack surface area compared to opening management and monitoring ports to the Internet on all of our web servers.</p>
 	<p>The importance of adopting strong security best practices cannot be understated. The number and sophistication of cyberattacks on enterprise IT infrastructure has ballooned in recent years. This tutorial cannot hope to instruct you in all of the best practices for secure server management to keep your organization safe from cyberattacks; however, we will adopt one important approach in this tutorial: limiting management points. This is one of many important practices that should be adopted. For more information and good starting points for further reading, visit <a href="https://technet.microsoft.com/en-us/library/windows-server-security.aspx">Windows Server Security (Microsoft TechNet)</a>, <a href="https://azure.microsoft.com/en-us/documentation/articles/best-practices-network-security/">Microsoft Cloud Services and Network Security</a>, and <a href="https://technet.microsoft.com/en-us/library/dd277328.aspx">Enterprise Security Best Practices</a>.</p>
 
 	<a id="azure-services-configuration"></a>
-	<h2><a aria-hidden="true" href="#azure-services-configuration"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Services Configuration</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-services-configuration" class="nostyle">Azure Services Configuration</a>
+	</h2>
+
 	<p>Before we get started creating our VM's, let's create an Azure Resource Group, an Azure Storage Account (and an Azure Files network file share to go along with it), an Azure Virtual Network, and a pair of Network Security Groups (one for the management VM and one for the Nano Server). By preconfiguring these services, we will save time later when deploying our VM's.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -152,7 +211,13 @@ Enter-PSSession -Session $s</pre>
 	</div>
 
 	<a id="azure-resource-group"></a>
-	<h3><a aria-hidden="true" href="#azure-resource-group"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Resource Group</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-resource-group" class="nostyle">Azure Resource Group</a>
+	</h3>
+
 	<ol>
 	<li>Navigate to the <strong>Azure Portal &lt;<a href="https://portal.azure.com/">https://portal.azure.com/</a>&gt;</strong>. Click the button for <strong>Resource Groups</strong>.</li>
 	</ol>
@@ -169,7 +234,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/pre_03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/pre_03.png" style="max-width:100%;padding-bottom:20px" /></a>
 	
 	<a id="azure-storage-account"></a>
-	<h3><a aria-hidden="true" href="#azure-storage-account"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Storage Account</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-storage-account" class="nostyle">Azure Storage Account</a>
+	</h3>
+
 	<ol>
 	<li>Click the button for <strong>Storage accounts</strong>. Be careful <strong>not</strong> to accidently click <strong>Storage accounts (classic)</strong> immediately below.</li>
 	</ol>
@@ -206,7 +277,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/pre-10.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/pre-10.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="azure-virtual-network"></a>
-	<h3><a aria-hidden="true" href="#azure-virtual-network"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Virtual Network</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-virtual-network" class="nostyle">Azure Virtual Network</a>
+	</h3>
+
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the <strong>New</strong> button, followed by <strong>Networking</strong>, followed by <strong>Virtual network</strong>.</li>
 	</ol>
@@ -223,7 +300,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/pre-13.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/pre-13.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="azure-network-security-group-management-vm"></a>
-	<h3><a aria-hidden="true" href="#azure-network-security-group-management-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Network Security Group (management VM)</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-network-security-group-management-vm" class="nostyle">Azure Network Security Group (management VM)</a>
+	</h3>
+
 	<p>The Network Security Group (NSG) for the management VM will be different than for our Nano Server. Our management VM will only have Remote Desktop Protocol (RDP, port 3389) open to the Internet, while the Nano Server will only open HTTP (ports 80 and 8000) and HTTPS (port 443) to the Internet. The management port that we will be using, Windows Remote Management (WinRM, port 5985), will only be open on the VNet between the two servers. Because we're locking-down management traffic to the VNet, we are vastly reducing the public attack surface of our Nano Server.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -281,7 +364,13 @@ Enter-PSSession -Session $s</pre>
 	</div>
 
 	<a id="azure-network-security-group-nano-server-vm"></a>
-	<h3><a aria-hidden="true" href="#azure-network-security-group-nano-server-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Azure Network Security Group (Nano Server VM)</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#azure-network-security-group-nano-server-vm" class="nostyle">Network Security Group (Nano Server VM)</a>
+	</h3>
+
 	<p>Let's turn our attention to the NSG that we need for our Nano Server. The Nano Server will require open services for HTTP (port 80) and HTTPS (port 443) to receive and respond to requests from the Internet. Later, our ASP.NET Core application will be bound to HTTP on port 8000, so we will also open port 8000 in the NSG. Perform the following steps to create the NSG and add the inbound rules.</p>
 	<ol>
 	<li>Go back to the <strong>Network security groups</strong> blade by clicking <strong>Browse &gt; Network security groups</strong>. Click the <strong>Add</strong> button and provide a <strong>Name</strong> the NSG. In this tutorial, we will use <em>nano1234</em>, which will match the name of the Nano Server that we will create shortly. Set the <strong>Subscription</strong> and select the <strong>Resource Group</strong> you are using. In the tutorial, our Resource Group is called <em>group1234</em>. Click the <strong>Create</strong> button to create the NSG. Wait for the NSG to deploy. When it has deployed, the <strong>Azure Portal</strong> will open a blade to the NSG.</li>
@@ -332,7 +421,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/pre-20.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/pre-20.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="create-a-microsoft-azure-windows-server-2012-r2-vm"></a>
-	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-windows-server-2012-r2-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Windows Server 2012 R2 VM</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#create-a-microsoft-azure-windows-server-2012-r2-vm" class="nostyle">Create a Microsoft Azure Windows Server 2012 R2 VM</a>
+	</h2>
+
 	<p>First, we will create a management Azure VM to interact with our Nano Server, which we will be spinning up in a few minutes. The management VM shouldn't be used for any other purpose than managing other VM's. Because it will likely only be used in times of management, you can stop (deallocate) the VM in the <strong>Azure Portal</strong> when it isn't needed to reduce costs and start (allocate/deploy) the VM whenever you need it.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -400,7 +495,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/vmm-setup-11.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/vmm-setup-11.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="create-a-microsoft-azure-nano-server-vm"></a>
-	<h2><a aria-hidden="true" href="#create-a-microsoft-azure-nano-server-vm"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Create a Microsoft Azure Nano Server VM</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#create-a-microsoft-azure-nano-server-vm" class="nostyle">Create a Microsoft Azure Nano Server VM</a>
+	</h2>
+
 	<ol>
 	<li>In the <strong>Azure Portal</strong>, click the button for <strong>Virtual machines</strong>.</li>
 	</ol>
@@ -463,7 +564,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/nano-setup-12.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/nano-setup-12.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="mount-the-azure-files-share-locally"></a>
-	<h2><a aria-hidden="true" href="#mount-the-azure-files-share-locally"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Mount the Azure Files share locally</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#mount-the-azure-files-share-locally" class="nostyle">Mount the Azure Files share locally</a>
+	</h2>
+
 	<p>This tutorial will use a network file share to move files between our Nano Server and our local client computer. We've already created the Azure Files container that we need when we created our Azure Storage account earlier. We need to mount the container locally and on the Nano Server.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -481,7 +588,7 @@ Enter-PSSession -Session $s</pre>
 	<br />
 	<div class="note">
 		<p><em>Note</em></p>
-		We are not persisting our credentials for the share across reboots of the client computer in this tutorial. If you would like to persist the credentials with <code>cmdkey</code> so that the share is persisted across reboots, check the box for <strong>Reconnect at sign-in</strong> and see <a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/05/27/persisting-connections-to-microsoft-azure-files.aspx">Persisting connections to Microsoft Azure Files</a> for instructions on the use of the <code>cmdkey</code> to persist the credentials.
+		We are not persisting our credentials for the share across reboots of the client computer in this tutorial. If you would like to persist the credentials with <code class="language-powershell">cmdkey</code> so that the share is persisted across reboots, check the box for <strong>Reconnect at sign-in</strong> and see <a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/05/27/persisting-connections-to-microsoft-azure-files.aspx">Persisting connections to Microsoft Azure Files</a> for instructions on the use of the <code class="language-powershell">cmdkey</code> to persist the credentials.
 	</div>
 	<ol start="3">
 	<li>Enter network credentials for the share. The <strong>Username</strong> is the name of the storage account, <em>storage1234</em> for the tutorial. Use the name of your storage account in this field. The <strong>Password</strong> is the storage account key. Copy the key from the <strong>Azure Portal</strong> into the <strong>Password</strong> field. Click the <strong>OK</strong> button to connect.</li>
@@ -492,7 +599,13 @@ Enter-PSSession -Session $s</pre>
 	<a href="http://!cdn_domain/!cdn_folder/share-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/share-04.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="access-the-nano-server-and-mount-the-azure-files-share"></a>
-	<h2><a aria-hidden="true" href="#access-the-nano-server-and-mount-the-azure-files-share"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Access the Nano Server and mount the Azure Files share</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#access-the-nano-server-and-mount-the-azure-files-share" class="nostyle">Access the Nano Server and mount the Azure Files share</a>
+	</h2>
+
 	<ol>
 	<li>Earlier, we downloaded the Remote Desktop Connection (RDP) settings file for the management VM. Open the connection to the server by double-clicking the file. When you open the connection, you will be greeted by the Windows Security window. Click on <strong>Use another account</strong>, and provide the username ("adminuser" for the tutorial) and the password you created for the management VM.</li>
 	</ol>
@@ -506,9 +619,9 @@ Enter-PSSession -Session $s</pre>
 	<li>Run the PowerShell ISE application on the management VM as an Administrator. Right-click its icon and select <strong>Run as administrator</strong> from the pop-up menu.</li>
 	<li>Add the Nano Server DNS name label to your local Trusted Hosts on the management VM. In the tutorial, we use <em>nano1234</em>. You should use the DNS address label for your Nano Server.</li>
 	</ol>
-	<pre>Set-Item WSMan:\\localhost\\Client\\TrustedHosts "&lt;NANO_SERVER_DNS_NAME_LABEL&gt;"</pre>
+	<pre class="language-powershell"><code>Set-Item WSMan:\\localhost\\Client\\TrustedHosts "&lt;NANO_SERVER_DNS_NAME_LABEL&gt;"</code></pre>
 	<p>For the tutorial naming, we will use the following command.</p>
-	<pre>Set-Item WSMan:\\localhost\\Client\\TrustedHosts "nano1234"</pre>
+	<pre class="language-powershell"><code>Set-Item WSMan:\\localhost\\Client\\TrustedHosts "nano1234"</code></pre>
 	<p>Grant WinRM security configuration by clicking <strong>Yes</strong> in the pop-up window.</p>
 	<a href="http://!cdn_domain/!cdn_folder/nano-access-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/nano-access-02.png" style="max-width:100%;padding-bottom:20px" /></a>
 	<br />
@@ -533,22 +646,28 @@ Enter-PSSession -Session $s</pre>
 	<ol start="5">
 	<li>Execute the share drive mapping command in your <strong>remote</strong> PowerShell tab.</li>
 	</ol>
-	<pre>net use &lt;DRIVE_LETTER&gt;: \\&lt;STORAGE_ACCOUNT&gt;.file.core.windows.net\&lt;CONTAINER&gt; &lt;STORAGE_ACCOUNT_KEY&gt; /user:&lt;STORAGE_ACCOUNT&gt; /persistent:no</pre>
+	<pre class="language-powershell"><code>net use &lt;DRIVE_LETTER&gt;: \\&lt;STORAGE_ACCOUNT&gt;.file.core.windows.net\&lt;CONTAINER&gt; &lt;STORAGE_ACCOUNT_KEY&gt; /user:&lt;STORAGE_ACCOUNT&gt; /persistent:no</code></pre>
 	<p>For the tutorial naming, we will use the following command.</p>
-	<pre>net use s: \\storage1234.file.core.windows.net\data Tg3dg...d7w= /user:storage1234 /persistent:no</pre>
+	<pre class="language-powershell"><code>net use s: \\storage1234.file.core.windows.net\data Tg3dg...d7w= /user:storage1234 /persistent:no</code></pre>
 	<p>PowerShell will respond with <strong>The command completed successfully</strong> on success. We now have access to the share on the Nano Server.</p>
 
 	<a id="install-nano-server-packages"></a>
-	<h2><a aria-hidden="true" href="#install-nano-server-packages"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Install Nano Server packages</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#install-nano-server-packages" class="nostyle">Install Nano Server packages</a>
+	</h2>
+
 	<ol>
 	<li>The Reverse Forwarders packages is now installed by default on Nano Server Technology Preview 5, so we only need to install the IIS packages. Execute the following commands </li>
 	</ol>
-	<pre>Install-PackageProvider NanoServerPackage
+	<pre class="language-powershell"><code>Install-PackageProvider NanoServerPackage
 Import-PackageProvider NanoServerPackage
 mkdir c:\packages
-Save-Package –provider NanoServerPackage -Name Microsoft-NanoServer-IIS-Package -Path c:\packages</pre>
+Save-Package –provider NanoServerPackage -Name Microsoft-NanoServer-IIS-Package -Path c:\packages</code></pre>
 	Create a text file named unattend.xml on your client computer with the following contents:
-	<pre>
+	<pre class="language-powershell"><code>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;unattend xmlns="urn:schemas-microsoft-com:unattend"&gt;
 &lt;servicing&gt;
@@ -562,49 +681,55 @@ Save-Package –provider NanoServerPackage -Name Microsoft-NanoServer-IIS-Packag
 &lt;/package&gt;
 &lt;/servicing&gt;
 &lt;cpi:offlineImage cpi:source="" xmlns:cpi="urn:schemas-microsoft-com:cpi" /&gt;
-&lt;/unattend&gt;</pre>
+&lt;/unattend&gt;</code></pre>
 	<p>Be sure to save the file in XML format with an .xml file extension. You can save the unattend.xml file directly to the share.</p>
 	<p>Copy the unattend.xml file to the Nano Server Documents directory in your **remote** PowerShell tab:</p>
-	<pre>cp DRIVE_LETTER:\unattend.xml c:\Users\&lt;Username&gt;\Documents</pre>
+	<pre class="language-powershell"><code>cp DRIVE_LETTER:\unattend.xml c:\Users\&lt;Username&gt;\Documents</code></pre>
 	<p>For the tutorial Nano Server, the command is …</p>
-	<pre>cp s:\unattend.xml c:\Users\adminuser\Documents</pre>
+	<pre class="language-powershell"><code>cp s:\unattend.xml c:\Users\adminuser\Documents</code></pre>
 	<p>Run this command from the Documents directory in your **remote** PowerShell tab to install IIS packages:</p>
-	<pre>dism /online /apply-unattend:.\unattend.xml</pre>
+	<pre class="language-powershell"><code>dism /online /apply-unattend:.\unattend.xml</code></pre>
 	<p>You will receive a 0x80004005 error ("DISM failed. No operation was performed"), but you can safely ignore it.</p>
 	<div class="note">
 		<p><em>Note</em></p>
-		The Reverse Forwarders packages, which are now installed by default, provide shims for Win API calls to earlier libraries and new OneCore libraries allowing the calls to succeed without recompiling and linking for the new libraries. The Reverse Forwarders packages are currently required for <code>libuv</code>, which is a key library supporting the Kestrel server of ASP.NET Core. The packages are also required for the ASP.NET Core Module module to forward calls to OneCore libraries.
+		The Reverse Forwarders packages, which are now installed by default, provide shims for Win API calls to earlier libraries and new OneCore libraries allowing the calls to succeed without recompiling and linking for the new libraries. The Reverse Forwarders packages are currently required for <code class="language-powershell">libuv</code>, which is a key library supporting the Kestrel server of ASP.NET Core. The packages are also required for the ASP.NET Core Module module to forward calls to OneCore libraries.
 	</div>
 	<ol start="2">
 	<li>Confirm that the IIS OnDemand package and its associated Language Pack is installed correctly with the following command.</li>
 	</ol>
-	<pre>dism /online /get-packages</pre>
+	<pre class="language-powershell"><code>dism /online /get-packages</code></pre>
 	<ol start="3">
 	<li>Manually create a pair of compressed files folders for our applications' application pools. The <em>Default Web Site</em> uses the <em>DefaultAppPool</em>. The .NET Core application we will create in this tutorial will be called <em>aspnetcore</em>, and we'll use an AppPool by the same name. Run the following two commands in your <strong>remote</strong> PowerShell tab to create the folders we need for caching compressed static content on the Nano Server.</li>
 	</ol>
-	<pre>mkdir "C:\inetpub\temp\IIS Temporary Compressed Files\DefaultAppPool"
-mkdir "C:\inetpub\temp\IIS Temporary Compressed Files\aspnetcore"</pre>
+	<pre class="language-powershell"><code>mkdir "C:\inetpub\temp\IIS Temporary Compressed Files\DefaultAppPool"
+mkdir "C:\inetpub\temp\IIS Temporary Compressed Files\aspnetcore"</code></pre>
 	<ol start="4">
 	<li>Start the W3SVC service with the following command.</li>
 	</ol>
-	<pre>net start w3svc</pre>
+	<pre class="language-powershell"><code>net start w3svc</code></pre>
 	<p>The VM will respond with the following output.</p>
-	<pre>The World Wide Web Publishing Service service is starting.
-The World Wide Web Publishing Service service was started successfully.</pre>
+	<pre class="language-powershell"><code>The World Wide Web Publishing Service service is starting.
+The World Wide Web Publishing Service service was started successfully.</code></pre>
 	<ol start="5">
 	<li>Confirm that IIS is serving requests by visiting the <em>Default Web Site</em> in a browser. The IIS start page should be returned. You can access the website at either the Nano Server's public IP address or at its Fully Qualified Domain Name (FQDN).</li>
 	</ol>
-	<pre>http://&lt;NANO_SERVER_VM_PUBLIC_IP_ADDRESS&gt;
+	<pre class="language-powershell"><code>http://&lt;NANO_SERVER_VM_PUBLIC_IP_ADDRESS&gt;
 
-http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com</pre>
+http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com</code></pre>
 	<p>The tutorial <em>Default Web Site</em> will be returned at the following addresses.</p>
-	<pre>http://138.91.197.182
+	<pre class="language-powershell"><code>http://138.91.197.182
 
-http://nano1234.westus.cloudapp.azure.com</pre>
+http://nano1234.westus.cloudapp.azure.com</code></pre>
 	<a href="http://!cdn_domain/!cdn_folder/nano-install-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/nano-install-02.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="install-the-aspnetcoremodule"></a>
-	<h2><a aria-hidden="true" href="#install-the-aspnetcoremodule"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Install the AspNetCoreModule</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#install-the-aspnetcoremodule" class="nostyle">Install the AspNetCoreModule</a>
+	</h2>
+
 	<p>The <em>aspnetcore.dll</em> on Windows normally resides at <em>%windir%\System32\inetsrv\aspnetcore.dll</em>. If you've previously installed the 64-bit version of the AspNetCoreModule locally, you may use this filepath to move the DLL to your Nano Server. If you have not installed the module, you may obtain the 64-bit version at <a href="http://download.microsoft.com/download/7/2/D/72DD68D5-7386-4A41-8B8F-E21779A69E33/aspnetcoremodule_x64_en.msi">x64 Installer</a>.</p>
 	<div class="note">
 		<p><em>Note</em></p>
@@ -621,7 +746,7 @@ http://nano1234.westus.cloudapp.azure.com</pre>
 	<ol>
 	<li>Copy the <em>aspnetcore.dll</em> and its schema file from your local system to the share. Not all local installs of the AspNetCoreModule install the schema file. Check your local system to determine if the schema file is present by opening <em>c:\Windows\System32\inetsrv\config\schema</em> and looking for a file named <em>aspnetcore_schema.xml</em>. If the file is not present, create it in a text editor with the following contents.</li>
 	</ol>
-	<pre>&lt;!--
+	<pre class="language-powershell"><code>&lt;!--
 IIS Asp.Net Core Extension Schema
 ** Please DO NOT edit this file yourself. **
 If you want to add configuration sections to the schema, you may place
@@ -654,44 +779,44 @@ picked up automatically on startup.</span>
 &lt;/collection&gt;
 &lt;/element&gt;
 &lt;/sectionSchema&gt;
-&lt;/configSchema&gt;</pre>
+&lt;/configSchema&gt;</code></pre>
 	<p>Be sure to save the file in XML format with an <em>.xml</em> file extension. Be careful when saving the file from a text editor, such as NotePad. When you have extensions for known file types hidden in your local operating system, an XML file may appear in directories as <em>some-file.xml</em> but will actually be known as <em>some-file.xml.txt</em> to the OS. The file's actual extension will show correctly in your PowerShell session tabs and in the file's properties.</p>
 	<p>Drag-and-drop the the module DLL and the schema file to the share on your local client computer.</p>
 	<ol start="2">
 	<li>Copy the <em>aspnetcore.dll</em> and <em>aspnetcore_schema.xml</em> schema file into the <em>inetserv</em> and <em>inetserv\config\schema</em> directories in your <strong>remote</strong> PowerShell tab on the management VM.</li>
 	</ol>
-	<pre>cp &lt;DRIVE_LETTER&gt;:\aspnetcore.dll c:\Windows\System32\inetsrv
+	<pre class="language-powershell"><code>cp &lt;DRIVE_LETTER&gt;:\aspnetcore.dll c:\Windows\System32\inetsrv
 
-cp &lt;DRIVE_LETTER&gt;:\aspnetcore_schema.xml c:\Windows\System32\inetsrv\config\schema</pre>
+cp &lt;DRIVE_LETTER&gt;:\aspnetcore_schema.xml c:\Windows\System32\inetsrv\config\schema</code></pre>
 	<p>For the tutorial Nano Server, we will use the following commands.</p>
-	<pre>cp s:\aspnetcore.dll c:\Windows\System32\inetsrv
+	<pre class="language-powershell"><code>cp s:\aspnetcore.dll c:\Windows\System32\inetsrv
 
-cp s:\aspnetcore_schema.xml c:\Windows\System32\inetsrv\config\schema</pre>
+cp s:\aspnetcore_schema.xml c:\Windows\System32\inetsrv\config\schema</code></pre>
 	<ol start="3">
 	<li><strong>RESTART the Nano Server VM</strong>. In your <strong>remote</strong> PowerShell tab, close the session with the following command.</li>
 	</ol>
-	<pre>Exit-PSSession</pre>
+	<pre class="language-powershell"><code>Exit-PSSession</code></pre>
 	<p>Close the <strong>remote</strong> PowerShell tab. We will open a new tab in a moment after the VM restarts.</p>
 	<p>In the <strong>Azure Portal</strong>, click the <strong>Restart</strong> button on the Nano Server <strong>Virtual machine</strong> blade. Wait for the Nano Server to restart. Reconnect to the VM in PowerShell by selecting <strong>File &gt; New Remote PowerShell Tab...</strong> and providing your credentials for the Nano Server VM Administrator account. Wait for a few seconds while the session is established by PowerShell ISE. Re-attach the share with the following command.</p>
-	<pre>net use &lt;DRIVE_LETTER&gt;: \\&lt;STORAGE_ACCOUNT&gt;.file.core.windows.net\&lt;CONTAINER&gt; &lt;STORAGE_ACCOUNT_KEY&gt; /user:&lt;STORAGE_ACCOUNT&gt; /persistent:no</pre>
+	<pre class="language-powershell"><code>net use &lt;DRIVE_LETTER&gt;: \\&lt;STORAGE_ACCOUNT&gt;.file.core.windows.net\&lt;CONTAINER&gt; &lt;STORAGE_ACCOUNT_KEY&gt; /user:&lt;STORAGE_ACCOUNT&gt; /persistent:no</code></pre>
 	<p>For the tutorial naming, we will use the following command.</p>
-	<pre>net use s: \\storage1234.file.core.windows.net\data Tg3dg...d7w= /user:storage1234 /persistent:no</pre>
+	<pre class="language-powershell"><code>net use s: \\storage1234.file.core.windows.net\data Tg3dg...d7w= /user:storage1234 /persistent:no</code></pre>
 	<ol start="4">
 	<li>Backup the <em>applicationHost.config</em> file using the following command in your <strong>remote</strong> PowerShell tab.</li>
 	</ol>
-	<pre>cp c:\Windows\System32\inetsrv\config\applicationHost.config &lt;DRIVE_LETTER&gt;:\</pre>
+	<pre class="language-powershell"><code>cp c:\Windows\System32\inetsrv\config\applicationHost.config &lt;DRIVE_LETTER&gt;:\</code></pre>
 	<p>For the tutorial Nano Server, we will use the following command.</p>
-	<pre>cp c:\Windows\System32\inetsrv\config\applicationHost.config s:</pre>
+	<pre class="language-powershell"><code>cp c:\Windows\System32\inetsrv\config\applicationHost.config s:</code></pre>
 	<ol start="5">
 	<li>Install the <em>IISAdministration</em> module in the <strong>remote</strong> PowerShell tab. The <em>IISAdministration</em> module provides commands for working with IIS in a PowerShell session. For more information, see <a href="https://technet.microsoft.com/en-us/library/mt270166.aspx">IIS Administration Cmdlets</a>.</li>
 	</ol>
-	<pre>Import-Module IISAdministration</pre>
+	<pre class="language-powershell"><code>Import-Module IISAdministration</code></pre>
 	<ol start="6">
 	<li>Update the <em>applicationHost.config</em> file on the Nano Server VM to provide IIS with access to the module. Paste the following PowerShell script into the script area of the <strong>remote</strong> PowerShell tab:</li>
 	</ol>
 	<a href="http://!cdn_domain/!cdn_folder/nano-install-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/nano-install-03.png" style="max-width:100%;padding-bottom:20px" /></a>
 	<br />
-	<pre>$sm = Get-IISServerManager
+	<pre class="language-powershell"><code>$sm = Get-IISServerManager
 # Add AppSettings section (for Asp.Net Core)
 $sm.GetApplicationHostConfiguration().RootSectionGroup.Sections.Add("appSettings")
 # Unlock the handlers section
@@ -708,7 +833,7 @@ New-IISConfigCollectionElement $globalModules -ConfigAttribute @{"name"="AspNetC
 $modules = Get-IISConfigSection "system.webServer/modules" | Get-IISConfigCollection
 New-IISConfigCollectionElement $modules -ConfigAttribute @{"name"="AspNetCoreModule"}
 # Commit Changes
-$sm.CommitChanges()</pre>			
+$sm.CommitChanges()</code></pre>			
 	<p>Click the <strong>Run</strong> button to execute the commands.</p>
 	<a href="http://!cdn_domain/!cdn_folder/nano-install-05.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/nano-install-05.png" style="max-width:100%;padding-bottom:20px" /></a>
 	<br />
@@ -725,67 +850,73 @@ $sm.CommitChanges()</pre>
 	</div>
 
 	<a id="deploy-an-asp-net-core-core-clr-app"></a>
-	<h2><a aria-hidden="true" href="#deploy-an-aspnet-core-core-clr-app"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Deploy an ASP.NET Core Core CLR app</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#deploy-an-asp-net-core-core-clr-app" class="nostyle">Deploy an ASP.NET Core Core CLR app</a>
+	</h2>
+
 	<p>Web Deploy will eventually be supported for Nano Server, and XCopy should work now. A custom PowerShell script is also an option for moving projects to your Nano Server. This tutorial will simply rely upon copying the project to the VM using the share we have created.</p>
 	<ol>
 	<li>Create or obtain an ASP.NET Core Core CLR x64 project.</li>
 	</ol>
 	<div class="note">
 		<p><em>Note</em></p>
-		Nano Server does not support .NET Framework or 32-bit (<code>clr</code>) projects. The project must depend on a 64-bit Core CLR runtime and packages.
+		Nano Server does not support .NET Framework or 32-bit (<code class="language-powershell">clr</code>) projects. The project must depend on a 64-bit Core CLR runtime and packages.
 	</div>
 	<ol start="2">
 	<li>Move your ASP.NET Core project to the share. Drag-and-drop your published output folder to the share on your local client computer. Because even a small .NET Core standalone project will be over 50MB, this might take several minutes to complete on a slow Internet connection. Wait for the project copy operation to complete before proceeding.</li>
-	<li>Copy the project from the share to the Nano Server using the <code>cp</code> command with <code>-r</code> (<code>-Recurse</code>) in your <strong>remote</strong> PowerShell tab. We will place the application at the root of the <em>c:</em> drive.</li>
+	<li>Copy the project from the share to the Nano Server using the <code class="language-powershell">cp</code> command with <code class="language-powershell">-r</code> (<code class="language-powershell">-Recurse</code>) in your <strong>remote</strong> PowerShell tab. We will place the application at the root of the <em>c:</em> drive.</li>
 	</ol>
-	<pre>cp &lt;DRIVE_LETTER&gt;:\&lt;OUTPUT_FOLDER&gt; c:\&lt;PATH_TO_WHERE_APPLICATION_WILL_RESIDE_ON_NANO_SERVER&gt; -r</pre>
+	<pre class="language-powershell"><code>cp &lt;DRIVE_LETTER&gt;:\&lt;OUTPUT_FOLDER&gt; c:\&lt;PATH_TO_WHERE_APPLICATION_WILL_RESIDE_ON_NANO_SERVER&gt; -r</code></pre>
 	<p>For the tutorial application, we will use the following command.</p>
-	<pre>cp s:\publish c:\ -r</pre>
+	<pre class="language-powershell"><code>cp s:\publish c:\ -r</code></pre>
 	<ol start="4">
 	<li>Configure the website Application Pool (AppPool) by executing the following commands. You can paste these commands into a PowerShell <strong>Script</strong> tab in the <strong>remote</strong> PowerShell tab and run them with the <strong>Run</strong> button, or you can execute the commands at the PowerShell command line prompt in the <strong>remote</strong> PowerShell tab.</li>
 	</ol>
-	<pre>$sm.ApplicationPools.Add("&lt;IIS_WEBSITE_NAME&gt;")$sm.CommitChanges()</pre>
+	<pre class="language-powershell"><code>$sm.ApplicationPools.Add("&lt;IIS_WEBSITE_NAME&gt;")$sm.CommitChanges()</code></pre>
 	<p>For the tutorial application, we will use the following commands.</p>
-	<pre>$sm.ApplicationPools.Add("aspnetcore")
-$sm.CommitChanges()</pre>
+	<pre class="language-powershell"><code>$sm.ApplicationPools.Add("aspnetcore")
+$sm.CommitChanges()</code></pre>
 	<ol start="5">
 	<li>Start the AppPool.</li>
 	</ol>
-	<pre>$ap = Get-IISAppPool -Name "&lt;IIS_WEBSITE_NAME&gt;"
-$ap.Start()</pre>
+	<pre class="language-powershell"><code>$ap = Get-IISAppPool -Name "&lt;IIS_WEBSITE_NAME&gt;"
+$ap.Start()</code></pre>
 	<p>For the tutorial AppPool, we will use the following commands.</p>
-	<pre>$ap = Get-IISAppPool -Name "aspnetcore"
-$ap.Start()</pre>
+	<pre class="language-powershell"><code>$ap = Get-IISAppPool -Name "aspnetcore"
+$ap.Start()</code></pre>
 	<p>Confirm the AppPool is running with the following command.</p>
-	<pre>$sm.ApplicationPools</pre>
+	<pre class="language-powershell"><code>$sm.ApplicationPools</code></pre>
 	<ol start="6">
 	<li>Create an IIS website on port 8000 and assign the AppPool we created for it.</li>
 	</ol>
-	<pre>Start-IISCommitDelay
+	<pre class="language-powershell"><code>Start-IISCommitDelay
 $mysite = New-IISSite -Name "&lt;IIS_WEBSITE_NAME&gt;" -BindingInformation "*:8000:" -PhysicalPath "&lt;PATH_TO_WHERE_APPLICATION_WILL_RESIDE_ON_NANO_SERVER&gt;" -Passthru
 $mysite.Applications["/"].ApplicationPoolName = "&lt;IIS_WEBSITE_NAME&gt;"
-Stop-IISCommitDelay</pre>
+Stop-IISCommitDelay</code></pre>
 	<p>For the tutorial Nano Server application, we will use the following commands.</p>
-	<pre>Start-IISCommitDelay
+	<pre class="language-powershell"><code>Start-IISCommitDelay
 $mysite = New-IISSite -Name "aspnetcore" -BindingInformation "*:8000:" -PhysicalPath "c:\publish" -Passthru
 $mysite.Applications["/"].ApplicationPoolName = "aspnetcore"
-Stop-IISCommitDelay</pre>
+Stop-IISCommitDelay</code></pre>
 	<ol start="7">
 	<li>Open port 8000 on the firewall.</li>
 	</ol>
-	<pre>New-NetFirewallRule -Name "&lt;IIS_WEBSITE_NAME&gt;" -DisplayName "HTTP on TCP/8000" -Protocol tcp -LocalPort 8000 -Action Allow -Enabled True</pre>
+	<pre class="language-powershell"><code>New-NetFirewallRule -Name "&lt;IIS_WEBSITE_NAME&gt;" -DisplayName "HTTP on TCP/8000" -Protocol tcp -LocalPort 8000 -Action Allow -Enabled True</code></pre>
 	<p>For the tutorial Nano Server IIS, we will use the following command.</p>
-	<pre>New-NetFirewallRule -Name "aspnetcore" -DisplayName "HTTP on TCP/8000" -Protocol tcp -LocalPort 8000 -Action Allow -Enabled True</pre>
+	<pre class="language-powershell"><code>New-NetFirewallRule -Name "aspnetcore" -DisplayName "HTTP on TCP/8000" -Protocol tcp -LocalPort 8000 -Action Allow -Enabled True</code></pre>
 	<ol start="8">
 	<li>Confirm the application is available by opening an Internet browser and navigating to the following addresses.</li>
 	</ol>
-	<pre>http://&lt;NANO_SERVER_VM_PUBLIC_IP_ADDRESS&gt;:8000
+	<pre class="language-powershell"><code>http://&lt;NANO_SERVER_VM_PUBLIC_IP_ADDRESS&gt;:8000
 
-http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com:8000</pre>
+http://&lt;NANO_SERVER_DNS_NAME_LABEL&gt;.&lt;DATACENTER&gt;.cloudapp.azure.com:8000</code></pre>
 	<p>For the tutorial Nano Server, the following addresses will return the IIS Start Page.</p>
-	<pre>http://138.91.197.182:8000
+	<pre class="language-powershell"><code>http://138.91.197.182:8000
 
-http://nano1234.westus.cloudapp.azure.com:8000</pre>
+http://nano1234.westus.cloudapp.azure.com:8000</code></pre>
 	<a href="http://!cdn_domain/!cdn_folder/deploy-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/deploy-01.png" style="max-width:100%;padding-bottom:20px" /></a><a href="http://!cdn_domain/!cdn_folder/deploy_02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/deploy_02.png" /></a>
 	<br />
 	<p>Congratulations &amp; Enjoy!</p>
@@ -795,11 +926,17 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	</div>
 
 	<a id="clean-up"></a>
-	<h2><a aria-hidden="true" href="#clean-up"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Clean up</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#clean-up" class="nostyle">Clean Up</a>
+	</h2>
+
 	<ol>
 	<li>Exit the PowerShell <strong>remote</strong> session with the following command.</li>
 	</ol>
-	<pre>Exit-PSSession</pre>
+	<pre class="language-powershell"><code>Exit-PSSession</code></pre>
 	<p>You may close the <strong>remote</strong> PowerShell tab.</p>
 	<ol start="2">
 	<li>Except for the known-good <em>applicationHost.config</em> file, remove other files and folders from the share, unless you plan to use the share during the creation of new IIS Nano Servers. If you have no further use of the share, you may delete it in the <strong>Azure Portal</strong>.</li>
@@ -807,18 +944,30 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	</ol>
 
 	<a id="nano-server-management"></a>
-	<h2><a aria-hidden="true" href="#nano-server-management"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Nano Server Management</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#nano-server-management" class="nostyle">Nano Server Management</a>
+	</h2>
+
 	<p>We will outline four sources of information that will help you manage your Nano Server deployments and troubleshoot issues with the VM, IIS, and your ASP.NET Core applications. This is not an exhaustive set of management options. We will examine how the VM's events are available through a remote Server Manager, a remote Event Log, the IIS log files, and the AspNetCoreModule log. For other management and troubleshooting options, see <a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a>.</p>
 	
 	<a id="connecting-to-a-remote-server-manager"></a>
-	<h3><a aria-hidden="true" href="#connecting-to-a-remote-server-manager"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Connecting to a remote Server Manager</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#connecting-to-a-remote-server-manager" class="nostyle">Connecting to a remote Server Manager</a>
+	</h3>
+
 	<ol>
 	<li>Login to your WS 2012 R2 management server.</li>
 	<li>If you haven't already done so, add the Nano Server DNS name label to the server's Trusted Hosts by executing the following command from an elevated PowerShell prompt.</li>
 	</ol>
-	<pre>Set-Item WSMan:\localhost\Client\TrustedHosts "&lt;NANO_SERVER_DNS_NAME_LABEL&gt;"</pre>
+	<pre class="language-powershell"><code>Set-Item WSMan:\localhost\Client\TrustedHosts "&lt;NANO_SERVER_DNS_NAME_LABEL&gt;"</code></pre>
 	<p>For our tutorial Nano Server, we will use the following command.</p>
-	<pre>Set-Item WSMan:\localhost\Client\TrustedHosts "nano1234"</pre>
+	<pre class="language-powershell"><code>Set-Item WSMan:\localhost\Client\TrustedHosts "nano1234"</code></pre>
 	<p>Agree to modify the Trusted Hosts list for the WinRM client by typing <em>y</em> (yes) and pressing <em>Enter</em> on your keyboard when the pop-up window appears.</p>
 	<ol start="3">
 	<li>Obtain the subnet address of the Nano Server from the <strong>Azure Portal</strong> on the <strong>Virtual network</strong> blade. The <strong>IP ADDRESS</strong> for the Nano Server will appear in the <strong>Connected devices</strong> area next to the <strong>Network interface</strong> connected to the Nano Server. For the tutorial Nano Server, the subnet address is <em>10.5.0.5</em>. Add the subnet address of the Nano Server to our management VM's <em>Hosts</em> file. Open <em>File Explorer</em> and paste the address of the hosts file into the address bar.</li>
@@ -838,9 +987,9 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	<ol start="4">
 	<li>Store the Nano Server's username and password on the management VM. You must run the following command from an elevated Windows command prompt or from an elevated PowerShell command prompt (not PowerShell ISE).</li>
 	</ol>
-	<pre>cmdkey /add:&lt;NANO_SERVER_DNS_NAME_LABEL&gt; /user:&lt;NANO_SERVER_DNS_NAME_LABEL&gt;\&lt;USERNAME&gt; /pass</pre>
+	<pre class="language-powershell"><code>cmdkey /add:&lt;NANO_SERVER_DNS_NAME_LABEL&gt; /user:&lt;NANO_SERVER_DNS_NAME_LABEL&gt;\&lt;USERNAME&gt; /pass</code></pre>
 	<p>For our tutorial Nano Server, we will use the following command.</p>
-	<pre>cmdkey /add:nano1234 /user:nano1234\nanouser /pass</pre>
+	<pre class="language-powershell"><code>cmdkey /add:nano1234 /user:nano1234\nanouser /pass</code></pre>
 	<p>Type the password for the Nano Server Administrator account and press <em>Enter</em> on the keyboard. The server will respond <strong>CMDKEY: Credential added successfully.</strong></p>
 	<a href="http://!cdn_domain/!cdn_folder/management-1-04.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/management-1-04.png" style="max-width:100%;padding-bottom:20px" /></a>
 	<br />
@@ -860,14 +1009,14 @@ http://nano1234.westus.cloudapp.azure.com:8000</pre>
 	</ul>
 	<p>You do not need to enable these firewall rules on the management server ... only on the Nano Server. You also do not need to be concerned about the Azure NSG's in place, because port traffic on the VNet between the management VM and the Nano Server VM is allowed by default via a default rule given to the VNet by Azure.</p>
 	<p>Execute the following commands in the <strong>remote</strong> PowerShell tab.</p>
-	<pre>Enable-NetFirewallRule -DisplayName "Remote Service Management (NP-In)"
+	<pre class="language-powershell"><code>Enable-NetFirewallRule -DisplayName "Remote Service Management (NP-In)"
 Enable-NetFirewallRule -DisplayName "Remote Service Management (RPC)"
 Enable-NetFirewallRule -DisplayName "Remote Service Management (RPC-EPMAP)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC-EPMAP)"
 Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC)"
-Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPMAP)"</pre>
+Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPMAP)"</code></pre>
 	<p>For more information on Server Manager, see <a href="https://technet.microsoft.com/en-us/library/hh831456.aspx">Manage Multiple, Remote Servers with Server Manager</a>.</p>
 	<ol start="6">
 	<li>Click the <strong>Add other servers to manage</strong> button in the Server Manager's <strong>Dashboard</strong>.</li>
@@ -906,12 +1055,18 @@ Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPM
 	<a href="http://!cdn_domain/!cdn_folder/management-1-12.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/management-1-12.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="connecting-to-a-remote-event-log"></a>
-	<h3><a aria-hidden="true" href="#connecting-to-a-remote-event-log"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Connecting to a remote Event Log</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#connecting-to-a-remote-event-log" class="nostyle">Connecting to a remote Event Log</a>
+	</h3>
+
 	<ol>
 	<li>Login to your WS 2012 R2 management server.</li>
 	<li>If you haven't already done so, add the Nano Server DNS name label to the server's Trusted Hosts by executing the following command from an elevated PowerShell prompt.</li>
 	</ol>
-	<pre>Set-Item WSMan:\localhost\Client\TrustedHosts "&lt;NANO_SERVER_ DNS_NAME_LABEL&gt;"</pre>
+	<pre class="language-powershell"><code>Set-Item WSMan:\localhost\Client\TrustedHosts "&lt;NANO_SERVER_ DNS_NAME_LABEL&gt;"</code></pre>
 	<p>Agree to modify the Trusted Hosts list for the WinRM client by typing <em>y</em> and pressing <em>Enter</em> on your keyboard.</p>
 	<ol start="3">
 	<li>We need to ensure several ports are open on the Nano Server to allow access by the remote Event Log. Open a <strong>remote</strong> PowerShell tab to the Nano Server by selecting <strong>File &gt; New Remote PowerShell Tab...</strong> and entering the credentials for the Nano Server's Administrator account.</li>
@@ -925,10 +1080,10 @@ Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPM
 	</ul>
 	<p>You do not need to enable these firewall rules on the management server ... only on the Nano Server. You also do not need to be concerned about the Azure NSG's in place, because port traffic on the VNet between the management VM and the Nano Server VM is allowed by default via a default rule given to the VNet by Azure.</p>
 	<p>Execute the following commands in the <strong>remote</strong> PowerShell tab.</p>
-	<pre>Enable-NetFirewallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"
+	<pre class="language-powershell"><code>Enable-NetFirewallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC-EPMAP)"
-Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
+Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</code></pre>
 	<ol start="4">
 	<li>Open the Event Viewer on the management server. From the <strong>Action</strong> menu, select <strong>Connect to Another Computer...</strong>.</li>
 	</ol>
@@ -940,7 +1095,13 @@ Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
 	<a href="http://!cdn_domain/!cdn_folder/management-2-02.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/management-2-02.png" style="max-width:100%;padding-bottom:20px" /></a><a href="http://!cdn_domain/!cdn_folder/management-2-03.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/management-2-03.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="examining-iis-log-files"></a>
-	<h3><a aria-hidden="true" href="#examining-iis-log-files"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Examining IIS log files</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#examining-iis-log-files" class="nostyle">Examining IIS log files</a>
+	</h3>
+
 	<p>In a <strong>remote</strong> PowerShell tab, find the IIS log files by navigating to the following locations.</p>
 	<ul>
 	<li><strong>Failed Request Log Files</strong>: <em>C:\inetpub\logs\FailedReqLogFiles</em></li>
@@ -948,67 +1109,95 @@ Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"</pre>
 	</ul>
 
 	<a id="aspnetcoremodule-log-files"></a>
-	<h3><a aria-hidden="true" href="#aspnetcoremodule-log-files"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>AspNetCoreModule log files</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#aspnetcoremodule-log-files" class="nostyle">AspNetCoreModule log files</a>
+	</h3>
+
 	<ol>
-	<li>Check your application's <code>aspNetCore</code> element in the <em>web.config</em> file. It should specify that log files are enabled with a path to the <em>logs</em> folder. Note that you supply a prefix for the log file filenames; however, the AspNetCoreModule will add a timestamp and the file extension for you.</li>
+	<li>Check your application's <code class="language-powershell">aspNetCore</code> element in the <em>web.config</em> file. It should specify that log files are enabled with a path to the <em>logs</em> folder. Note that you supply a prefix for the log file filenames; however, the AspNetCoreModule will add a timestamp and the file extension for you.</li>
 	</ol>
-	<pre>&lt;aspNetCore processPath=".\my_app.exe" arguments="" stdoutLogEnabled="true" stdoutLogFile=".\logs\log" startupTimeLimit="3600" /&gt;</pre>
+	<pre class="language-powershell"><code>&lt;aspNetCore processPath=".\my_app.exe" arguments="" stdoutLogEnabled="true" stdoutLogFile=".\logs\log" startupTimeLimit="3600" /&gt;</code></pre>
 	<ol start="2">
 	<li>After you've made at least one successful request to the application, log files will be generated in the project's <em>logs</em> folder. Note how the timestamp and extension were added automatically.</li>
 	</ol>
 	<a href="http://!cdn_domain/!cdn_folder/management-4-01.png"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-src="http://!cdn_domain/!cdn_folder/management-4-01.png" style="max-width:100%;padding-bottom:20px" /></a>
 
 	<a id="useful-iis-powershell-commands"></a>
-	<h2><a aria-hidden="true" href="#useful-iis-powershell-commands"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Useful IIS PowerShell Commands</h2>
-	<a id="general-commands"></a>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#useful-iis-powershell-commands" class="nostyle">Useful IIS PowerShell Commands</a>
+	</h2>
 	
+	<a id="general-commands"></a>
 	<h3>
-	<a aria-hidden="true" href="#general-commands"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>General Commands</h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#general-commands" class="nostyle">General Commands</a>
+	</h3>
+
 	<p>To set the physical path of the <em>Default Web Site</em> to something other than the default in <em>c:\inetpub</em>, use the following commands.</p>
-	<pre>$sm = Get-IISServerManager
+	<pre class="language-powershell"><code>$sm = Get-IISServerManager
 $mysite = $sm.Sites["Default Web Site"]
 $mysite.Applications[0].VirtualDirectories[0].PhysicalPath = "c:\publish"
-$sm.CommitChanges()</pre>
+$sm.CommitChanges()</code></pre>
 	<p>To set the physical path of the Default Web Site back to the default location, use the following commands.</p>
-	<pre>$mysite = $sm.Sites["Default Web Site"]
+	<pre class="language-powershell"><code>$mysite = $sm.Sites["Default Web Site"]
 $mysite.Applications[0].VirtualDirectories[0].PhysicalPath = "%SystemDrive%\inetpub"
-$sm.CommitChanges()</pre>
+$sm.CommitChanges()</code></pre>
 	<p>To get IIS Server Manager object information, use the following command.</p>
-	<pre>$sm = Get-IISServerManager</pre>
+	<pre class="language-powershell"><code>$sm = Get-IISServerManager</code></pre>
 	<p>To list websites, then application pools, use the following commands.</p>
-	<pre>$sm.Sites
-$sm.ApplicationPools</pre>
+	<pre class="language-powershell"><code>$sm.Sites
+$sm.ApplicationPools</code></pre>
 	<p>To get an IIS website, then stop and start the site, use the following commands.</p>
-	<pre>$mysite = $sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"]
+	<pre class="language-powershell"><code>$mysite = $sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"]
 $mysite.Stop()
-$mysite.Start()</pre>
+$mysite.Start()</code></pre>
 	<p>To get the IIS Application Pools, use the following command.</p>
-	<pre>Get-IISAppPool</pre>
+	<pre class="language-powershell"><code>Get-IISAppPool</code></pre>
 	<p>To get a specific AppPool, then stop, start, and recycle it, use the following commands.</p>
-	<pre>$ap = Get-IISAppPool -Name "&lt;APPPOOL_NAME&gt;"
+	<pre class="language-powershell"><code>$ap = Get-IISAppPool -Name "&lt;APPPOOL_NAME&gt;"
 $ap.Stop()
 $ap.Start()
-$ap.Recycle()</pre>
+$ap.Recycle()</code></pre>
 	<p>To create a new website, use the following command.</p>
-	<pre>New-IISSite -Name &lt;IIS_WEBSITE_NAME&gt; -BindingInformation "*:&lt;PORT&gt;:www.mydomain.com" -PhysicalPath &lt;PATH_TO_PROJECT_FOLDER&gt;</pre>
+	<pre class="language-powershell"><code>New-IISSite -Name &lt;IIS_WEBSITE_NAME&gt; -BindingInformation "*:&lt;PORT&gt;:www.mydomain.com" -PhysicalPath &lt;PATH_TO_PROJECT_FOLDER&gt;</code></pre>
 
 	<a id="setting-up-for-tls-app-access"></a>
-	<h3><a aria-hidden="true" href="#setting-up-for-tls-app-access"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Setting up for TLS app access</h3>
+	<h3>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#setting-up-for-tls-app-access" class="nostyle">Setting up for TLS app access</a>
+	</h3>
+	
 	<p>To install an SSL certificate on Nano Server and configure IIS website bindings, use the following commands.</p>
 	<p>First, install the certificate.</p>
-	<pre>certoc.exe -ImportPFX -p &lt;CERT_PFX_PASSWORD&gt; My c:\mycert.pfx</pre>
+	<pre class="language-powershell"><code>certoc.exe -ImportPFX -p &lt;CERT_PFX_PASSWORD&gt; My c:\mycert.pfx</code></pre>
 	<p>Obtain the thumbprint of the certificate with the following command.</p>
-	<pre>Get-ChildItem Cert:\LocalMachine\my</pre>
+	<pre class="language-powershell"><code>Get-ChildItem Cert:\LocalMachine\my</code></pre>
 	<p>Use the thumbprint to create the website binding with the following commands.</p>
-	<pre>$cert = Get-Item Cert:\LocalMachine\my\&lt;THUMBPRINT&gt;
+	<pre class="language-powershell"><code>$cert = Get-Item Cert:\LocalMachine\my\&lt;THUMBPRINT&gt;
 $hash = $cert.GetCertHash()
 $sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"].Bindings.Add("*:443:", $hash, "My", "0")
-$sm.CommitChanges()</pre>
+$sm.CommitChanges()</code></pre>
 	<p>If you would like an SNI binding, use the following command.</p>
-	<pre>$sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"].Bindings.Add("*:443:www.mydomain.com", $hash, "My", "Sni")</pre>
+	<pre class="language-powershell"><code>$sm.Sites["&lt;IIS_WEBSITE_NAME&gt;"].Bindings.Add("*:443:www.mydomain.com", $hash, "My", "Sni")</code></pre>
 
 	<a id="additional-resources"></a>
-	<h2><a aria-hidden="true" href="#additional-resources"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Additional Resources</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#additional-resources" class="nostyle">Additional Resources</a>
+	</h2>
+
 	<ul>
 	<li><a href="http://docs.asp.net/en/latest/publishing/">ASP.NET Core Publishing and Deployment</a></li>
 	<li><a href="https://technet.microsoft.com/en-us/library/mt126167.aspx">Getting Started with Nano Server</a></li>
@@ -1028,7 +1217,13 @@ $sm.CommitChanges()</pre>
 	</ul>
 
 	<a id="acknowledgements"></a>
-	<h2><a aria-hidden="true" href="#acknowledgements"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Acknowledgements</h2>
+	<h2>
+		<svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+			<path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+		</svg>
+		<a href="#acknowledgements" class="nostyle">Acknowledgements</a>
+	</h2>
+
 	<ul>
 	<li>David So, Principal Software Engineer, <a href="http://www.microsoft.com/">Microsoft Corporation</a></li>
 	<li>Pawel Kadluczka, Senior Software Development Engineer, <a href="http://www.microsoft.com/">Microsoft Corporation</a></li>

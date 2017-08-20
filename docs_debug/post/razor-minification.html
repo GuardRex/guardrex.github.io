@@ -1,17 +1,17 @@
-page_title: Razor Pages Compile-time Minification with ASP.NET Core 2.0
-page_description: Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor pages at compile time.
+page_title: Razor Compile-time Minification for ASP.NET Core 2.0
+page_description: Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor Pages and MVC Razor Views at compile time.
 publication_date: Sun, 13 Aug 2017 12:00:00 GMT
-last_modification_date: 2017-08-15
-cdn_folder: razor-pages-minification
+last_modification_date: 2017-08-20
+cdn_folder: razor-minification
 guid: 617036b2-8730-4255-8f25-0e01577f177a
-social_title: Razor%20Compile%2Dtime%20Minification%20with%20ASP%2ENET%20Core%202%2E0
+social_title: Razor%20Compile%2Dtime%20Minification%20for%20ASP%2ENET%20Core%202%2E0
 social_text: Check%20out%20%40guardrex%20blog%20post%20Razor%20Compile%2Dtime%20Minification
 social_source: the%20guardrex%20chew
 ---
 <article>
-	<h1>Razor Pages Compile-time Minification with ASP.NET Core 2.0</h1>
-	<p>8/13/2017 By: Luke Latham</p>
-	<p>Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor pages at compile time.</p>
+	<h1>Razor Compile-time Minification for ASP.NET Core 2.0</h1>
+	<p>By: Luke Latham (@guardrex)<br><em>Published:</em> 8/13/2017 <em>Last updated:</em> 8/20/2017</p>
+	<p>Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor Pages and MVC Razor Views at compile time.</p>
 	<p>In this article:</p>
 	<ul>
 	<li><a href="#introduction">Introduction</a></li>
@@ -29,8 +29,8 @@ social_source: the%20guardrex%20chew
 		</svg>
 		<a href="#introduction" class="nostyle">Introduction</a>
 	</h2>
-	<p>Compile-time minification of markup with ASP.NET Core 1.x has been possible but only with difficulty. There's no easy way to plug in a third-party minification library so that markup from a View file can be intercepted prior to the Razor engine processing it. Because there isn't a simple extensibility point to intercept View content, you're left the the challenge of replacing a large amount of the Razor engine. To minify the content, you work with the "chunks" of markup that the engine uses, which are convienant for the Razor engine to process but difficult to manage for markup minification.</p>
-	<p>With the ASP.NET Core 2.0 Razor engine, the situation is <em>much</em> improved. An extensibility point is present that permits you to simply intercept View file content, minfify the content, and pass the content on to the Razor engine for processing.</p>
+	<p>Compile-time minification of markup with Razor in ASP.NET Core 1.x has been possible but only with difficulty. In the 1.x release, there's no easy way to plug in a third-party minification library so that markup from a View file can be intercepted prior to the Razor engine processing it. Because there isn't a simple extensibility point to intercept View content, you're left the the challenge of replacing a large amount of the Razor engine. To minify the content, you work with the "chunks" of markup that the Razor engine uses, which are convienant for the Razor engine to process but difficult to manage for markup minification.</p>
+	<p>With the ASP.NET Core 2.0 Razor engine, the situation is <em>much</em> improved. An extensibility point is present that permits you to simply intercept View (or Razor Page) file content, minify the content, and pass the content on to the Razor engine for processing.</p>
 
 	<a id="prerequisites"></a>
 	<h2>
@@ -62,14 +62,22 @@ social_source: the%20guardrex%20chew
 	<p>First, choose a 3rd party library that's capable of markup minification. This demo uses <a href="https://www.nuget.org/packages/WebMarkupMin.Core/">WebMarkupMin.Core</a> (<a href="https://github.com/Taritsyn/WebMarkupMin">GitHub</a>) by Andrey Taritsyn (<a href="https://github.com/Taritsyn">GitHub</a>, <a href="https://taritsyn.wordpress.com/">Blog</a>, <a href="https://twitter.com/andrey_taritsyn">Twitter</a>). <code class="language-csharp">WebMarkupMin.Core</code> is a good choice because it minifies both the markup and inlined styles and scripts.</p>
 	<p>Replace the <code class="language-csharp">RazorTemplateEngine</code> overriding the <code class="language-csharp">CreateCodeDocument</code> method (<a href="https://github.com/aspnet/Razor/blob/dev/src/Microsoft.AspNetCore.Razor.Language/RazorTemplateEngine.cs#L140-L156">ref source</a>) with an implementation that performs the following work:</p>
 	<ul>
-		<li>Setup a <code class="language-csharp">StreamReader</code> to read the View file contents.</li>
+		<li>Setup a <code class="language-csharp">StreamReader</code> to read the View (or Razor Page) file contents.</li>
 		<li>Split the Razor directives from the content.</li>
 		<li>Pass the content to your minfication method.</li>
 		<li>Reassemble the Razor directives and minified markup.</li>
 		<li>Convert the content back into a byte array and use a <code class="language-csharp">MemoryStream</code> to return it to the Razor engine for processing.</li>
 	</ul>
 	<p>Here's a complete sample implementation:</p>
-	<pre class="language-csharp"><code>public class CustomRazorTemplateEngine : RazorTemplateEngine
+	<pre class="language-csharp"><code>using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Razor.Language;
+using WebMarkupMin.Core;
+
+public class CustomRazorTemplateEngine : RazorTemplateEngine
 {
 	private HtmlMinifier _htmlMinifier = new HtmlMinifier();
 
@@ -151,30 +159,41 @@ social_source: the%20guardrex%20chew
 	}
 }</code></pre>
 	<p>Finally, wire up the Razor engine replacement when you build the host:</p>
-	<pre class="language-csharp"><code>public class Program
-{
-	public static void Main(string[] args)
-	{
-		BuildWebHost(args).Run();
-	}
+	<pre class="language-csharp"><code>using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.Extensions.DependencyInjection;
 
-	public static IWebHost BuildWebHost(string[] args) =>
-		WebHost.CreateDefaultBuilder(args)
-			.ConfigureServices(services =>
-			{
-				services.AddMvc();
-				services.AddSingleton&lt;RazorTemplateEngine, CustomRazorTemplateEngine&gt;();
-			})
-			.Configure(app =>
-			{
-				app.UseDeveloperExceptionPage();
-				app.UseMvcWithDefaultRoute();
-				app.UseStaticFiles();
-			})
-			.Build();
+namespace RazorMinification
+{
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			BuildWebHost(args).Run();
+		}
+			
+		public static IWebHost BuildWebHost(string[] args) =&gt;
+			WebHost.CreateDefaultBuilder(args)
+				.ConfigureServices(services =&gt;
+				{
+					services.AddMvc();
+					services.AddSingleton&lt;RazorTemplateEngine, CustomRazorTemplateEngine&gt;();
+				})
+				.Configure(app =&gt;
+				{
+					app.UseDeveloperExceptionPage();
+					app.UseMvcWithDefaultRoute();
+					app.UseStaticFiles();
+				})
+				.Build();
+	}
 }</code></pre>
-	<p><code class="language-csharp">WebMarkupMin.Core</code> isn't so good at parsing Razor in a Razor page, so see the <em>Index.cshtml</em> page below to see how to escape sections of Razor code from <code class="language-csharp">WebMarkupMin.Core</code> by placing the code inside of escape tags (<code class="language-markup">&lt;!--wmm:ignore--&gt;...&lt;!--/wmm:ignore--&gt;</code>).</p>
-	<p>Also note that the use of <code class="language-markup">&lt;text&gt;</code> tags prevents extra spaces and CR's from those Razor line transitions from making their way into the rendered markup.</p>
+	<p><code class="language-csharp">WebMarkupMin.Core</code> isn't so good at parsing Razor code in a Razor View or Page, so see the <em>Index.cshtml</em> Razor Page below and note how sections of Razor code are escaped from <code class="language-csharp">WebMarkupMin.Core</code> by placing the code inside of escape tags:</p>
+	<pre class="language-markup"><code>&lt;!--wmm:ignore--&gt;...&lt;!--/wmm:ignore--&gt;</code></pre>
+	<p>Also note that the use of <code class="language-markup">&lt;text&gt;</code> tags prevents extra spaces and newlines from the Razor line transitions from making their way into the rendered markup.</p>
 	<pre class="language-markup"><code>@page
 @model IndexModel
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment Host
@@ -241,6 +260,7 @@ social_source: the%20guardrex%20chew
 	</h2>
 	<ul>
 		<li>Ajay Bhargav Baaskaran (@ajaybhargavb), Software Engineer, Microsoft <a href="https://github.com/ajaybhargavb">GitHub</a> <a href="https://www.linkedin.com/in/ajaybhargavb/?ppe=1">Linkedin</li>
+		<li>Kévin Chalet (@PinpointTownes/@pinpoint) <a href="https://github.com/PinpointTownes">GitHub</a> <a href="http://kevinchalet.com/">Blog <a href="https://twitter.com/PinpointTownes">Twitter</a></li>
 		<li>Bart Calixto (@bartmax) <a href="https://github.com/Bartmax">GitHub</a> <a href="https://twitter.com/bartmax">Twitter</a></li>
 	</ul>
 </article>

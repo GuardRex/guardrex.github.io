@@ -39,19 +39,19 @@
 <meta name="msapplication-notification" content="polling-uri=http://!domain/rss.xml" />
 <style>!styles</style>
 <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','!google_analytics_property']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src='https://ssl.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
-<header>
-	<div id="header_container" class="container" style="border-bottom:1px solid lightgray;cursor:pointer">
-		<div id="author" style="float:right;font-style:italic;text-align:right">
-			!blog_owner_name<br>
-			<a href="https://twitter.com/!blog_owner_twitter_username">@!blog_owner_twitter_username</a>
-		</div>
-		<a href="/" class="nostyle" style="text-decoration:none">
-			<img id="logo" src="http://!cdn_domain/image/apple-touch-icon-57x57.png" alt="guardrex logo" width="57" height="57" style="float:left" />
-			<div id="title" style="color:green;font-family:courier;margin:0">!site_title</div>
-		</a>
-	</div>
-</header>
 <div class="container">
+	<header>
+		<div id="header_container" class="container" style="border-bottom:1px solid lightgray;cursor:pointer">
+			<div id="author" style="float:right;font-style:italic;text-align:right">
+				!blog_owner_name<br>
+				<a href="https://twitter.com/!blog_owner_twitter_username">@!blog_owner_twitter_username</a>
+			</div>
+			<a href="/" class="nostyle" style="text-decoration:none">
+				<img id="logo" src="http://!cdn_domain/image/apple-touch-icon-57x57.png" alt="guardrex logo" width="57" height="57" style="float:left" />
+				<div id="title" style="color:green;font-family:courier;margin:0">!site_title</div>
+			</a>
+		</div>
+	</header>
 	<table id="social_top">
 		<tbody>
 			<tr>
@@ -77,11 +77,11 @@
 	</table>
 	<hr>
 	<div id="disqus_thread"></div>
+	<footer>
+		<div class="container" style="padding:20px 0;text-align:center">
+			<p>Copyright &copy;!copyright_year !blog_owner_name All Rights Reserved.</p>
+		</div>
+	</footer>
 </div>
-<footer>
-	<div class="container" style="padding:20px 0;text-align:center">
-		<p>Copyright &copy;!copyright_year !blog_owner_name All Rights Reserved.</p>
-	</div>
-</footer>
 <script>!scripts</script>
 </html>
