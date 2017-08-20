@@ -10,6 +10,7 @@ environment:
 
 install:
   - ps: $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
+  - ps: $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
   - ps: mkdir $env:DOTNET_INSTALL_DIR -Force | Out-Null
   - ps: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dotnet/cli/release/2.0.0/scripts/obtain/dotnet-install.ps1" -OutFile "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1"
   - ps: '& "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1" -Version $env:CLI_VERSION -InstallDir $env:DOTNET_INSTALL_DIR'
@@ -18,7 +19,7 @@ install:
 build_script:
   - ps: dotnet --info
   - ps: dotnet restore
-  - ps: dotnet run
+  - ps: dotnet run --no-restore
 
 after_build:
   - ps: ./pushStatic.ps1 $env:APPVEYOR_BUILD_FOLDER $env:GithubEmail $env:GithubUsername $env:GithubPersonalAccessToken
