@@ -131,10 +131,14 @@ namespace guardrex.com
                         sitemapContent.Append($@"<url><loc>http://{domain}/post/{filename}</loc><changefreq>monthly</changefreq><lastmod>{pageMetadataDict["last_modification_date"]}</lastmod></url>");
 
                         File.WriteAllText($@"{destinationPath}post\{filename}", outputMarkup);
+
+                        Console.WriteLine($@"Writing file: {destinationPath}post\{filename}");
                     }
                     else
                     {
                         File.WriteAllText($@"{destinationPath}index.html", outputMarkup);
+
+                        Console.WriteLine($@"Writing file: {destinationPath}index.html");
                     }
                 }
             }
