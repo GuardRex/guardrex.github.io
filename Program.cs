@@ -28,7 +28,7 @@ namespace guardrex.com
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPVEYOR")))
             {
                 sourcePath = @"c:\projects\guardrex-com\docs_debug\";
-                destinationPath = @"c:\projects\guardrex-com\docs\";
+                destinationPath = @"c:\projects\guardrex-com\docs_staging\";
             }
             else
             {
