@@ -36,6 +36,13 @@ namespace guardrex.com
                 destinationPath = @"C:\Users\guard\Documents\GitHub\guardrex.com\docs_staging\";
             }
 
+            // Clear the posts folder
+            System.IO.DirectoryInfo di = new DirectoryInfo($@"{destinationPath}\post");
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete(); 
+            }
+
             // Setup for the index page content
             var indexContent = new StringBuilder();
             var indexContentPosts = new List<KeyValuePair<string, string>>();
