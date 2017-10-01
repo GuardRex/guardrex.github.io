@@ -10,7 +10,7 @@ social_source: the%20guardrex%20chew
 ---
 <article>
 	<h1>Razor Compile-time Minification for ASP.NET Core 2.0</h1>
-	<p>By: Luke Latham (@guardrex)<br><em>Published:</em> 8/13/2017 <em>Last updated:</em> 8/20/2017</p>
+	<p>By: Luke Latham (@guardrex)<br><em>Published:</em> 8/13/2017 <em>Last updated:</em> 10/1/2017</p>
 	<p>Learn how to use the extensibility features of the Razor engine in ASP.NET Core 2.0 to minify Razor Pages and MVC Razor Views at compile time.</p>
 	<p>In this article:</p>
 	<ul>
@@ -79,12 +79,13 @@ using WebMarkupMin.Core;
 
 public class CustomRazorTemplateEngine : RazorTemplateEngine
 {
-	private HtmlMinifier _htmlMinifier = new HtmlMinifier();
+	private HtmlMinifier _htmlMinifier = new HtmlMinifier(new HtmlMinificationSettings() {RemoveOptionalEndTags = false});
 
 	public CustomRazorTemplateEngine(RazorEngine engine, RazorProject project) : 
 		base(engine, project)
 	{
 		Options.ImportsFileName = "_ViewImports.cshtml";
+		Options.DefaultImports = GetDefaultImports();
 	}
 
 	public override RazorCodeDocument CreateCodeDocument(RazorProjectItem projectItem)
@@ -108,11 +109,22 @@ public class CustomRazorTemplateEngine : RazorTemplateEngine
 			{
 				var text = reader.ReadToEnd();
 
-				var markupStart = text.IndexOf("&lt;!DOCTYPE");
-				var directives = text.Substring(0, markupStart);
-				var markup = text.Substring(markupStart);
-
-				text = directives + Minify(markup);
+				if (projectItem.FileName != "_ViewStart.cshtml" &amp;&amp; projectItem.FileName != "_ViewImports.cshtml")
+				{
+					var markup = string.Empty;
+					var directives = string.Empty;
+					var markupStart = text.IndexOf(";\r\n&lt;");
+					if (markupStart != -1)
+					{
+						directives = text.Substring(0, markupStart + 3);
+						markup = text.Substring(markupStart + 3);
+					}
+					else
+					{
+						markup = text;
+					}
+					text = directives + Minify(markup);
+				}
 
 				var byteArray = Encoding.UTF8.GetBytes(text);
 				var minifiedInputStream = new MemoryStream(byteArray);
@@ -155,6 +167,33 @@ public class CustomRazorTemplateEngine : RazorTemplateEngine
 			}
 
 			return markup;
+		}
+	}
+
+	private static RazorSourceDocument GetDefaultImports()
+	{
+		using (var stream = new MemoryStream())
+		using (var writer = new StreamWriter(stream, Encoding.UTF8))
+		{
+			writer.WriteLine("@using System");
+			writer.WriteLine("@using System.Collections.Generic");
+			writer.WriteLine("@using System.Linq");
+			writer.WriteLine("@using System.Threading.Tasks");
+			writer.WriteLine("@using Microsoft.AspNetCore.Mvc");
+			writer.WriteLine("@using Microsoft.AspNetCore.Mvc.Rendering");
+			writer.WriteLine("@using Microsoft.AspNetCore.Mvc.ViewFeatures");
+			writer.WriteLine("@inject global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<TModel> Html");
+			writer.WriteLine("@inject global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json");
+			writer.WriteLine("@inject global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component");
+			writer.WriteLine("@inject global::Microsoft.AspNetCore.Mvc.IUrlHelper Url");
+			writer.WriteLine("@inject global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider");
+			writer.WriteLine("@addTagHelper Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper, Microsoft.AspNetCore.Mvc.Razor");
+			writer.WriteLine("@addTagHelper Microsoft.AspNetCore.Mvc.Razor.TagHelpers.HeadTagHelper, Microsoft.AspNetCore.Mvc.Razor");
+			writer.WriteLine("@addTagHelper Microsoft.AspNetCore.Mvc.Razor.TagHelpers.BodyTagHelper, Microsoft.AspNetCore.Mvc.Razor");
+			writer.Flush();
+
+			stream.Position = 0;
+			return RazorSourceDocument.ReadFrom(stream, fileName: null, encoding: Encoding.UTF8);
 		}
 	}
 }</code></pre>
@@ -262,5 +301,6 @@ namespace RazorMinification
 		<li>Ajay Bhargav Baaskaran (@ajaybhargavb), Software Engineer, Microsoft <a href="https://github.com/ajaybhargavb">GitHub</a> <a href="https://www.linkedin.com/in/ajaybhargavb/?ppe=1">Linkedin</li>
 		<li>Kévin Chalet (@PinpointTownes/@pinpoint) <a href="https://github.com/PinpointTownes">GitHub</a> <a href="http://kevinchalet.com/">Blog <a href="https://twitter.com/PinpointTownes">Twitter</a></li>
 		<li>Bart Calixto (@bartmax) <a href="https://github.com/Bartmax">GitHub</a> <a href="https://twitter.com/bartmax">Twitter</a></li>
+		<li>Rob Schoenaker <a href="https://github.com/RobSchoenaker">GitHub</a></li>
 	</ul>
 </article>
