@@ -79,7 +79,14 @@ using WebMarkupMin.Core;
 
 public class CustomRazorTemplateEngine : RazorTemplateEngine
 {
-	private HtmlMinifier _htmlMinifier = new HtmlMinifier(new HtmlMinificationSettings() {RemoveOptionalEndTags = false});
+	// If pages fail due to missing attribute quotes, add:
+	//
+	// AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes,
+	//
+	// to the HtmlMinificationSettings.
+	private HtmlMinifier _htmlMinifier = new HtmlMinifier(new HtmlMinificationSettings() {
+		RemoveOptionalEndTags = false,
+	});
 
 	public CustomRazorTemplateEngine(RazorEngine engine, RazorProject project) : 
 		base(engine, project)
