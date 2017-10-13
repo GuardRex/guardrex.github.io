@@ -120,11 +120,11 @@ public class CustomRazorTemplateEngine : RazorTemplateEngine
 				{
 					var markup = string.Empty;
 					var directives = string.Empty;
-					var markupStart = text.IndexOf(";\r\n&lt;");
+					var markupStart = text.IndexOf("\r\n&lt;");
 					if (markupStart != -1)
 					{
-						directives = text.Substring(0, markupStart + 3);
-						markup = text.Substring(markupStart + 3);
+						directives = text.Substring(0, markupStart + 2);
+						markup = text.Substring(markupStart + 2);
 					}
 					else
 					{
