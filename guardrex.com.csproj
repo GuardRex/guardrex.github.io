@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
-    <PackageReference Include="WebMarkupMin.Core" Version="2.9.0" />
+    <PackageReference Include="WebMarkupMin.Core" Version="2.6.0" />
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
   </ItemGroup>
 
